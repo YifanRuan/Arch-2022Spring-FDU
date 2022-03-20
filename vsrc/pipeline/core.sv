@@ -3,13 +3,24 @@
 `ifdef VERILATOR
 `include "include/common.sv"
 `include "pipeline/regfile/regfile.sv"
+`include "pipeline/regfile/freg.sv"
+`include "pipeline/regfile/dreg.sv"
+`include "pipeline/regfile/ereg.sv"
+`include "pipeline/regfile/mreg.sv"
+`include "pipeline/fetch/selectpc.sv"
+`include "pipeline/fetch/fetch.sv"
+`include "pipeline/decode/decode.sv"
+`include "pipeline/execute/execute.sv"
+`include "pipeline/memory/memory.sv"
+`include "pipeline/writeback/writeback.sv"
 
 `else
 
 `endif
 
 module core 
-	import common::*;(
+	import common::*;
+	import pipes::*;(
 	input logic clk, reset,
 	output ibus_req_t  ireq,
 	input  ibus_resp_t iresp,
@@ -18,16 +29,99 @@ module core
 );
 	/* TODO: Add your pipeline here. */
 
+	u64 pc, pc_nxt;
+	always_ff @(posedge clk) begin
+		if (reset) begin
+			pc <= 64'h8000_0000;
+		end else begin
+			pc <= pc_nxt;
+		end
+	end
+
+	fetch_data_t dataF, dataF_nxt;
+	decode_data_t dataD, dataD_nxt;
+	execute_data_t dataE, dataE_nxt;
+	memory_data_t dataM, dataM_nxt;
+
+	creg_addr_t rd;
+	u64 result;
+
+	u1 jump;
+
+	creg_addr_t ra1, ra2;
+	u64 rd1, rd2;
+
+	selectpc selectpc(
+		.pcplus4(pc + 4),
+		.pc_selected(pc_nxt)
+	);
+
+	fetch fetch(
+		.iresp,
+		.ireq,
+		.dataF,
+		.pc
+	);
+
+	freg freg(
+		.clk,
+		.dataF,
+		.dataF_nxt
+	);
+
+	decode decode(
+		.dataF(dataF_nxt),
+		.dataD,
+		.ra1, .ra2, .rd1, .rd2
+	);
+
+	dreg dreg(
+		.clk,
+		.dataD,
+		.dataD_nxt
+	);
+
+	execute execute(
+		.dataD(dataD_nxt),
+		.dataE
+	);
+
+	ereg ereg(
+		.clk,
+		.dataE,
+		.dataE_nxt
+	);
+
+	memory memory(
+		.clk,
+		.dresp,
+		.dreq,
+		.dataE(dataE_nxt),
+		.dataM
+	);
+
+	mreg mreg(
+		.clk,
+		.dataM,
+		.dataM_nxt
+	);
+
+	writeback writeback(
+		.dataM(dataM_nxt),
+		rd,
+		result
+	);
+
 
 	regfile regfile(
 		.clk, .reset,
-		.ra1(),
-		.ra2(),
-		.rd1(),
-		.rd2(),
-		.wvalid(),
-		.wa(),
-		.wd()
+		.ra1,
+		.ra2,
+		.rd1,
+		.rd2,
+		.wvalid(dataM_nxt.ctl.RegWEn),
+		.wa(rd),
+		.wd(result)
 	);
 
 `ifdef VERILATOR
@@ -35,15 +129,15 @@ module core
 		.clock              (clk),
 		.coreid             (0),
 		.index              (0),
-		.valid              (0),
-		.pc                 (0),
+		.valid              (~reset),
+		.pc                 (pc),
 		.instr              (0),
 		.skip               (0),
 		.isRVC              (0),
 		.scFailed           (0),
-		.wen                (0),
-		.wdest              (0),
-		.wdata              (0)
+		.wen                (dataM_nxt.ctl.RegWEn),
+		.wdest              ({3'b0, rd}),
+		.wdata              (result)
 	);
 	      
 	DifftestArchIntRegState DifftestArchIntRegState (
