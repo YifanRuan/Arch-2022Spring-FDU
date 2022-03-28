@@ -49,11 +49,13 @@ parameter OP_JALR = 7'b1100111;
 
 typedef enum logic [4:0] {
 	ALU_ADD,
+	ALU_SUB,
 	ALU_XOR,
 	ALU_OR,
 	ALU_AND,
 	ALU_A,
-	ALU_B
+	ALU_B,
+	ALU_ADD_CLEAR
 } alufunc_t;
 
 typedef struct packed {
@@ -74,10 +76,10 @@ typedef enum logic [5:0] {
 
 typedef struct packed {
 	u32 raw_instr;
-	u1 PCSel, RegWEn, BrUn, BrLT, BSel, ASel, MemRW;
+	u1 PCSel, RegWEn, BrEq, BSel, ASel;
 	decode_op_t ImmSel;
 	alufunc_t ALUSel;
-	u2 WBSel;
+	u2 WBSel, MemRW;
 } control_t;
 
 typedef struct packed {
