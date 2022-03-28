@@ -1,25 +1,23 @@
-`ifndef __FREG_SV
-`define __FREG_SV
+`ifndef __PCREG_SV
+`define __PCREG_SV
 
 `ifdef VERILATOR
 `include "include/common.sv"
 `include "include/pipes.sv"
-`else
-
 `endif
 
-module freg
+module pcreg
     import common::*;
     import pipes::*;(
     input logic clk, reset,
-    input fetch_data_t dataF_nxt,
-    output fetch_data_t dataF
+    input u64 pc_nxt,
+    output u64 pc
 );
     always_ff @(posedge clk) begin
         if (reset) begin
-            dataF <= '0;
+            pc <= PCINIT;
         end else begin
-            dataF <= dataF_nxt;
+            pc <= pc_nxt;
         end
     end
     

@@ -14,7 +14,7 @@ module execute
     import common::*;
     import pipes::*;(
     input decode_data_t dataD,
-    output execute_data_t dataE
+    output execute_data_t dataE_nxt
 );
     u64 a, b, imm, c;
     immgen immgen(
@@ -23,17 +23,17 @@ module execute
         .imm
     );
     assign a = dataD.ctl.ASel ? dataD.pc : dataD.rs1;
-    assign b = dataD.ctl.BSel ? dataD.rs2 : imm;
+    assign b = dataD.ctl.BSel ? imm : dataD.rs2;
     alu alu(
         .a,
         .b,
         .alufunc(dataD.ctl.ALUSel),
         .c
     );
-    assign dataE.pc = dataD.pc;
-    assign dataE.ctl = dataD.ctl;
-    assign dataE.rs2 = dataD.rs2;
-    assign dataE.alu = c;
+    assign dataE_nxt.pc = dataD.pc;
+    assign dataE_nxt.ctl = dataD.ctl;
+    assign dataE_nxt.rs2 = dataD.rs2;
+    assign dataE_nxt.alu = c;
     
 endmodule
 

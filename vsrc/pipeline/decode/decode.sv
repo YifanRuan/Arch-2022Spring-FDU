@@ -15,7 +15,7 @@ module decode
     input word_t rd1, rd2,
     output creg_addr_t ra1, ra2,
     input fetch_data_t dataF,
-    output decode_data_t dataD 
+    output decode_data_t dataD_nxt
 );
     control_t ctl;
     decoder decoder(
@@ -25,10 +25,10 @@ module decode
 
     assign ra1 = dataF.raw_instr[19:15];
     assign ra2 = dataF.raw_instr[24:20];
-    assign dataD.rs1 = rd1;
-    assign dataD.rs2 = rd2;
-    assign dataD.ctl = ctl;
-    assign dataD.pc = dataF.pc;
+    assign dataD_nxt.rs1 = rd1;
+    assign dataD_nxt.rs2 = rd2;
+    assign dataD_nxt.ctl = ctl;
+    assign dataD_nxt.pc = dataF.pc;
     
 endmodule
 

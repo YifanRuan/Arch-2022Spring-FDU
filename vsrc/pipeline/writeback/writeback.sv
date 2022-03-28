@@ -12,11 +12,13 @@ module writeback
     import common::*;
     import pipes::*;(
     input memory_data_t dataM,
-    output creg_addr_t rd,
-    output u64 result
+    output creg_addr_t wa,
+    output u64 wd,
+    output u1 wvalid
 );
-    assign rd = dataM.ctl.raw_instr[11:7];
-    assign result = dataM.result;
+    assign wa = dataM.ctl.raw_instr[11:7];
+    assign wd = dataM.result;
+    assign wvalid = dataM.ctl.RegWEn;
     
 endmodule
 
