@@ -11,12 +11,16 @@
 module ereg
     import common::*;
     import pipes::*;(
-    input logic clk,
-    input execute_data_t dataE,
-    output execute_data_t dataE_nxt
+    input logic clk, reset,
+    input execute_data_t dataE_nxt,
+    output execute_data_t dataE
 );
     always_ff @(posedge clk) begin
-        dataE_nxt <= dataE;
+        if (reset) begin
+            dataE <= '0;
+        end else begin
+            dataE <= dataE_nxt;
+        end
     end
     
 endmodule

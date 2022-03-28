@@ -20,11 +20,12 @@ module decoder
 
     always_comb begin
         ctl = '0;
+        ctl.raw_instr = raw_instr;
         unique case (opcode)
             OP_RI: begin
-                ctl.ImmSel = J;
+                ctl.ImmSel = I;
                 ctl.RegWEn = 1'b1;
-                ctl.BSel = 1'b01;
+                ctl.BSel = 1'b1;
                 ctl.WBSel = 2'b01;
                 unique case (funct3)
                     F3_ADDI: begin
@@ -43,6 +44,13 @@ module decoder
                         
                     end
                 endcase
+            end
+            OP_LUI: begin
+                ctl.ImmSel = U;
+                ctl.RegWEn = 1'b1;
+                ctl.BSel = 1'b1;
+                ctl.WBSel = 2'b01;
+                ctl.ALUSel = ALU_B;
             end
             default: begin
                 

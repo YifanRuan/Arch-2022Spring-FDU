@@ -11,12 +11,16 @@
 module dreg
     import common::*;
     import pipes::*;(
-    input logic clk,
-    input decode_data_t dataD,
-    output decode_data_t dataD_nxt
+    input logic clk, reset,
+    input decode_data_t dataD_nxt,
+    output decode_data_t dataD
 );
     always_ff @(posedge clk) begin
-        dataD_nxt <= dataD;
+        if (reset) begin
+            dataD <= '0;
+        end else begin
+            dataD <= dataD_nxt;
+        end
     end
     
 endmodule

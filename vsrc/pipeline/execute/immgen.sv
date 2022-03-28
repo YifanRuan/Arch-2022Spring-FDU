@@ -21,6 +21,9 @@ module immgen
             I: begin
                 imm = {{52{raw_instr[31]}}, raw_instr[31:20]};
             end
+            U: begin
+                imm = {{32{raw_instr[31]}}, raw_instr[31:12], 12'b0};
+            end
             default: begin
                 
             end

@@ -14,11 +14,11 @@ module fetch
     input ibus_resp_t iresp,
     output ibus_req_t ireq,
     input u64 pc,
-    output fetch_data_t dataF
+    output fetch_data_t dataF_nxt
 );
     assign ireq.addr = pc;
-    assign dataF.pc = pc;
-    assign dataF.raw_instr = iresp.data;
+    assign dataF_nxt.pc = pc;
+    assign dataF_nxt.raw_instr = iresp.data;
     
 endmodule
 

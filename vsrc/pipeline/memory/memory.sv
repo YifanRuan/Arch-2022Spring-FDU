@@ -15,7 +15,7 @@ module memory
     input dbus_resp_t dresp,
     output dbus_req_t dreq,
     input execute_data_t dataE,
-    output memory_data_t dataM
+    output memory_data_t dataM_nxt
 );
     word_t DataR;
     always_ff @(posedge clk) begin
@@ -23,12 +23,13 @@ module memory
         DataR <= dresp.data;
     end
     
-    assign dataM.ctl = dataE.ctl;
+    assign dataM_nxt.ctl = dataE.ctl;
+    assign dataM_nxt.pc = dataE.pc;
     always_comb begin
         unique case (dataE.ctl.WBSel)
-            2'b00: dataM.result = DataR;
-            2'b01: dataM.result = dataE.alu;
-            2'b10: dataM.result = dataE.pc + 4;
+            2'b00: dataM_nxt.result = DataR;
+            2'b01: dataM_nxt.result = dataE.alu;
+            2'b10: dataM_nxt.result = dataE.pc + 4;
             default: begin
                 
             end

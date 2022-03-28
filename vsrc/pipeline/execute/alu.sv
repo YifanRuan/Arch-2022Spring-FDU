@@ -22,6 +22,8 @@ module alu
 			ALU_XOR: c = a ^ b;
 			ALU_OR: c = a | b;
 			ALU_AND: c = a & b;
+			ALU_A: c = a;
+			ALU_B: c = b;
 			default: begin
 				
 			end
