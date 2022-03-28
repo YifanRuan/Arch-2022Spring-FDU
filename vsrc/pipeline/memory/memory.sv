@@ -18,9 +18,25 @@ module memory
     output memory_data_t dataM_nxt
 );
     word_t DataR;
-    always_ff @(posedge clk) begin
-        dreq.data <= dataE.rs2;
-        DataR <= dresp.data;
+    always_comb begin
+        unique case (dataE.ctl.MemRW)
+            2'b10: begin
+                dreq.valid = '1;
+                dreq.strobe = '0;
+                dreq.addr = dataE.alu;
+                DataR = dresp.data;
+            end
+            2'b11: begin
+                dreq.valid = '1;
+                dreq.strobe = '0;
+                dreq.addr = dataE.alu;
+                dreq.data = dataE.rs2;
+            end
+            default: begin
+                dreq.valid = '0;
+                dreq.strobe = '0;
+            end
+        endcase
     end
     
     assign dataM_nxt.ctl = dataE.ctl;

@@ -19,11 +19,13 @@ module alu
 		c = '0;
 		unique case(alufunc)
 			ALU_ADD: c = a + b;
+			ALU_SUB: c = a - b;
 			ALU_XOR: c = a ^ b;
 			ALU_OR: c = a | b;
 			ALU_AND: c = a & b;
 			ALU_A: c = a;
 			ALU_B: c = b;
+			ALU_ADD_CLEAR: c = (a + b) & ~1;
 			default: begin
 				
 			end
