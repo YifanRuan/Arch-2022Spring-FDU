@@ -164,7 +164,7 @@ module core
 		.valid              (~reset && dataM.valid),
 		.pc                 (dataM.pc),
 		.instr              (dataM.ctl.raw_instr),
-		.skip               (dataM.ctl.MemRW != 0 && dataM.addr31 == 0),
+		.skip               (dataM.ctl.MemRW != 2'b00 && dataM.addr31 == 0),
 		.isRVC              (0),
 		.scFailed           (0),
 		.wen                (wvalid),

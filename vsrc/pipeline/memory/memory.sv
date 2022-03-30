@@ -16,15 +16,13 @@ module memory
     input execute_data_t dataE,
     output memory_data_t dataM_nxt
 );
-    word_t DataR;
     always_comb begin
-        DataR = '0;
+        dreq = '0;
         unique case (dataE.ctl.MemRW)
             2'b10: begin
                 dreq.valid = '1;
                 dreq.strobe = '0;
                 dreq.addr = dataE.alu;
-                DataR = dresp.data;
             end
             2'b11: begin
                 dreq.valid = '1;
@@ -44,8 +42,9 @@ module memory
     assign dataM_nxt.valid = dataE.valid;
     assign dataM_nxt.addr31 = dataE.alu[31];
     always_comb begin
+        dataM_nxt.result = '0;
         unique case (dataE.ctl.WBSel)
-            2'b00: dataM_nxt.result = DataR;
+            2'b00: dataM_nxt.result = dresp.data;
             2'b01: dataM_nxt.result = dataE.alu;
             2'b10: dataM_nxt.result = dataE.pc + 4;
             default: begin
