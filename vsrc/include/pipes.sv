@@ -48,6 +48,7 @@ parameter OP_JALR = 7'b1100111;
 /* Define pipeline structures here */
 
 typedef enum logic [4:0] {
+	ALU_ZERO,
 	ALU_ADD,
 	ALU_SUB,
 	ALU_XOR,
@@ -76,10 +77,11 @@ typedef enum logic [5:0] {
 
 typedef struct packed {
 	u32 raw_instr;
-	u1 PCSel, RegWEn, BrEq, BSel, ASel;
+	u1 PCSel, RegWEn, BrEq, BSel, ASel, ra1En, ra2En;
 	decode_op_t ImmSel;
 	alufunc_t ALUSel;
 	u2 WBSel, MemRW;
+	creg_addr_t wa;
 } control_t;
 
 typedef struct packed {
@@ -91,17 +93,15 @@ typedef struct packed {
 
 typedef struct packed {
 	control_t ctl;
-	u64 pc;
-	u64 alu;
+	u64 pc, alu;
 	word_t rs2;
 	u1 valid;
 } execute_data_t;
 
 typedef struct packed {
 	control_t ctl;
-	u64 result;
-	u1 valid;
-	u64 pc;
+	u64 pc, result;
+	u1 valid, addr31;
 } memory_data_t;
 
 endpackage

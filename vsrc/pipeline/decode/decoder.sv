@@ -17,6 +17,7 @@ module decoder
     wire [6:0] opcode = raw_instr[6:0];
     wire [2:0] funct3 = raw_instr[14:12];
     wire [6:0] funct7 = raw_instr[31:25];
+    
 
     always_comb begin
         ctl = '0;
@@ -27,6 +28,8 @@ module decoder
                 ctl.RegWEn = 1'b1;
                 ctl.BSel = 1'b1;
                 ctl.WBSel = 2'b01;
+                ctl.wa = raw_instr[11:7];
+                ctl.ra1En = 1'b1;
                 unique case (funct3)
                     F3_ADDI: begin
                         ctl.ALUSel = ALU_ADD;
@@ -51,10 +54,14 @@ module decoder
                 ctl.BSel = 1'b1;
                 ctl.WBSel = 2'b01;
                 ctl.ALUSel = ALU_B;
+                ctl.wa = raw_instr[11:7];
             end
             OP_R: begin
                 ctl.RegWEn = 1'b1;
                 ctl.WBSel = 2'b01;
+                ctl.wa = raw_instr[11:7];
+                ctl.ra1En = 1'b1;
+                ctl.ra2En = 1'b1;
                 unique case (funct3)
                     F3_ADD: begin
                         unique case (funct7)
@@ -91,6 +98,8 @@ module decoder
                         ctl.BSel = 1'b1;
                         ctl.MemRW = 2'b10;
                         ctl.ALUSel = ALU_ADD;
+                        ctl.wa = raw_instr[11:7];
+                        ctl.ra1En = 1'b1;
                     end
                     default: begin
                         
@@ -104,6 +113,8 @@ module decoder
                         ctl.BSel = 1'b1;
                         ctl.ALUSel = ALU_ADD;
                         ctl.MemRW = 2'b11;
+                        ctl.ra1En = 1'b1;
+                        ctl.ra2En = 1'b1;
                     end
                     default: begin
                         
@@ -111,13 +122,15 @@ module decoder
                 endcase
             end
             OP_B: begin
-                unique case (funct7)
+                unique case (funct3)
                     F3_BEQ: begin
-                        ctl.PCSel = ctl.BrEq;
                         ctl.ImmSel = B;
                         ctl.ALUSel = ALU_ADD;
                         ctl.BSel = 1'b1;
                         ctl.ASel = 1'b1;
+                        ctl.BrEq = 1'b1;
+                        ctl.ra1En = 1'b1;
+                        ctl.ra2En = 1'b1;
                     end
                     default: begin
                         
@@ -125,13 +138,13 @@ module decoder
                 endcase
             end
             OP_AUIPC: begin
-                ctl.PCSel = 1'b1;
                 ctl.ImmSel = U;
                 ctl.RegWEn = 1'b1;
                 ctl.BSel = 1'b1;
                 ctl.ASel = 1'b1;
                 ctl.ALUSel = ALU_ADD;
                 ctl.WBSel = 2'b01;
+                ctl.wa = raw_instr[11:7];
             end
             OP_JAL: begin
                 ctl.ImmSel = J;
@@ -141,6 +154,7 @@ module decoder
                 ctl.ASel = 1'b1;
                 ctl.WBSel = 2'b10;
                 ctl.ALUSel = ALU_ADD;
+                ctl.wa = raw_instr[11:7];
             end
             OP_JALR: begin
                 ctl.ImmSel = I;
@@ -149,6 +163,8 @@ module decoder
                 ctl.BSel = 1'b1;
                 ctl.WBSel = 2'b10;
                 ctl.ALUSel = ALU_ADD_CLEAR;
+                ctl.wa = raw_instr[11:7];
+                ctl.ra1En = 1'b1;
             end
             default: begin
                 

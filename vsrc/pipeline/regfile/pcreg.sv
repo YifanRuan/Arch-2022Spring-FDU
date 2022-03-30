@@ -11,12 +11,13 @@ module pcreg
     import pipes::*;(
     input logic clk, reset,
     input u64 pc_nxt,
+    input u2 PCWrite,
     output u64 pc
 );
     always_ff @(posedge clk) begin
         if (reset) begin
             pc <= PCINIT;
-        end else begin
+        end else if (PCWrite == 2'b00) begin
             pc <= pc_nxt;
         end
     end

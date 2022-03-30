@@ -23,12 +23,13 @@ module decode
         .ctl
     );
 
-    assign ra1 = dataF.raw_instr[19:15];
-    assign ra2 = dataF.raw_instr[24:20];
+    assign ra1 = ctl.ra1En ? dataF.raw_instr[19:15] : '0;
+    assign ra2 = ctl.ra2En? dataF.raw_instr[24:20] : '0;
     assign dataD_nxt.rs1 = rd1;
     assign dataD_nxt.rs2 = rd2;
-    assign dataD_nxt.ctl = ctl;
     assign dataD_nxt.pc = dataF.pc;
+    assign dataD_nxt.valid = dataF.valid;
+    assign dataD_nxt.ctl = ctl;
     
 endmodule
 

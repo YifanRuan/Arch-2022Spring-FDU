@@ -19,6 +19,7 @@ module fetch
     assign ireq.addr = pc;
     assign dataF_nxt.pc = pc;
     assign dataF_nxt.raw_instr = iresp.data;
+    assign dataF_nxt.valid = '1;
     
 endmodule
 
