@@ -9,7 +9,8 @@
 module branchcomp
     import common::*;
     import pipes::*;(
-    input u64 rd1, rd2, BrEq, PCSel_nxt,
+    input u64 rd1, rd2,
+    input u1 PCSel_nxt, BrEq,
     output u1 PCSel
 );
     always_comb begin
