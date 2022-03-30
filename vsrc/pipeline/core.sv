@@ -14,6 +14,7 @@
 `include "pipeline/execute/execute.sv"
 `include "pipeline/memory/memory.sv"
 `include "pipeline/writeback/writeback.sv"
+`include "pipeline/hazard/hazard.sv"
 
 `else
 
@@ -44,10 +45,19 @@ module core
 	creg_addr_t ra1, ra2;
 	u64 rd1, rd2;
 
+	u2 PCWrite, FWrite, DWrite;
+	u1 PCSel;
+	u64 pcjump;
+	assign pcjump = dataE_nxt.alu;
+
+	creg_addr_t ewa, mwa;
+	assign ewa = dataE_nxt.ctl.wa;
+	assign mwa = dataM_nxt.ctl.wa;
+
 	selectpc selectpc(
 		.pcplus4(pc + 4),
-		.jump('0),
-		.pcjump(pc + 4),
+		.PCSel,
+		.pcjump,
 		.pc_selected(pc_nxt)
 	);
 
@@ -55,20 +65,22 @@ module core
 		.clk,
 		.reset,
 		.pc_nxt,
+		.PCWrite,
 		.pc
 	);
 
 	fetch fetch(
 		.iresp,
 		.ireq,
-		.dataF_nxt,
-		.pc
+		.pc,
+		.dataF_nxt
 	);
 
 	freg freg(
 		.clk,
 		.reset,
 		.dataF_nxt,
+		.FWrite,
 		.dataF
 	);
 
@@ -78,16 +90,30 @@ module core
 		.ra1, .ra2, .rd1, .rd2
 	);
 
+	hazard hazard(
+		.ra1,
+		.ra2,
+		.ewa,
+		.mwa,
+		.wa,
+		.PCWrite,
+		.FWrite,
+		.DWrite,
+		.PCSel
+	);
+
 	dreg dreg(
 		.clk,
 		.reset,
 		.dataD_nxt,
-		.dataD
+		.dataD,
+		.DWrite
 	);
 
 	execute execute(
 		.dataD,
-		.dataE_nxt
+		.dataE_nxt,
+		.PCSel
 	);
 
 	ereg ereg(
@@ -98,7 +124,6 @@ module core
 	);
 
 	memory memory(
-		.clk,
 		.dresp,
 		.dreq,
 		.dataE,
@@ -136,10 +161,10 @@ module core
 		.clock              (clk),
 		.coreid             (0),
 		.index              (0),
-		.valid              (~reset && dataM.pc != 64'b0),
+		.valid              (~reset && dataM.valid),
 		.pc                 (dataM.pc),
 		.instr              (dataM.ctl.raw_instr),
-		.skip               (0),
+		.skip               (dataM.ctl.MemRW != 0 && dataM.addr31 == 0),
 		.isRVC              (0),
 		.scFailed           (0),
 		.wen                (wvalid),

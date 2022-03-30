@@ -16,7 +16,7 @@ module writeback
     output u64 wd,
     output u1 wvalid
 );
-    assign wa = dataM.ctl.raw_instr[11:7];
+    assign wa = dataM.ctl.wa;
     assign wd = dataM.result;
     assign wvalid = dataM.ctl.RegWEn;
     

@@ -18,6 +18,7 @@ module alu
 	always_comb begin
 		c = '0;
 		unique case(alufunc)
+			ALU_ZERO: c = '0;
 			ALU_ADD: c = a + b;
 			ALU_SUB: c = a - b;
 			ALU_XOR: c = a ^ b;

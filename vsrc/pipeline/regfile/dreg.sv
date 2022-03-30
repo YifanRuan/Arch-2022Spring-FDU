@@ -12,11 +12,12 @@ module dreg
     import common::*;
     import pipes::*;(
     input logic clk, reset,
+    input u2 DWrite,
     input decode_data_t dataD_nxt,
     output decode_data_t dataD
 );
     always_ff @(posedge clk) begin
-        if (reset) begin
+        if (reset || DWrite == 2'b01) begin
             dataD <= '0;
         end else begin
             dataD <= dataD_nxt;
