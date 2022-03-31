@@ -18,7 +18,8 @@ module freg
 );
     always_ff @(posedge clk) begin
         if (reset || FWrite == 2'b01) begin
-            dataF <= '0;
+            dataF.valid <= '0;
+            dataF.raw_instr <= '0;
         end else if (FWrite == 2'b00) begin
             dataF <= dataF_nxt;
         end
