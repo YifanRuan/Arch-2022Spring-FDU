@@ -15,7 +15,7 @@ module pcreg
     output u64 pc
 );
     always_ff @(posedge clk) begin
-        if (reset) begin
+        if (reset || PCWrite == 2'b01) begin
             pc <= PCINIT;
         end else if (PCWrite == 2'b00) begin
             pc <= pc_nxt;

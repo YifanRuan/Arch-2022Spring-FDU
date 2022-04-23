@@ -10,16 +10,11 @@ module branchcomp
     import common::*;
     import pipes::*;(
     input u64 rd1, rd2,
-    input u1 PCSel_nxt, BrEq,
-    output u1 PCSel
+    input u1 BrUn,
+    output u1 BrEq, BrLT
 );
-    always_comb begin
-        if (BrEq) begin
-            PCSel = rd1 == rd2? 1 : 0;
-        end else begin
-            PCSel = PCSel_nxt;
-        end
-    end
+    assign BrEq = rd1 == rd2 ? 1 : 0;
+    assign BrLT = BrUn ? (rd1 < rd2 ? 1 : 0) : ($signed(rd1) < $signed(rd2) ? 1 : 0);
     
 endmodule
 

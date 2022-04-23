@@ -18,13 +18,8 @@ module dreg
 );
     always_ff @(posedge clk) begin
         if (reset || DWrite == 2'b01) begin
-            dataD.valid <= '0;
-            dataD.ctl.wa <= '0;
-            dataD.ctl.MemRW <= '0;
-            dataD.ctl.PCSel <= '0;
-            dataD.ctl.RegWEn <= '0;
-            dataD.ctl.BrEq <= '0;
-        end else begin
+            dataD <= '0;
+        end else if (DWrite == 2'b00) begin
             dataD <= dataD_nxt;
         end
     end
