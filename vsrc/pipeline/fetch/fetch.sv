@@ -14,9 +14,12 @@ module fetch
     input ibus_resp_t iresp,
     output ibus_req_t ireq,
     input u64 pc,
-    output fetch_data_t dataF_nxt
+    output fetch_data_t dataF_nxt,
+    output u1 imem_wait
 );
     assign ireq.addr = pc;
+    assign ireq.valid = '1;
+    assign imem_wait = ~iresp.data_ok;
     assign dataF_nxt.pc = pc;
     assign dataF_nxt.raw_instr = iresp.data;
     assign dataF_nxt.valid = '1;

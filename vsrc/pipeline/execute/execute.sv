@@ -18,7 +18,8 @@ module execute
     output execute_data_t dataE_nxt,
     output u1 PCSel
 );
-    u64 a, b, imm, c;
+    u64 a, b, imm;
+    u1 BrLT, BrEq;
     immgen immgen(
         .raw_instr(dataD.ctl.raw_instr),
         .ImmSel(dataD.ctl.ImmSel),
@@ -26,23 +27,28 @@ module execute
     );
     branchcomp branchcomp(
         .rd1(dataD.rs1),
-        .rd2(dataD.rs2),
-        .BrEq(dataD.ctl.BrEq),
-        .PCSel_nxt(dataD.ctl.PCSel),
-        .PCSel
+        .rd2((dataD.ctl.SltEn && dataD.ctl.BSel) ? imm : dataD.rs2),
+        .BrUn(dataD.ctl.BrUn),
+        .BrLT,
+        .BrEq
     );
+    always_comb begin
+        PCSel = dataD.ctl.PCSel;
+        if ((dataD.ctl.EqEn && ~(BrEq ^ dataD.ctl.EqSel)) || (dataD.ctl.LTEn && ~(BrLT ^ dataD.ctl.LTSel))) begin
+            PCSel = '1;
+        end
+    end
     assign a = dataD.ctl.ASel ? dataD.pc : dataD.rs1;
-    assign b = dataD.ctl.BSel ? imm : dataD.rs2;
+    assign b = dataD.ctl.SltEn ? (BrLT ? 1 : 0) : (dataD.ctl.BSel ? imm : dataD.rs2);
     alu alu(
         .a,
         .b,
         .alufunc(dataD.ctl.ALUSel),
-        .c
+        .c(dataE_nxt.alu)
     );
     assign dataE_nxt.pc = dataD.pc;
     assign dataE_nxt.ctl = dataD.ctl;
     assign dataE_nxt.rs2 = dataD.rs2;
-    assign dataE_nxt.alu = c;
     assign dataE_nxt.valid = dataD.valid;
     
 endmodule

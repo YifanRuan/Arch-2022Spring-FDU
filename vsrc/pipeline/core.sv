@@ -45,7 +45,8 @@ module core
 	creg_addr_t ra1, ra2;
 	u64 rd1, rd2;
 
-	u2 PCWrite, FWrite, DWrite;
+	u2 PCWrite, FWrite, DWrite, EWrite, MWrite;
+	u1 imem_wait, dmem_wait;
 	u1 PCSel;
 	u64 pcjump;
 	assign pcjump = dataE_nxt.alu;
@@ -73,7 +74,8 @@ module core
 		.iresp,
 		.ireq,
 		.pc,
-		.dataF_nxt
+		.dataF_nxt,
+		.imem_wait
 	);
 
 	freg freg(
@@ -91,15 +93,19 @@ module core
 	);
 
 	hazard hazard(
+		.PCSel,
 		.ra1,
 		.ra2,
 		.ewa,
 		.mwa,
 		.wa,
+		.imem_wait,
+		.dmem_wait,
 		.PCWrite,
 		.FWrite,
 		.DWrite,
-		.PCSel
+		.EWrite,
+		.MWrite
 	);
 
 	dreg dreg(
@@ -120,21 +126,24 @@ module core
 		.clk,
 		.reset,
 		.dataE_nxt,
-		.dataE
+		.dataE,
+		.EWrite
 	);
 
 	memory memory(
 		.dresp,
 		.dreq,
 		.dataE,
-		.dataM_nxt
+		.dataM_nxt,
+		.dmem_wait
 	);
 
 	mreg mreg(
 		.clk,
 		.reset,
 		.dataM_nxt,
-		.dataM
+		.dataM,
+		.MWrite
 	);
 
 	writeback writeback(
