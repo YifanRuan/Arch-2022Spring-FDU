@@ -84,7 +84,9 @@ module core
 		.pc,
 		.dataF_nxt,
 		.imem_wait,
-		.predPC
+		.predPC,
+		.clk,
+		.reset
 	);
 
 	freg freg(

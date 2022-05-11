@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/yifan/Documents/Fudan/Architecture/Arch-2022Spring-FDU'
+mkdir -p build
+# cp -r vsrc/* build
+make: Leaving directory '/home/yifan/Documents/Fudan/Architecture/Arch-2022Spring-FDU'
+ 
