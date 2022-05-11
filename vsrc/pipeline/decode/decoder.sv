@@ -43,7 +43,6 @@ module decoder
             end
             OP_JAL: begin
                 ctl.ImmSel = J;
-                ctl.PCSel = 1'b1;
                 ctl.RegWEn = 1'b1;
                 ctl.BSel = 1'b1;
                 ctl.ASel = 1'b1;

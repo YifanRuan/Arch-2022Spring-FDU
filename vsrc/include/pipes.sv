@@ -139,7 +139,7 @@ typedef struct packed {
 
 typedef struct packed {
 	control_t ctl;
-	u64 pc;
+	u64 pc, imm;
 	word_t rs1, rs2;
 	u1 valid;
 } decode_data_t;

@@ -15,6 +15,7 @@
 `include "pipeline/memory/memory.sv"
 `include "pipeline/writeback/writeback.sv"
 `include "pipeline/hazard/hazard.sv"
+`include "pipeline/forward/forward.sv"
 
 `else
 
@@ -45,20 +46,24 @@ module core
 	creg_addr_t ra1, ra2;
 	u64 rd1, rd2;
 
+	u64 rs1, rs2;
+	assign dataD_nxt.rs1 = rs1;
+	assign dataD_nxt.rs2 = rs2;
+
 	u2 PCWrite, FWrite, DWrite, EWrite, MWrite;
 	u1 imem_wait, dmem_wait;
 	u1 PCSel;
-	u64 pcjump;
-	assign pcjump = dataE_nxt.alu;
 
 	creg_addr_t ewa, mwa;
 	assign ewa = dataE_nxt.ctl.wa;
 	assign mwa = dataM_nxt.ctl.wa;
 
+	u64 pc_address, predPC;
+
 	selectpc selectpc(
-		.pcplus4(pc + 4),
+		.pc_address,
 		.PCSel,
-		.pcjump,
+		.predPC,
 		.pc_selected(pc_nxt)
 	);
 
@@ -75,7 +80,8 @@ module core
 		.ireq,
 		.pc,
 		.dataF_nxt,
-		.imem_wait
+		.imem_wait,
+		.predPC
 	);
 
 	freg freg(
@@ -89,16 +95,32 @@ module core
 	decode decode(
 		.dataF,
 		.dataD_nxt,
-		.ra1, .ra2, .rd1, .rd2
+		.ra1,
+		.ra2,
+		.rs1,
+		.rs2,
+		.last_pc(dataF_nxt.pc),
+		.pc_address,
+		.PCSel
 	);
 
-	hazard hazard(
-		.PCSel,
+	forward forward(
 		.ra1,
 		.ra2,
 		.ewa,
 		.mwa,
 		.wa,
+		.rd1,
+		.rd2,
+		.alu(dataE_nxt.alu),
+		.m_result(dataM_nxt.result),
+		.wd,
+		.rs1,
+		.rs2
+	);
+
+	hazard hazard(
+		.PCSel,
 		.imem_wait,
 		.dmem_wait,
 		.PCWrite,

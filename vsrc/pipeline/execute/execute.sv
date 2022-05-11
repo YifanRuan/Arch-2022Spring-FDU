@@ -5,8 +5,6 @@
 `include "include/common.sv"
 `include "include/pipes.sv"
 `include "pipeline/execute/alu.sv"
-`include "pipeline/execute/immgen.sv"
-`include "pipeline/execute/branchcomp.sv"
 `else
 
 `endif
@@ -18,28 +16,15 @@ module execute
     output execute_data_t dataE_nxt,
     output u1 PCSel
 );
-    u64 a, b, imm;
-    u1 BrLT, BrEq;
-    immgen immgen(
-        .raw_instr(dataD.ctl.raw_instr),
-        .ImmSel(dataD.ctl.ImmSel),
-        .imm
-    );
-    branchcomp branchcomp(
-        .rd1(dataD.rs1),
-        .rd2((dataD.ctl.SltEn && dataD.ctl.BSel) ? imm : dataD.rs2),
-        .BrUn(dataD.ctl.BrUn),
-        .BrLT,
-        .BrEq
-    );
-    always_comb begin
-        PCSel = dataD.ctl.PCSel;
-        if ((dataD.ctl.EqEn && ~(BrEq ^ dataD.ctl.EqSel)) || (dataD.ctl.LTEn && ~(BrLT ^ dataD.ctl.LTSel))) begin
-            PCSel = '1;
-        end
-    end
+    u64 a, b;
+    u1 BrLT;
+    u64 rd1, rd2;
+    assign rd1 = dataD.rs1;
+    assign rd2 = (dataD.ctl.SltEn && dataD.ctl.BSel) ? dataD.imm : dataD.rs2;
+    assign BrLT = dataD.ctl.BrUn ? (rd1 < rd2 ? 1 : 0) : ($signed(rd1) < $signed(rd2) ? 1 : 0);
+
     assign a = dataD.ctl.ASel ? dataD.pc : dataD.rs1;
-    assign b = dataD.ctl.SltEn ? (BrLT ? 1 : 0) : (dataD.ctl.BSel ? imm : dataD.rs2);
+    assign b = dataD.ctl.SltEn ? (BrLT ? 1 : 0) : (dataD.ctl.BSel ? dataD.imm : dataD.rs2);
     alu alu(
         .a,
         .b,

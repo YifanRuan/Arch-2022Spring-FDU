@@ -10,7 +10,6 @@ module hazard
     import common::*;
     import pipes::*;(
     input u1 PCSel,
-    input creg_addr_t ra1, ra2, ewa, mwa, wa,
     input u1 imem_wait, dmem_wait,
     output u2 PCWrite, FWrite, DWrite, EWrite, MWrite // 2'b00: stream; 2'b01: flush; others: keep
 );
@@ -28,20 +27,15 @@ module hazard
             PCWrite = 2'b11;
         end else if (imem_wait) begin
             PCWrite = 2'b11;
-            FWrite = 2'b01;
             if (PCSel) begin
-                DWrite = 2'b11;
-                EWrite = 2'b01;
+                FWrite = 2'b11;
+                DWrite = 2'b01;
+            end else begin
+                FWrite = 2'b01;
             end
         end else if (PCSel) begin
             PCWrite = 2'b00;
             FWrite = 2'b01;
-            DWrite = 2'b01;
-        end else if (ra1 != 0 && (ra1 == ewa || ra1 == mwa || ra1 == wa) || 
-                    ra2 != 0 && (ra2 == ewa || ra2 == mwa || ra2 == wa)) begin
-            PCWrite = 2'b11;
-            FWrite = 2'b11;
-            DWrite = 2'b01;
         end
     end
     
