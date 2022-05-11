@@ -11,6 +11,7 @@
 `include "pipeline/fetch/selectpc.sv"
 `include "pipeline/fetch/fetch.sv"
 `include "pipeline/decode/decode.sv"
+`include "pipeline/decode/jump.sv"
 `include "pipeline/execute/execute.sv"
 `include "pipeline/memory/memory.sv"
 `include "pipeline/writeback/writeback.sv"
@@ -47,8 +48,6 @@ module core
 	u64 rd1, rd2;
 
 	u64 rs1, rs2;
-	assign dataD_nxt.rs1 = rs1;
-	assign dataD_nxt.rs2 = rs2;
 
 	u2 PCWrite, FWrite, DWrite, EWrite, MWrite;
 	u1 imem_wait, dmem_wait;
@@ -59,6 +58,10 @@ module core
 	assign mwa = dataM_nxt.ctl.wa;
 
 	u64 pc_address, predPC;
+
+	control_t ctl;
+	u64 d_pc, imm;
+	u1 d_valid;
 
 	selectpc selectpc(
 		.pc_address,
@@ -94,14 +97,12 @@ module core
 
 	decode decode(
 		.dataF,
-		.dataD_nxt,
 		.ra1,
 		.ra2,
-		.rs1,
-		.rs2,
-		.last_pc(dataF_nxt.pc),
-		.pc_address,
-		.PCSel
+		.ctl,
+		.d_pc,
+		.d_valid,
+		.imm
 	);
 
 	forward forward(
@@ -117,6 +118,19 @@ module core
 		.wd,
 		.rs1,
 		.rs2
+	);
+
+	jump jump(
+		.rs1,
+		.rs2,
+		.ctl,
+		.d_pc,
+		.d_valid,
+		.imm,
+		.dataD_nxt,
+		.last_pc(dataF_nxt.pc),
+		.PCSel,
+		.pc_address
 	);
 
 	hazard hazard(
@@ -140,8 +154,7 @@ module core
 
 	execute execute(
 		.dataD,
-		.dataE_nxt,
-		.PCSel
+		.dataE_nxt
 	);
 
 	ereg ereg(
