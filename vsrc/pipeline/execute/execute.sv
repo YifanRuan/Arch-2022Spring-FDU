@@ -13,8 +13,7 @@ module execute
     import common::*;
     import pipes::*;(
     input decode_data_t dataD,
-    output execute_data_t dataE_nxt,
-    output u1 PCSel
+    output execute_data_t dataE_nxt
 );
     u64 a, b;
     u1 BrLT;
