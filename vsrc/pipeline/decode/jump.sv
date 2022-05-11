@@ -50,9 +50,6 @@ module jump
         end else if (ctl.PCSel) begin
             PCSel = '1;
             pc_address = (rs1 + dataD_nxt.imm) & ~1;
-        end else if (ctl.MemRW[1]) begin
-            PCSel = '1;
-            pc_address = d_pc + 4;
         end
     end
     

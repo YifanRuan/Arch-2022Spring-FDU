@@ -1,0 +1,1 @@
+{"buildTargets":["build/SimTop.v","clean","emu","sim","sim-verilog","test-lab1","test-lab1a","test-lab2","verilog"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
