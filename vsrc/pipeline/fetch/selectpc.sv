@@ -1,5 +1,5 @@
-`ifndef __SELECT_PC
-`define __SELECT_PC
+`ifndef __SELECTPC_SV
+`define __SELECTPC_SV
 
 `ifdef VERILATOR
 `include "include/common.sv"
@@ -11,12 +11,12 @@
 module selectpc
     import common::*;
     import pipes::*;(
-    input u64 pcplus4,
+    input u64 predPC,
+    input u64 pc_address,
     input u1 PCSel,
-    input u64 pcjump,
     output u64 pc_selected
 );
-    assign pc_selected = PCSel ? pcjump : pcplus4;
+    assign pc_selected = PCSel ? pc_address : predPC;
 
 endmodule
 
