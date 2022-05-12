@@ -129,7 +129,7 @@ typedef enum logic [5:0] {
 
 typedef struct packed {
 	u32 raw_instr;
-	u1 PCSel, RegWEn, BrUn, BSel, ASel, ra1En, ra2En, SltEn, EqEn, LTEn, EqSel, LTSel, mem_unsigned;
+	u1 PCSel, RegWEn, BrUn, BSel, ASel, ra1En, ra2En, SltEn, EqEn, LTEn, EqSel, LTSel, mem_unsigned, loadEn;
 	decode_op_t ImmSel;
 	alufunc_t ALUSel;
 	msize_t msize;

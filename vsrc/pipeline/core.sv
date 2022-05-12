@@ -50,7 +50,8 @@ module core
 	u64 rs1, rs2;
 
 	u2 PCWrite, FWrite, DWrite, EWrite, MWrite;
-	u1 imem_wait, dmem_wait;
+	u1 imem_wait, dmem_wait, load_wait, exe_wait;
+	wire is_next_load = dataE_nxt.ctl.loadEn;
 	u1 PCSel;
 
 	creg_addr_t ewa, mwa;
@@ -119,7 +120,9 @@ module core
 		.m_result(dataM_nxt.result),
 		.wd,
 		.rs1,
-		.rs2
+		.rs2,
+		.is_next_load,
+		.load_wait
 	);
 
 	jump jump(
@@ -139,6 +142,8 @@ module core
 		.PCSel,
 		.imem_wait,
 		.dmem_wait,
+		.load_wait,
+		.exe_wait,
 		.PCWrite,
 		.FWrite,
 		.DWrite,
@@ -156,7 +161,8 @@ module core
 
 	execute execute(
 		.dataD,
-		.dataE_nxt
+		.dataE_nxt,
+		.exe_wait
 	);
 
 	ereg ereg(
