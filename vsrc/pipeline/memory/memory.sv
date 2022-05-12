@@ -51,7 +51,7 @@ module memory
         endcase
     end
 
-    assign dmem_wait = dreq.valid && ~dresp.data_ok;
+    assign dmem_wait = dreq.valid & ~dresp.data_ok;
 
     u64 rd;
     readdata readdata(

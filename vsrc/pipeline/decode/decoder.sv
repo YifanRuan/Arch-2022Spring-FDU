@@ -32,70 +32,6 @@ module decoder
                 ctl.ALUSel = ALU_B;
                 ctl.wa = raw_instr[11:7];
             end
-            OP_AUIPC: begin
-                ctl.ImmSel = U;
-                ctl.RegWEn = 1'b1;
-                ctl.BSel = 1'b1;
-                ctl.ASel = 1'b1;
-                ctl.ALUSel = ALU_ADD;
-                ctl.WBSel = 2'b01;
-                ctl.wa = raw_instr[11:7];
-            end
-            OP_JAL: begin
-                ctl.ImmSel = J;
-                ctl.RegWEn = 1'b1;
-                ctl.BSel = 1'b1;
-                ctl.ASel = 1'b1;
-                ctl.WBSel = 2'b10;
-                ctl.ALUSel = ALU_ADD;
-                ctl.wa = raw_instr[11:7];
-            end
-            OP_JALR: begin
-                ctl.ImmSel = I;
-                ctl.PCSel = 1'b1;
-                ctl.RegWEn = 1'b1;
-                ctl.BSel = 1'b1;
-                ctl.WBSel = 2'b10;
-                ctl.ALUSel = ALU_ADD_CLEAR;
-                ctl.wa = raw_instr[11:7];
-                ctl.ra1En = 1'b1;
-            end
-            OP_B: begin
-                ctl.ImmSel = B;
-                ctl.ALUSel = ALU_ADD;
-                ctl.BSel = 1'b1;
-                ctl.ASel = 1'b1;
-                ctl.ra1En = 1'b1;
-                ctl.ra2En = 1'b1;
-                unique case (funct3)
-                    F3_BEQ: begin
-                        ctl.EqEn = 1'b1;
-                        ctl.EqSel = 1'b1;
-                    end
-                    F3_BNE: begin
-                        ctl.EqEn = 1'b1;
-                    end
-                    F3_BLT: begin
-                        ctl.LTEn = 1'b1;
-                        ctl.LTSel = 1'b1;
-                    end
-                    F3_BGE: begin
-                        ctl.LTEn = 1'b1;
-                    end
-                    F3_BLTU: begin
-                        ctl.BrUn = 1'b1;
-                        ctl.LTEn = 1'b1;
-                        ctl.LTSel = 1'b1;
-                    end
-                    F3_BGEU: begin
-                        ctl.BrUn = 1'b1;
-                        ctl.LTEn = 1'b1;
-                    end
-                    default: begin
-                        
-                    end
-                endcase
-            end
             OP_L: begin
                 ctl.ImmSel = I;
                 ctl.RegWEn = 1'b1;
@@ -135,6 +71,42 @@ module decoder
                     end
                 endcase
             end
+            OP_B: begin
+                ctl.ImmSel = B;
+                ctl.ALUSel = ALU_ZERO;
+                ctl.BSel = 1'b1;
+                ctl.ASel = 1'b1;
+                ctl.ra1En = 1'b1;
+                ctl.ra2En = 1'b1;
+                unique case (funct3)
+                    F3_BEQ: begin
+                        ctl.EqEn = 1'b1;
+                        ctl.EqSel = 1'b1;
+                    end
+                    F3_BNE: begin
+                        ctl.EqEn = 1'b1;
+                    end
+                    F3_BLT: begin
+                        ctl.LTEn = 1'b1;
+                        ctl.LTSel = 1'b1;
+                    end
+                    F3_BGE: begin
+                        ctl.LTEn = 1'b1;
+                    end
+                    F3_BLTU: begin
+                        ctl.BrUn = 1'b1;
+                        ctl.LTEn = 1'b1;
+                        ctl.LTSel = 1'b1;
+                    end
+                    F3_BGEU: begin
+                        ctl.BrUn = 1'b1;
+                        ctl.LTEn = 1'b1;
+                    end
+                    default: begin
+                        
+                    end
+                endcase
+            end
             OP_S: begin
                 ctl.ImmSel = S;
                 ctl.BSel = 1'b1;
@@ -159,6 +131,15 @@ module decoder
                         
                     end
                 endcase
+            end
+            OP_AUIPC: begin
+                ctl.ImmSel = U;
+                ctl.RegWEn = 1'b1;
+                ctl.BSel = 1'b1;
+                ctl.ASel = 1'b1;
+                ctl.ALUSel = ALU_ADD;
+                ctl.WBSel = 2'b01;
+                ctl.wa = raw_instr[11:7];
             end
             OP_RI: begin
                 ctl.ImmSel = I;
@@ -341,6 +322,25 @@ module decoder
                         
                     end
                 endcase
+            end
+            OP_JAL: begin
+                ctl.ImmSel = J;
+                ctl.RegWEn = 1'b1;
+                ctl.BSel = 1'b1;
+                ctl.ASel = 1'b1;
+                ctl.WBSel = 2'b10;
+                ctl.ALUSel = ALU_ZERO;
+                ctl.wa = raw_instr[11:7];
+            end
+            OP_JALR: begin
+                ctl.ImmSel = I;
+                ctl.PCSel = 1'b1;
+                ctl.RegWEn = 1'b1;
+                ctl.BSel = 1'b1;
+                ctl.WBSel = 2'b10;
+                ctl.ALUSel = ALU_ZERO;
+                ctl.wa = raw_instr[11:7];
+                ctl.ra1En = 1'b1;
             end
             default: begin
                 

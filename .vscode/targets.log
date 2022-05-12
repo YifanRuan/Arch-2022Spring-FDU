@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu May 12 09:12:45 2022
+# Make data base, printed on Thu May 12 11:23:47 2022
 
 # Variables
 
@@ -21,7 +21,7 @@ GTK_RC_FILES = /etc/gtk/gtkrc:/home/yifan/.gtkrc:/home/yifan/.config/gtkrc
 # environment
 OSH = /home/yifan/.oh-my-bash
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-27eb906d-9be2-492c-8d43-0f4bb8a68ca9.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-eab8dca2-30f6-4f9a-92ee-d31da4f56002.sock
 # environment
 LC_NAME = zh_CN.UTF-8
 # environment
@@ -131,7 +131,7 @@ OCAML_TOPLEVEL_PATH = /home/yifan/.opam/cs3110/lib/toplevel
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 141057
+VSCODE_PID = 293580
 # environment
 HISTIGNORE = &:[ ]*:exit:ls:bg:fg:history:clear
 # environment
@@ -289,6 +289,7 @@ _CE_M =
 LC_CTYPE = en_US.UTF-8
 # environment
 NVM_CD_FLAGS = 
+ 
 # environment
 JOURNAL_STREAM = 8:45817
 # environment
@@ -313,7 +314,6 @@ XDG_SESSION_ID = 3
 XCURSOR_SIZE = 24
 # environment
 IM_CONFIG_PHASE = 1
- 
 # makefile (from 'Makefile.include', line 12)
 TOP = TopMain
 # default
@@ -474,6 +474,6 @@ test-lab1a: sim
 # strcache performance: lookups = 58 / hit rate = 44%
 # hash-table stats:
 # Load=32/8192=0%, Rehash=0, Collisions=0/58=0%
-# Finished Make data base on Thu May 12 09:12:45 2022
+# Finished Make data base on Thu May 12 11:23:47 2022
 
  

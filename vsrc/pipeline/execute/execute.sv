@@ -16,13 +16,8 @@ module execute
     output execute_data_t dataE_nxt,
     output u1 exe_wait
 );
+    wire BrLT = dataD.BrLT;
     u64 a, b;
-    u1 BrLT;
-    u64 rd1, rd2;
-    assign rd1 = dataD.rs1;
-    assign rd2 = (dataD.ctl.SltEn && dataD.ctl.BSel) ? dataD.imm : dataD.rs2;
-    assign BrLT = dataD.ctl.BrUn ? (rd1 < rd2 ? 1 : 0) : ($signed(rd1) < $signed(rd2) ? 1 : 0);
-
     assign a = dataD.ctl.ASel ? dataD.pc : dataD.rs1;
     assign b = dataD.ctl.SltEn ? (BrLT ? 1 : 0) : (dataD.ctl.BSel ? dataD.imm : dataD.rs2);
     alu alu(
