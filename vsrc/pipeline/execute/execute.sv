@@ -13,7 +13,8 @@ module execute
     import common::*;
     import pipes::*;(
     input decode_data_t dataD,
-    output execute_data_t dataE_nxt
+    output execute_data_t dataE_nxt,
+    output u1 exe_wait
 );
     u64 a, b;
     u1 BrLT;
@@ -34,6 +35,8 @@ module execute
     assign dataE_nxt.ctl = dataD.ctl;
     assign dataE_nxt.rs2 = dataD.rs2;
     assign dataE_nxt.valid = dataD.valid;
+
+    assign exe_wait = '0;
     
 endmodule
 

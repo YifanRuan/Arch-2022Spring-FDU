@@ -104,6 +104,7 @@ module decoder
                 ctl.ALUSel = ALU_ADD;
                 ctl.wa = raw_instr[11:7];
                 ctl.ra1En = 1'b1;
+                ctl.loadEn = 1'b1;
                 unique case (funct3)
                     F3_LB: begin
                         ctl.msize = MSIZE1;
