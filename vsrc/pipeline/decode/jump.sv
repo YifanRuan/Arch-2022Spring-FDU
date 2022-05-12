@@ -30,16 +30,18 @@ module jump
     u1 BrLT, BrEq;
     branchcomp branchcomp(
         .rd1(rs1),
-        .rd2((ctl.SltEn && ctl.BSel) ? imm : rs2),
+        .rd2((ctl.SltEn & ctl.BSel) ? imm : rs2),
         .BrUn(ctl.BrUn),
         .BrLT,
         .BrEq
     );
+    assign dataD_nxt.BrLT = BrLT;
+
     always_comb begin
         pc_address = '0;
         PCSel = '0;
-        if (ctl.EqEn || ctl.LTEn) begin
-            if ((ctl.EqEn && ~(BrEq ^ ctl.EqSel)) || (ctl.LTEn && ~(BrLT ^ ctl.LTSel))) begin
+        if (ctl.EqEn | ctl.LTEn) begin
+            if ((ctl.EqEn & ~(BrEq ^ ctl.EqSel)) || (ctl.LTEn & ~(BrLT ^ ctl.LTSel))) begin
                 pc_address = d_pc + dataD_nxt.imm;
             end else begin
                 pc_address = d_pc + 4;

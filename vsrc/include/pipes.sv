@@ -98,9 +98,6 @@ typedef enum logic [4:0] {
 	ALU_AND,
 	ALU_A,
 	ALU_B,
-	ALU_ADD_CLEAR,
-	ALU_LT,
-	ALU_LT_U,
 	ALU_LEFT6,
 	ALU_LEFT32,
 	ALU_RIGHT6,
@@ -115,15 +112,12 @@ typedef struct packed {
 	u1 valid;
 } fetch_data_t;
 
-typedef enum logic [5:0] {
+typedef enum logic [2:0] {
 	UNKNOWN,
-	R,
 	I,
-	SHAMT6,
-	SHAMT5,
-	S,
 	B,
 	U,
+	S,
 	J
 } decode_op_t;
 
@@ -141,7 +135,7 @@ typedef struct packed {
 	control_t ctl;
 	u64 pc, imm;
 	word_t rs1, rs2;
-	u1 valid;
+	u1 valid, BrLT;
 } decode_data_t;
 
 typedef struct packed {

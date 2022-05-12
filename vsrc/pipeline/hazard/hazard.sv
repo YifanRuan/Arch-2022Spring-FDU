@@ -42,7 +42,6 @@ module hazard
                 FWrite = 2'b01;
             end
         end else if (PCSel) begin
-            PCWrite = 2'b00;
             FWrite = 2'b01;
         end
     end

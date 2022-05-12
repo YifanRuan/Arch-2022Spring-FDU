@@ -21,14 +21,14 @@ module immgen
             I: begin
                 imm = {{52{raw_instr[31]}}, raw_instr[31:20]};
             end
+            B: begin
+                imm = {{52{raw_instr[31]}}, raw_instr[7], raw_instr[30:25], raw_instr[11:8], 1'b0};
+            end
             U: begin
                 imm = {{32{raw_instr[31]}}, raw_instr[31:12], 12'b0};
             end
             S: begin
                 imm = {{52{raw_instr[31]}}, raw_instr[31:25], raw_instr[11:7]};
-            end
-            B: begin
-                imm = {{52{raw_instr[31]}}, raw_instr[7], raw_instr[30:25], raw_instr[11:8], 1'b0};
             end
             J: begin
                 imm = {{44{raw_instr[31]}}, raw_instr[19:12], raw_instr[20], raw_instr[30:21], 1'b0};

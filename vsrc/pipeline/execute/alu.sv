@@ -36,7 +36,6 @@ module alu
 			ALU_AND: c = a & b;
 			ALU_A: c = a;
 			ALU_B: c = b;
-			ALU_ADD_CLEAR: c = (a + b) & ~1;
 			ALU_LEFT6: c = a << b[5:0];
 			ALU_LEFT32: begin
 				d = a << b[4:0];
