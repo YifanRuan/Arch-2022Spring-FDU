@@ -26,6 +26,7 @@ module jump
     assign dataD_nxt.rs1 = rs1;
     assign dataD_nxt.rs2 = rs2;
     assign dataD_nxt.valid = d_valid;
+    assign dataD_nxt.stalled = '0;
 
     u1 BrLT, BrEq;
     branchcomp branchcomp(

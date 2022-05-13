@@ -104,7 +104,7 @@ module execute
                     end else begin
                         cd = {-cd_tmp[127:64], -cd_tmp[63:0]};
                     end
-                end else if (~a[63] && b[63]) begin
+                end else if (~a[63] & b[63]) begin
                     cd = {cd_tmp[127:64], -cd_tmp[63:0]};
                 end else if (a[63] & b[63]) begin
                     cd = {-cd_tmp[127:64], cd_tmp[63:0]};
