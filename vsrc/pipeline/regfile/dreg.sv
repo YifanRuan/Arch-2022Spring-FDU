@@ -21,6 +21,8 @@ module dreg
             dataD <= '0;
         end else if (DWrite == 2'b00) begin
             dataD <= dataD_nxt;
+        end else if (DWrite == 2'b11) begin
+            dataD.stalled <= '1;
         end
     end
     

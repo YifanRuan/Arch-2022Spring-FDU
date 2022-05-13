@@ -162,7 +162,9 @@ module core
 	execute execute(
 		.dataD,
 		.dataE_nxt,
-		.exe_wait
+		.exe_wait,
+		.clk,
+		.reset
 	);
 
 	ereg ereg(

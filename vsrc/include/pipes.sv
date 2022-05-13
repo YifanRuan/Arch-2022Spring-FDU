@@ -9,7 +9,7 @@ package pipes;
 	import common::*;
 /* Define instrucion decoding rules here */
 
-/* rv64i */
+/* rv64i + rv64im */
 
 parameter OP_LUI = 7'b0110111;
 
@@ -58,15 +58,23 @@ parameter OP_R = 7'b0110011;
 parameter F3_ADD = 3'b000;
 	parameter F7_ADD = 7'b0000000;
 	parameter F7_SUB = 7'b0100000;
+	parameter F7_MUL = 7'b0000001;
 parameter F3_SLL = 3'b001;
 parameter F3_SLT = 3'b010;
 parameter F3_SLTU = 3'b011;
 parameter F3_XOR = 3'b100;
+	parameter F7_XOR = 7'b0000000;
+	parameter F7_DIV = 7'b0000001;
 parameter F3_SRL = 3'b101;
 	parameter F7_SRL = 7'b0000000;
 	parameter F7_SRA = 7'b0100000;
+	parameter F7_DIVU = 7'b0000001;
 parameter F3_OR = 3'b110;
+	parameter F7_OR = 7'b0000000;
+	parameter F7_REM = 7'b0000001;
 parameter F3_AND = 3'b111;
+	parameter F7_AND = 7'b0000000;
+	parameter F7_REMU = 7'b0000001;
 
 parameter OP_RIW = 7'b0011011;
 parameter F3_ADDIW = 3'b000;
@@ -79,10 +87,15 @@ parameter OP_RW = 7'b0111011;
 parameter F3_ADDW = 3'b000;
 	parameter F7_ADDW = 7'b0000000;
 	parameter F7_SUBW = 7'b0100000;
+	parameter F7_MULW = 7'b0000001;
 parameter F3_SLLW = 3'b001;
+parameter F3_DIVW = 3'b100;
 parameter F3_SRLW = 3'b101;
 	parameter F7_SRLW = 7'b0000000;
 	parameter F7_SRAW = 7'b0100000;
+	parameter F7_DIVUW = 7'b0000001;
+parameter F3_REMW = 3'b110;
+parameter F3_REMUW = 3'b111;
 
 
 /* Define pipeline structures here */
@@ -128,6 +141,8 @@ typedef struct packed {
 	alufunc_t ALUSel;
 	msize_t msize;
 	u2 WBSel, MemRW;
+	u2 multiplyEn; // {W, is}
+	u4 divideEn; // {W, is, type_rem, unsgn}
 	creg_addr_t wa;
 } control_t;
 
@@ -135,7 +150,7 @@ typedef struct packed {
 	control_t ctl;
 	u64 pc, imm;
 	word_t rs1, rs2;
-	u1 valid, BrLT;
+	u1 valid, BrLT, stalled;
 } decode_data_t;
 
 typedef struct packed {
