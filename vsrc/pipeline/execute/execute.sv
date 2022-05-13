@@ -54,6 +54,7 @@ module execute
     u128 cd, cd_tmp;
     logic done_divide;
     u64 ca, cb;
+    u32 comp_a, comp_b;
     always_comb begin
         unique case ({dataD.ctl.divideEn[3], dataD.ctl.divideEn[0]})
             2'b00: begin
@@ -80,7 +81,7 @@ module execute
     divider divider(
         .clk,
         .reset(reset),
-        .valid(dataD.ctl.divideEn[2] & ~dataD.stalled),
+        .valid(dataD.ctl.divideEn[2] && ~dataD.stalled && cb != 0),
         .wordEn(dataD.ctl.divideEn[3]),
         .a(ca),
         .b(cb),
@@ -88,38 +89,61 @@ module execute
         .c(cd_tmp)
     );
     u32 qw, rw;
-    // always_ff @(posedge clk) begin $display("%x", {dataD.ctl.divideEn[3], dataD.ctl.divideEn[0]}); end
+    u64 ninf;
     always_comb begin
         qw = '0;
         rw = '0;
+        ninf = '1;
         unique case ({dataD.ctl.divideEn[3], dataD.ctl.divideEn[0]})
             2'b00: begin
-                if ($signed(a) < 0 && $signed(b) > 0) begin
-                    cd = {-cd_tmp[127:64], -cd_tmp[63:0]};
-                end else if ($signed(a) > 0 && $signed(b) < 0) begin
+                if (cb == 0) begin
+                    cd = {a, ninf};
+                end else if (a[63] & ~b[63]) begin
+                    if (b == 0) begin
+                        cd = -cd_tmp;
+                    end else begin
+                        cd = {-cd_tmp[127:64], -cd_tmp[63:0]};
+                    end
+                end else if (~a[63] && b[63]) begin
                     cd = {cd_tmp[127:64], -cd_tmp[63:0]};
+                end else if (a[63] & b[63]) begin
+                    cd = {-cd_tmp[127:64], cd_tmp[63:0]};
                 end else begin
                     cd = cd_tmp;
                 end
             end
             2'b01: begin
-                cd = cd_tmp;
+                if (cb == 0) begin
+                    cd = {a, ninf};
+                end else begin
+                    cd = cd_tmp;
+                end
             end
             2'b10: begin
-                if ($signed(a) < 0 && $signed(b) > 0) begin
+                if (cb == 0) begin
+                    cd = {{32{a[31]}}, a[31:0], ninf};
+                end else if (a[31] & ~b[31]) begin
                     rw = -cd_tmp[95:64];
                     qw = -cd_tmp[31:0];
                     cd = {{32{rw[31]}}, rw, {32{qw[31]}}, qw[31:0]};
-                end else if ($signed(a) > 0 && $signed(b) < 0) begin
+                end else if (~a[31] & b[31]) begin
                     rw = cd_tmp[95:64];
                     qw = -cd_tmp[31:0];
+                    cd = {{32{rw[31]}}, rw, {32{qw[31]}}, qw[31:0]};
+                end else if (a[31] & b[31]) begin
+                    rw = -cd_tmp[95:64];
+                    qw = cd_tmp[31:0];
                     cd = {{32{rw[31]}}, rw, {32{qw[31]}}, qw[31:0]};
                 end else begin
                     cd = cd_tmp;
                 end
             end
             2'b11: begin
-                cd = cd_tmp;
+                if (cb == 0) begin
+                    cd = {{32{a[31]}}, a[31:0], ninf};
+                end else begin
+                    cd = cd_tmp;
+                end
             end
             default: begin
                 
