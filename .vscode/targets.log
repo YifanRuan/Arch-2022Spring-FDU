@@ -8,26 +8,44 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu May 12 11:23:47 2022
+# Make data base, printed on Fri May 13 19:28:43 2022
 
 # Variables
 
+# makefile (from 'verilate/Makefile.vsim.mk', line 5)
+VMAIN = $(BUILD_ROOT)/$(TARGET)/vmain
+# makefile (from 'verilate/Makefile.vsim.mk', line 15)
+CXX_FILES := verilate/vsrc/cbus_device.cpp verilate/vsrc/common.cpp verilate/vsrc/confreg.cpp verilate/vsrc/main.cpp verilate/vsrc/memory.cpp verilate/vsrc/model.cpp verilate/vsrc/testbench.cpp verilate/vsrc/VCacheTop/cache_ref.cpp verilate/vsrc/VCacheTop/mycache.cpp verilate/vsrc/VCacheTop/tests.cpp verilate/vsrc/VCacheTop/vmain.cpp /usr/share/verilator/include/verilated.cpp /usr/share/verilator/include/verilated_fst_c.cpp
 # environment
 GDK_BACKEND = x11
 # environment
 LC_ALL = C
+# makefile (from 'verilate/Makefile.include', line 2)
+SRC = vsrc
+# makefile (from 'verilate/Makefile.vsim.mk', line 1)
+VERILATOR_ROOT = /usr/share/verilator/include
 # environment
 GTK_RC_FILES = /etc/gtk/gtkrc:/home/yifan/.gtkrc:/home/yifan/.config/gtkrc
 # environment
 OSH = /home/yifan/.oh-my-bash
+# makefile (from 'verilate/Makefile.vsim.mk', line 54)
+CXX_LINKS = -lz -lpthread -lstdc++fs
+# makefile (from 'verilate/Makefile.vsim.mk', line 14)
+CXX_TARGET_FILES := verilate/vsrc/VCacheTop/cache_ref.cpp verilate/vsrc/VCacheTop/mycache.cpp verilate/vsrc/VCacheTop/tests.cpp verilate/vsrc/VCacheTop/vmain.cpp
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-eab8dca2-30f6-4f9a-92ee-d31da4f56002.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-c1ba4da3-edd0-4579-b9e3-217c2544719e.sock
+# makefile (from 'verilate/Makefile.verilate.mk', line 14)
+SV_FOLDERS := vsrc/. vsrc/./cache vsrc/./pipeline vsrc/./pipeline/decode vsrc/./pipeline/hazard vsrc/./pipeline/execute vsrc/./pipeline/memory vsrc/./pipeline/writeback vsrc/./pipeline/regfile vsrc/./pipeline/forward vsrc/./pipeline/fetch vsrc/./ram vsrc/./include vsrc/./util
 # environment
 LC_NAME = zh_CN.UTF-8
 # environment
 LC_NUMERIC = zh_CN.UTF-8
+# makefile (from 'verilate/Makefile.verilate.mk', line 24)
+SV_INCLUDES := -y vsrc/util -y vsrc/ram -y vsrc/cache -y vsrc/include -y vsrc 
 # environment
 VSCODE_CWD = /home/yifan
+# makefile (from 'verilate/Makefile.include', line 7)
+VSIM_OPT = 1
 # makefile (from 'Makefile', line 2)
 VERILOG_FILE = $(shell find ./vsrc -name '*.v')
 # environment
@@ -36,18 +54,24 @@ CAML_LD_LIBRARY_PATH = /home/yifan/.opam/cs3110/lib/stublibs:/home/yifan/.opam/c
 NVM_DIR = /home/yifan/.nvm
 # makefile (from 'Makefile.include', line 2)
 DUT_FREQ = 100
+# makefile (from 'verilate/Makefile.include', line 4)
+FST = 
 # environment
 LC_ADDRESS = zh_CN.UTF-8
 # environment
 LIBVIRT_DEFAULT_URI = qemu:///system
 # default
 MAKE_COMMAND := make
+# makefile (from 'verilate/Makefile.vsim.mk', line 3)
+SV_READY = $(SV_MKFILE)
 # makefile (from 'Makefile.include', line 4)
 BOARD = sim
 # environment
 QT_ACCESSIBILITY = 1
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
+# makefile (from 'verilate/Makefile.include', line 6)
+VSIM_ARGS = 
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -78,6 +102,8 @@ CONDA_PROMPT_MODIFIER = (base)
 VSCODE_CODE_CACHE_PATH = /home/yifan/.config/Code/CachedData/da15b6fd3ef856477bf6f4fb29ba1b7af717770d
 # environment
 XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session1
+# makefile (from 'verilate/Makefile.verilate.mk', line 64)
+SV_FLAGS = --cc -sv --relative-includes --output-split 6000 --trace-fst --trace-structs --no-trace-params --bbox-unsup --Mdir $(SV_BUILD) --top-module $(SV_NAME) --prefix $(SV_PREFIX) $(SV_INCLUDES) $(SV_WARNINGS) $(SV_EXTRA_FLAGS) -CFLAGS -O3 -CFLAGS -flto
 # environment
 LANG = C
 # environment
@@ -90,10 +116,16 @@ XAUTHORITY = /home/yifan/.Xauthority
 MAKEFLAGS = pqrR
 # environment
 PKG_CONFIG_PATH = /home/yifan/.opam/cs3110/lib/pkgconfig:/home/yifan/.opam/cs3110/lib/pkgconfig:
+# makefile (from 'verilate/Makefile.include', line 9)
+SV_EXTRA_FLAGS = 
+# makefile (from 'verilate/Makefile.verilate.mk', line 1)
+SV_PREFIX = VModel
 # makefile
 CURDIR := /home/yifan/Documents/Fudan/Architecture/Arch-2022Spring-FDU
 # environment
 VSCODE_PIPE_LOGGING = true
+# makefile (from 'verilate/Makefile.include', line 5)
+USE_CLANG = 0
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
@@ -107,11 +139,13 @@ PAM_KWALLET5_LOGIN = /run/user/1000/kwallet5.socket
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_AUTH_SOCK = /tmp/ssh-XXXXXXINqTGI/agent.5696
+SSH_AUTH_SOCK = /tmp/ssh-XXXXXXYZea3g/agent.5709
 # default
 .SHELLFLAGS := -c
 # environment
 NVM_BIN = /home/yifan/.nvm/versions/node/v18.0.0/bin
+# makefile (from 'verilate/Makefile.verilate.mk', line 8)
+SV_EXTERNAL = 
 # environment
 XDG_CONFIG_DIRS = /home/yifan/.config/kdedefaults:/etc/xdg/xdg-plasma:/etc/xdg
 # automatic
@@ -120,10 +154,14 @@ XDG_CONFIG_DIRS = /home/yifan/.config/kdedefaults:/etc/xdg/xdg-plasma:/etc/xdg
 XCURSOR_THEME = Vimix-cursors
 # environment
 XDG_SESSION_DESKTOP = KDE
-# makefile (from 'Makefile.include', line 1)
-MAKEFILE_LIST := Makefile Makefile.include
+# makefile (from 'verilate/vsrc/VCacheTop/Makefile.deps.mk', line 1)
+MAKEFILE_LIST := Makefile Makefile.include verilate/Makefile.include verilate/Makefile.verilate.mk verilate/Makefile.vsim.mk verilate/vsrc/VCacheTop/Makefile.deps.mk
 # environment
 CONDA_SHLVL = 1
+# makefile (from 'verilate/Makefile.vsim.mk', line 33)
+CXX_INCLUDES = -I$(SV_BUILD) -I$(VINCLUDE) -I$(CXX_ROOT) -I$(VERILATOR_ROOT) -I$(VERILATOR_ROOT)/vltstd/
+# makefile (from 'verilate/Makefile.include', line 16)
+VERILATOR = verilator
 # automatic
 @F = $(notdir $@)
 # environment
@@ -131,17 +169,23 @@ OCAML_TOPLEVEL_PATH = /home/yifan/.opam/cs3110/lib/toplevel
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 293580
+VSCODE_PID = 190892
 # environment
 HISTIGNORE = &:[ ]*:exit:ls:bg:fg:history:clear
 # environment
 XDG_SESSION_TYPE = x11
+# makefile (from 'verilate/Makefile.vsim.mk', line 12)
+CXX_ROOT = $(VSOURCE)/$(VROOT)
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
+# makefile (from 'verilate/Makefile.verilate.mk', line 4)
+SV_NAME := VCacheTop
+# makefile (from 'verilate/Makefile.vsim.mk', line 40)
+CXX_WARNINGS = -Wall -Wextra -Wno-aligned-new -Wno-sign-compare -Wno-unused-const-variable -Wno-implicit-fallthrough 
 # environment
 CONDA_PYTHON_EXE = /home/yifan/anaconda3/bin/python
 # environment
-SESSION_MANAGER = local/yifan-Yoga-Pro-13sITL-2021:@/tmp/.ICE-unix/6617,unix/yifan-Yoga-Pro-13sITL-2021:/tmp/.ICE-unix/6617
+SESSION_MANAGER = local/yifan-Yoga-Pro-13sITL-2021:@/tmp/.ICE-unix/6803,unix/yifan-Yoga-Pro-13sITL-2021:/tmp/.ICE-unix/6803
 # automatic
 *F = $(notdir $*)
 # environment
@@ -172,8 +216,12 @@ MAKECMDGOALS := all
 PLATFORMIO_CALLER = vscode
 # environment
 XMODIFIERS = @im=ibus
+# makefile (from 'verilate/Makefile.vsim.mk', line 8)
+VINCLUDE = verilate/include
 # environment
 SHLVL = 0
+# makefile (from 'verilate/Makefile.verilate.mk', line 15)
+SV_FILES := vsrc/util/CBusArbiter.sv vsrc/util/CBusMultiplexer.sv vsrc/util/CBusToAXI.sv vsrc/util/DBusToCBus.sv vsrc/util/IBusToCBus.sv vsrc/util/README.md vsrc/util/SimpleArbiter.sv vsrc/ram/LUTRAM_DualPort.sv vsrc/ram/RAM_SimpleDualPort.sv vsrc/ram/RAM_SinglePort.sv vsrc/ram/RAM_TrueDualPort.sv vsrc/ram/template.sv vsrc/cache/DCache.sv vsrc/cache/ICache.sv vsrc/include/access.svh vsrc/include/./access.svh vsrc/./VTop.sv vsrc/./cache/ICache.sv vsrc/./cache/DCache.sv vsrc/./pipeline/core.sv vsrc/./pipeline/decode/jump.sv vsrc/./pipeline/decode/branchcomp.sv vsrc/./pipeline/decode/decode.sv vsrc/./pipeline/decode/immgen.sv vsrc/./pipeline/decode/decoder.sv vsrc/./pipeline/hazard/hazard.sv vsrc/./pipeline/execute/multiplier.sv vsrc/./pipeline/execute/alu.sv vsrc/./pipeline/execute/execute.sv vsrc/./pipeline/execute/divider.sv vsrc/./pipeline/memory/readdata.sv vsrc/./pipeline/memory/memory.sv vsrc/./pipeline/memory/writedata.sv vsrc/./pipeline/writeback/writeback.sv vsrc/./pipeline/regfile/mreg.sv vsrc/./pipeline/regfile/pcreg.sv vsrc/./pipeline/regfile/ereg.sv vsrc/./pipeline/regfile/regfile.sv vsrc/./pipeline/regfile/dreg.sv vsrc/./pipeline/regfile/freg.sv vsrc/./pipeline/forward/forward.sv vsrc/./pipeline/fetch/predictpc.sv vsrc/./pipeline/fetch/selectpc.sv vsrc/./pipeline/fetch/fetch.sv vsrc/./ram/RAM_TrueDualPort.sv vsrc/./ram/template.sv vsrc/./ram/RAM_SimpleDualPort.sv vsrc/./ram/RAM_SinglePort.sv vsrc/./ram/LUTRAM_DualPort.sv vsrc/./VCacheTop.sv vsrc/./mycpu_top_nodelay.sv vsrc/./include/common.sv vsrc/./include/config.sv vsrc/./include/pipes.sv vsrc/./mycpu_top.sv vsrc/./util/IBusToCBus.sv vsrc/./util/CBusArbiter.sv vsrc/./util/SimpleArbiter.sv vsrc/./util/CBusMultiplexer.sv vsrc/./util/DBusToCBus.sv vsrc/./util/CBusToAXI.sv vsrc/./SimTop.sv vsrc/include/bus_decl 
 # makefile (from 'Makefile.include', line 10)
 SIMTOP = top.TopMain
 # environment
@@ -184,14 +232,22 @@ MAKE = $(MAKE_COMMAND)
 PATH = /home/yifan/.opam/cs3110/bin:/home/yifan/.local/bin:/home/yifan/.nvm/versions/node/v18.0.0/bin:/home/yifan/anaconda3/bin:/home/yifan/anaconda3/condabin:/opt/Ingenic-SDK-T40-1.1.1-20220120/resource/toolchain/gcc_720/mips-gcc720-glibc226/bin:/usr/local/texlive/2022/bin/x86_64-linux:/home/yifan/.cargo/bin:/home/yifan/.opam/cs3110/bin:/home/yifan/.local/bin:/opt/Ingenic-SDK-T40-1.1.1-20220120/resource/toolchain/gcc_720/mips-gcc720-glibc226/bin:/usr/local/texlive/2022/bin/x86_64-linux:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # default
 MAKEFILES := 
+# makefile (from 'verilate/Makefile.verilate.mk', line 5)
+SV_MKFILE = $(SV_BUILD)/$(SV_PREFIX).mk
 # environment
 LC_MONETARY = zh_CN.UTF-8
 # automatic
 ^F = $(notdir $^)
+# makefile (from 'verilate/Makefile.vsim.mk', line 6)
+VROOT = $(TARGET)
 # environment
 LC_TIME = zh_CN.UTF-8
+# makefile (from 'verilate/Makefile.include', line 11)
+WITH_XPM = 0
+# makefile (from 'verilate/Makefile.include', line 10)
+CXX_EXTRA_FLAGS = 
 # environment
-INVOCATION_ID = e486bc982ae9442e9341db5e2f153ca5
+INVOCATION_ID = ad439bab20c24e879fb1c646e6c8b307
 # environment
 VSCODE_LOG_NATIVE = false
 # makefile (from 'Makefile', line 1)
@@ -208,12 +264,16 @@ LESSCLOSE = /usr/bin/lesspipe %s %s
 KDE_APPLICATIONS_AS_SCOPE = 1
 # environment
 XDG_SEAT = seat0
+# makefile (from 'verilate/Makefile.include', line 8)
+VSIM_SANITIZE = 0
 # environment
 GTK_IM_MODULE = ibus
 # environment
 NO_PROXY = 127.0.0.1
 # environment
 XDG_CURRENT_DESKTOP = KDE
+# makefile (from 'verilate/Makefile.vsim.mk', line 7)
+VLIBRARY = $(SV_BUILD)/$(SV_PREFIX)__ALL.a
 # environment
 LS_COLORS = 
 # automatic
@@ -228,10 +288,17 @@ LESS = -R
 DESKTOP_SESSION = plasma
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = KDE
+# makefile (from 'verilate/Makefile.include', line 3)
+TEST = 
 # 'override' directive
 GNUMAKEFLAGS := 
+# makefile (from 'verilate/Makefile.verilate.mk', line 2)
+SV_BUILD = $(BUILD_ROOT)/$(TARGET)/verilated
 # environment
 CONDA_DEFAULT_ENV = base
+ 
+# makefile (from 'verilate/Makefile.verilate.mk', line 3)
+SV_ROOT := .
 # environment
 QT_SCREEN_SCALE_FACTORS = eDP-1=1.5;DP-1=1.5;DP-2=1.5;DP-3=1.5;DP-4=1.5;
 # environment
@@ -245,36 +312,46 @@ define COMP_WORDBREAKS
 endef
 # environment
 PLATFORMIO_PATH = /home/yifan/.platformio/python3/bin:/home/yifan/.opam/cs3110/bin:/home/yifan/.local/bin:/home/yifan/.nvm/versions/node/v18.0.0/bin:/home/yifan/anaconda3/bin:/home/yifan/anaconda3/condabin:/opt/Ingenic-SDK-T40-1.1.1-20220120/resource/toolchain/gcc_720/mips-gcc720-glibc226/bin:/usr/local/texlive/2022/bin/x86_64-linux:/home/yifan/.cargo/bin:/home/yifan/.opam/cs3110/bin:/home/yifan/.local/bin:/opt/Ingenic-SDK-T40-1.1.1-20220120/resource/toolchain/gcc_720/mips-gcc720-glibc226/bin:/usr/local/texlive/2022/bin/x86_64-linux:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+# makefile (from 'verilate/Makefile.vsim.mk', line 9)
+VSOURCE = verilate/$(SRC)
 # environment
 XDG_VTNR = 1
 # makefile (from 'Makefile', line 7)
 .DEFAULT_GOAL = verilog
 # environment
-SYSTEMD_EXEC_PID = 8963
+SYSTEMD_EXEC_PID = 10252
+# makefile (from 'verilate/Makefile.include', line 17)
+GTKWAVE = gtkwave
 # environment
 DISPLAY = :0
 # environment
 USER = yifan
+# makefile (from 'verilate/Makefile.vsim.mk', line 29)
+CXX_MODEL_LIB = $(CXX_BUILD)/$(VSOURCE)/model.o
 # default
 MAKE_VERSION := 4.3
 # environment
 KDE_SESSION_UID = 1000
 # 'override' directive
-.SHELLSTATUS := 1
+.SHELLSTATUS := 0
 # environment
-MANAGERPID = 5647
+MANAGERPID = 5651
 # makefile (from 'Makefile', line 5)
 USE_READY_TO_RUN_NEMU = true
 # environment
 OPAM_SWITCH_PREFIX = /home/yifan/.opam/cs3110
 # environment
 LC_MEASUREMENT = zh_CN.UTF-8
+# makefile (from 'verilate/Makefile.verilate.mk', line 32)
+SV_WARNINGS = -Wall -Wno-IMPORTSTAR -Wno-STMTDLY -Wno-declfilename -Wno-UNUSED 
 # makefile (from 'Makefile', line 34)
 NOOP_HOME = $(abspath .)
 # environment
-SSH_AGENT_PID = 5799
+SSH_AGENT_PID = 5918
 # environment
 PAGER = less
+# makefile (from 'verilate/Makefile.vsim.mk', line 31)
+CXX_LIBS := build/gcc+optimized/VCacheTop/obj/verilate/vsrc/cbus_device.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/common.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/confreg.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/main.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/memory.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/model.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/testbench.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/cache_ref.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/mycache.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/tests.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/vmain.o build/gcc+optimized/VCacheTop/obj//usr/share/verilator/include/verilated.o build/gcc+optimized/VCacheTop/obj//usr/share/verilator/include/verilated_fst_c.o
 # environment
 _ = /usr/share/code/code
 # environment
@@ -287,15 +364,22 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 _CE_M = 
 # environment
 LC_CTYPE = en_US.UTF-8
+# makefile (from 'verilate/Makefile.vsim.mk', line 25)
+CXX_HEADERS := verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h 
+# makefile (from 'verilate/Makefile.vsim.mk', line 30)
+CXX_TARGET_LIBS := build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/cache_ref.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/mycache.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/tests.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/vmain.o
 # environment
 NVM_CD_FLAGS = 
- 
 # environment
-JOURNAL_STREAM = 8:45817
+JOURNAL_STREAM = 8:55329
+# makefile (from 'verilate/Makefile.vsim.mk', line 22)
+CXX_TARGET_HEADERS := verilate/vsrc/VCacheTop/cache_ref.h verilate/vsrc/VCacheTop/defs.h verilate/vsrc/VCacheTop/mycache.h verilate/vsrc/VCacheTop/tests.inl
 # environment
 XDG_SESSION_CLASS = user
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# makefile (from 'verilate/Makefile.include', line 65)
+BUILD_ROOT := build/gcc+optimized
 # environment
 PLATFORMIO_IDE = 2.4.3
 # environment
@@ -304,6 +388,8 @@ GTK2_RC_FILES = /etc/gtk-2.0/gtkrc:/home/yifan/.gtkrc-2.0:/home/yifan/.config/gt
 HOME = /home/yifan
 # environment
 QT_IM_MODULE = ibus
+# makefile (from 'verilate/Makefile.verilate.mk', line 6)
+SV_VTOP = $(SRC)/$(TARGET).sv
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
@@ -322,12 +408,18 @@ TOP = TopMain
 <F = $(notdir $<)
 # default
 SUFFIXES := 
+# makefile (from 'verilate/Makefile.include', line 1)
+TARGET = VCacheTop
 # environment
 QT_AUTO_SCREEN_SCALE_FACTOR = 0
+# makefile (from 'verilate/Makefile.vsim.mk', line 69)
+CXXFLAGS = -std=c++17 -g $(CXX_INCLUDES) $(CXX_WARNINGS) $(CXX_EXTRA_FLAGS) -O2 -march=native -flto
 # environment
 KDE_SESSION_VERSION = 5
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
+# makefile (from 'verilate/Makefile.vsim.mk', line 11)
+CXX_BUILD = $(BUILD_ROOT)/$(TARGET)/obj
 # makefile (from 'Makefile', line 12)
 SCALA_CODE = "false"
 # environment
@@ -341,7 +433,7 @@ _CE_CONDA =
 # environment
 LC_IDENTIFICATION = zh_CN.UTF-8
 # variable set hash-table stats:
-# Load=162/1024=16%, Rehash=0, Collisions=17/210=8%
+# Load=208/1024=20%, Rehash=0, Collisions=70/453=15%
 
 # Pattern-specific Variable Values
 
@@ -349,16 +441,49 @@ LC_IDENTIFICATION = zh_CN.UTF-8
 
 # Directories
 
+# vsrc/ram (device 39, inode 1212774): 7 files, no impossibilities.
 # src: could not be stat'd.
-# . (device 39, inode 1212766): 16 files, no impossibilities.
+# verilate/vsrc (device 39, inode 2063062): 10 files, no impossibilities.
+# . (device 39, inode 1212766): 17 files, no impossibilities.
+# vsrc/include (device 39, inode 1212654): 7 files, no impossibilities.
+# vsrc/cache (device 39, inode 2063384): 4 files, no impossibilities.
+# verilate/vsrc/VCacheTop (device 39, inode 2063064): 11 files, no impossibilities.
+# verilate/include (device 39, inode 2063032): 14 files, no impossibilities.
+# verilate/include/thirdparty (device 39, inode 2063056): 4 files, no impossibilities.
+# vsrc/util (device 39, inode 1212790): 9 files, no impossibilities.
 
-# 16 files, no impossibilities in 2 directories.
+# 83 files, no impossibilities in 10 directories.
 
 # Implicit Rules
 
 # No implicit rules.
 
 # Files
+
+test-cache-gdb:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 63):
+	@rm -rf build && make vsim-gdb -j4
+
+# Not a target:
+vsrc/./pipeline/regfile/regfile.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./SimTop.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/vsrc/model.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 build/SimTop.v:
 #  Implicit rule search has not been done.
@@ -367,6 +492,18 @@ build/SimTop.v:
 #  recipe to execute (from 'Makefile', line 18):
 	mkdir -p build
 	# cp -r vsrc/* build
+
+# Not a target:
+vsrc/./pipeline/fetch/fetch.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/include/model.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 sim:
 #  Phony target (prerequisite of .PHONY).
@@ -380,11 +517,109 @@ sim:
 	make EMU_TRACE=1 emu -j12 NOOP_HOME=$(NOOP_HOME) NEMU_HOME=.
 
 # Not a target:
+vsrc/util/README.md:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/gcc+optimized/VCacheTop/obj/verilate/vsrc/confreg.o: verilate/vsrc/confreg.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'verilate/vsrc/confreg'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $< -c -o $@
+
+# Not a target:
+vsrc/./pipeline/regfile/pcreg.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/gcc+optimized/VCacheTop/obj//usr/share/verilator/include/verilated.o: /usr/share/verilator/include/verilated.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: '/usr/share/verilator/include/verilated'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $< -c -o $@
+
+# Not a target:
+vsrc/./pipeline/fetch/predictpc.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/decode/branchcomp.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 Makefile.include:
 #  Implicit rule search has been done.
 #  Last modified 2022-03-20 19:06:15.150522502
 #  File has been updated.
 #  Successfully updated.
+
+build/gcc+optimized/VCacheTop/obj/verilate/vsrc/cbus_device.o: verilate/vsrc/cbus_device.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'verilate/vsrc/cbus_device'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $< -c -o $@
+
+# Not a target:
+vsrc/./VCacheTop.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/vmain.o: verilate/vsrc/VCacheTop/vmain.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h verilate/vsrc/VCacheTop/cache_ref.h verilate/vsrc/VCacheTop/defs.h verilate/vsrc/VCacheTop/mycache.h verilate/vsrc/VCacheTop/tests.inl build/gcc+optimized/VCacheTop/verilated/VModel.mk
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'verilate/vsrc/VCacheTop/vmain'
+#  Modification time never checked.
+#  File has not been updated.
+ 
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $< -c -o $@
+
+# Not a target:
+vsrc/./pipeline/regfile/ereg.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./ram/RAM_SinglePort.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/Makefile.verilate.mk:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-12 11:25:30.539886985
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+vsrc/./cache/ICache.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/decode/jump.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 test-lab1: sim
 #  Implicit rule search has not been done.
@@ -393,18 +628,159 @@ test-lab1: sim
 #  recipe to execute (from 'Makefile', line 47):
 	TEST=$(TEST) ./build/emu --diff ./riscv64-nemu-interpreter-so -i ./ready-to-run/lab1/lab1-test.bin $(VOPT) || true
 
+build/gcc+optimized/VCacheTop/obj/verilate/vsrc/model.o: verilate/vsrc/model.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h build/gcc+optimized/VCacheTop/verilated/VModel.mk
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'verilate/vsrc/model'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $< -c -o $@
+
+# Not a target:
+vsrc/./ram/RAM_TrueDualPort.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./mycpu_top.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./cache/DCache.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 verilog: build/SimTop.v
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
 
+test-refcache:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 66):
+	@rm -rf build && make vsim -j4 REFERENCE_CACHE=1
+
+# Not a target:
+verilate/vsrc/main.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-22 18:26:13.310247647
+#  Last modified 2022-05-12 11:25:30.531887402
 #  File has been updated.
 #  Successfully updated.
+
+# Not a target:
+vsrc/ram/RAM_TrueDualPort.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/execute/execute.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/fetch/selectpc.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/include/bus.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/cache/DCache.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/execute/multiplier.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+vsim: build/gcc+optimized/VCacheTop/vmain
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 140):
+	./$(VMAIN) $(VSIM_ARGS)
+
+# Not a target:
+vsrc/./pipeline/hazard/hazard.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/vsrc/VCacheTop/cache_ref.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/util/DBusToCBus.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/include/testbench.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/include/./access.svh:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/vsrc/VCacheTop/cache_ref.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/ram/template.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+vsim-gdb: build/gcc+optimized/VCacheTop/vmain
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 143):
+	@echo Command line arguments: $(VSIM_ARGS)
+	@gdb -q ./$(VMAIN)
+
+# Not a target:
+verilate/vsrc/VCacheTop/defs.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 clean:
 #  Phony target (prerequisite of .PHONY).
@@ -414,7 +790,165 @@ clean:
 #  recipe to execute (from 'Makefile', line 32):
 	rm -rf build out
 
+# Not a target:
+verilate/Makefile.vsim.mk:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-12 11:25:30.539886985
+#  File has been updated.
+#  Successfully updated.
+
+build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/tests.o: verilate/vsrc/VCacheTop/tests.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h verilate/vsrc/VCacheTop/cache_ref.h verilate/vsrc/VCacheTop/defs.h verilate/vsrc/VCacheTop/mycache.h verilate/vsrc/VCacheTop/tests.inl build/gcc+optimized/VCacheTop/verilated/VModel.mk verilate/vsrc/VCacheTop/tests.inl
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'verilate/vsrc/VCacheTop/tests'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $< -c -o $@
+
+build/gcc+optimized/VCacheTop/obj/verilate/vsrc/common.o: verilate/vsrc/common.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'verilate/vsrc/common'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $< -c -o $@
+
+test-lab3: sim
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 53):
+	TEST=$(TEST) ./build/emu --diff ./riscv64-nemu-interpreter-so -i ./ready-to-run/lab3/all-test-rv64im.bin $(VOPT) || true
+
+# Not a target:
+vsrc/./util/CBusMultiplexer.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/gcc+optimized/VCacheTop/obj/verilate/vsrc/testbench.o: verilate/vsrc/testbench.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'verilate/vsrc/testbench'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $< -c -o $@
+
+# Not a target:
+verilate/include/axi.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./util/CBusArbiter.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./ram/template.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/include/common.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./include/common.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+ 
+vsrc/ram/RAM_SinglePort.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/share/verilator/include/verilated.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/vsrc/confreg.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/include/memory.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./util/DBusToCBus.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/vsrc/VCacheTop/vmain.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+vpty:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 135):
+	socat pty,link=build/vpty,raw,echo=0 pty,link=build/pty,raw,echo=0
+
+# Not a target:
+vsrc/ram/LUTRAM_DualPort.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/vsrc/VCacheTop/mycache.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/vsrc/VCacheTop/tests.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/execute/divider.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 sim-verilog: verilog
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./include/pipes.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/share/verilator/include/verilated_fst_c.cpp:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -428,7 +962,52 @@ emu: verilog
 	$(MAKE) -C ./difftest emu $(DIFFTEST_OPTS)
 
 # Not a target:
+verilate/vsrc/cbus_device.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/include/confreg.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/cache_ref.o: verilate/vsrc/VCacheTop/cache_ref.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h verilate/vsrc/VCacheTop/cache_ref.h verilate/vsrc/VCacheTop/defs.h verilate/vsrc/VCacheTop/mycache.h verilate/vsrc/VCacheTop/tests.inl build/gcc+optimized/VCacheTop/verilated/VModel.mk
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'verilate/vsrc/VCacheTop/cache_ref'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $< -c -o $@
+
+# Not a target:
+vsrc/./pipeline/memory/memory.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 .DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/writeback/writeback.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/cache/ICache.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./ram/LUTRAM_DualPort.sv:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -448,6 +1027,93 @@ test-lab2: sim
 	TEST=$(TEST) ./build/emu --diff ./riscv64-nemu-interpreter-so -i ./ready-to-run/lab2/all-test-rv64i.bin $(VOPT) || true
 		
 
+# Not a target:
+vsrc/./pipeline/regfile/mreg.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./mycpu_top_nodelay.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/decode/decoder.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./util/IBusToCBus.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/gcc+optimized/VCacheTop/verilated/VModel.mk: vsrc/util/CBusArbiter.sv vsrc/util/CBusMultiplexer.sv vsrc/util/CBusToAXI.sv vsrc/util/DBusToCBus.sv vsrc/util/IBusToCBus.sv vsrc/util/README.md vsrc/util/SimpleArbiter.sv vsrc/ram/LUTRAM_DualPort.sv vsrc/ram/RAM_SimpleDualPort.sv vsrc/ram/RAM_SinglePort.sv vsrc/ram/RAM_TrueDualPort.sv vsrc/ram/template.sv vsrc/cache/DCache.sv vsrc/cache/ICache.sv vsrc/include/access.svh vsrc/include/./access.svh vsrc/./VTop.sv vsrc/./cache/ICache.sv vsrc/./cache/DCache.sv vsrc/./pipeline/core.sv vsrc/./pipeline/decode/jump.sv vsrc/./pipeline/decode/branchcomp.sv vsrc/./pipeline/decode/decode.sv vsrc/./pipeline/decode/immgen.sv vsrc/./pipeline/decode/decoder.sv vsrc/./pipeline/hazard/hazard.sv vsrc/./pipeline/execute/multiplier.sv vsrc/./pipeline/execute/alu.sv vsrc/./pipeline/execute/execute.sv vsrc/./pipeline/execute/divider.sv vsrc/./pipeline/memory/readdata.sv vsrc/./pipeline/memory/memory.sv vsrc/./pipeline/memory/writedata.sv vsrc/./pipeline/writeback/writeback.sv vsrc/./pipeline/regfile/mreg.sv vsrc/./pipeline/regfile/pcreg.sv vsrc/./pipeline/regfile/ereg.sv vsrc/./pipeline/regfile/regfile.sv vsrc/./pipeline/regfile/dreg.sv vsrc/./pipeline/regfile/freg.sv vsrc/./pipeline/forward/forward.sv vsrc/./pipeline/fetch/predictpc.sv vsrc/./pipeline/fetch/selectpc.sv vsrc/./pipeline/fetch/fetch.sv vsrc/./ram/RAM_TrueDualPort.sv vsrc/./ram/template.sv vsrc/./ram/RAM_SimpleDualPort.sv vsrc/./ram/RAM_SinglePort.sv vsrc/./ram/LUTRAM_DualPort.sv vsrc/./VCacheTop.sv vsrc/./mycpu_top_nodelay.sv vsrc/./include/common.sv vsrc/./include/config.sv vsrc/./include/pipes.sv vsrc/./mycpu_top.sv vsrc/./util/IBusToCBus.sv vsrc/./util/CBusArbiter.sv vsrc/./util/SimpleArbiter.sv vsrc/./util/CBusMultiplexer.sv vsrc/./util/DBusToCBus.sv vsrc/./util/CBusToAXI.sv vsrc/./SimTop.sv vsrc/include/bus_decl
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.verilate.mk', line 78):
+	@mkdir -p $(SV_BUILD)
+	$(VERILATOR) $(SV_FLAGS) $(SV_EXTERNAL) $(SV_VTOP)
+	@touch $@
+
+help:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.include', line 20):
+	@echo 'Available commands:'
+	@echo '  make verilate: synthesize/compile your RTL code with Verilator.'
+	@echo '  make vbuild: compile Verilator simulation sources into executable file "vmain".'
+	@echo '  make vsim: "make vbuild" first and then execute "vmain".'
+	@echo '  make vsim-gdb: run "vmain" with GDB.'
+	@echo '  make doc-build: build documents into "doc/book", i.e., run "mdbook build".'
+	@echo '  make doc-serve: run "mdbook serve".'
+	@echo '  make doc-sync: upload webpages onto "riteme.site" (requires authentication).'
+	@echo '  make misc-sync: upload "misc/doc" onto "riteme.site" (requires authentication).'
+	@echo '  make system-info: print information about installed system packages.'
+	@echo '  make dump-instructions: dump all instructions during simulation (RefCPU only).'
+	@echo ''
+	@echo 'Available parameters:'
+	@echo '  TARGET: e.g. refcpu/VTop, mycpu/VCacheTop.'
+	@echo '  TEST: which test under misc/nscscc to simulate. Default to empty string.'
+	@echo '  FST: where to save FST trace file.'
+	@echo '  USE_CLANG: use LLVM clang and libc++.'
+	@echo '  VSIM_ARGS: pass command line arguments to "vmain".'
+	@echo '  VSIM_OPT: set to 1 to enable compiler optimization. ("-O2 -march=native -flto")'
+	@echo '  VSIM_SANITIZE: set to 1 to enable address sanitizer and undefined behavior sanitizer.'
+	@echo '  SV_EXTRA_FLAGS: extra synthesis flags passed to Verilator.'
+	@echo '  CXX_EXTRA_FLAGS: extra compiler flags passed to C++ compiler.'
+	@echo '  WITH_XPM: compile with Xilinx XPM modules.'
+
+vbuild: build/gcc+optimized/VCacheTop/vmain
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/memory/readdata.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/Makefile.include:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-12 11:25:30.539886985
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+verilate/vsrc/memory.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 test-lab1a: sim
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -455,25 +1121,271 @@ test-lab1a: sim
 #  recipe to execute (from 'Makefile', line 44):
 	TEST=$(TEST) ./build/emu --diff ./riscv64-nemu-interpreter-so -i ./ready-to-run/lab1/lab1-test-a.bin $(VOPT) || true
 
-.PHONY: verilog emu clean sim
+# Not a target:
+vsrc/util/IBusToCBus.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/decode/decode.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./ram/RAM_SimpleDualPort.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/vsrc/VCacheTop/tests.inl:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/vsrc/VCacheTop/Makefile.deps.mk:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-12 11:25:30.543886776
+ 
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+vsrc/./pipeline/forward/forward.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/regfile/dreg.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/vsrc/common.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/include/access.svh:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+test-cache:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 60):
+	@rm -rf build && make vsim -j4
+
+verilate: build/gcc+optimized/VCacheTop/verilated/VModel.mk
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./util/CBusToAXI.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/gcc+optimized/VCacheTop/obj/verilate/vsrc/main.o: verilate/vsrc/main.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'verilate/vsrc/main'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $< -c -o $@
+
+# Not a target:
+vsrc/./VTop.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/mycache.o: verilate/vsrc/VCacheTop/mycache.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h verilate/vsrc/VCacheTop/cache_ref.h verilate/vsrc/VCacheTop/defs.h verilate/vsrc/VCacheTop/mycache.h verilate/vsrc/VCacheTop/tests.inl build/gcc+optimized/VCacheTop/verilated/VModel.mk
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'verilate/vsrc/VCacheTop/mycache'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $< -c -o $@
+
+# Not a target:
+vsrc/util/SimpleArbiter.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/regfile/freg.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/decode/immgen.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/ram/RAM_SimpleDualPort.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./include/config.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/gcc+optimized/VCacheTop/obj/verilate/vsrc/memory.o: verilate/vsrc/memory.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'verilate/vsrc/memory'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $< -c -o $@
+
+# Not a target:
+verilate/vsrc/testbench.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/gcc+optimized/VCacheTop/verilated/VModel__ALL.a: build/gcc+optimized/VCacheTop/verilated/VModel.mk vsrc/util/CBusArbiter.sv vsrc/util/CBusMultiplexer.sv vsrc/util/CBusToAXI.sv vsrc/util/DBusToCBus.sv vsrc/util/IBusToCBus.sv vsrc/util/README.md vsrc/util/SimpleArbiter.sv vsrc/ram/LUTRAM_DualPort.sv vsrc/ram/RAM_SimpleDualPort.sv vsrc/ram/RAM_SinglePort.sv vsrc/ram/RAM_TrueDualPort.sv vsrc/ram/template.sv vsrc/cache/DCache.sv vsrc/cache/ICache.sv vsrc/include/access.svh vsrc/include/./access.svh vsrc/./VTop.sv vsrc/./cache/ICache.sv vsrc/./cache/DCache.sv vsrc/./pipeline/core.sv vsrc/./pipeline/decode/jump.sv vsrc/./pipeline/decode/branchcomp.sv vsrc/./pipeline/decode/decode.sv vsrc/./pipeline/decode/immgen.sv vsrc/./pipeline/decode/decoder.sv vsrc/./pipeline/hazard/hazard.sv vsrc/./pipeline/execute/multiplier.sv vsrc/./pipeline/execute/alu.sv vsrc/./pipeline/execute/execute.sv vsrc/./pipeline/execute/divider.sv vsrc/./pipeline/memory/readdata.sv vsrc/./pipeline/memory/memory.sv vsrc/./pipeline/memory/writedata.sv vsrc/./pipeline/writeback/writeback.sv vsrc/./pipeline/regfile/mreg.sv vsrc/./pipeline/regfile/pcreg.sv vsrc/./pipeline/regfile/ereg.sv vsrc/./pipeline/regfile/regfile.sv vsrc/./pipeline/regfile/dreg.sv vsrc/./pipeline/regfile/freg.sv vsrc/./pipeline/forward/forward.sv vsrc/./pipeline/fetch/predictpc.sv vsrc/./pipeline/fetch/selectpc.sv vsrc/./pipeline/fetch/fetch.sv vsrc/./ram/RAM_TrueDualPort.sv vsrc/./ram/template.sv vsrc/./ram/RAM_SimpleDualPort.sv vsrc/./ram/RAM_SinglePort.sv vsrc/./ram/LUTRAM_DualPort.sv vsrc/./VCacheTop.sv vsrc/./mycpu_top_nodelay.sv vsrc/./include/common.sv vsrc/./include/config.sv vsrc/./include/pipes.sv vsrc/./mycpu_top.sv vsrc/./util/IBusToCBus.sv vsrc/./util/CBusArbiter.sv vsrc/./util/SimpleArbiter.sv vsrc/./util/CBusMultiplexer.sv vsrc/./util/DBusToCBus.sv vsrc/./util/CBusToAXI.sv vsrc/./SimTop.sv vsrc/include/bus_decl
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 87):
+	cd $(SV_BUILD); $(MAKE) -f $(notdir $(SV_MKFILE)) CXX=$(CXX)
+	@touch $@
+
+# Not a target:
+vsrc/./pipeline/core.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/memory/writedata.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/include/diff.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/include/runner.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./pipeline/execute/alu.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/vsrc/VCacheTop/mycache.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.PHONY: verilate vpty vbuild vsim vsim-gdb verilog emu clean sim
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/gcc+optimized/VCacheTop/obj//usr/share/verilator/include/verilated_fst_c.o: /usr/share/verilator/include/verilated_fst_c.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: '/usr/share/verilator/include/verilated_fst_c'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $< -c -o $@
+
+# Not a target:
+vsrc/include/bus_decl:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/include/cell.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/./util/SimpleArbiter.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+verilate/include/reference.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/gcc+optimized/VCacheTop/vmain: build/gcc+optimized/VCacheTop/obj/verilate/vsrc/cbus_device.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/common.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/confreg.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/main.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/memory.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/model.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/testbench.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/cache_ref.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/mycache.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/tests.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/vmain.o build/gcc+optimized/VCacheTop/obj//usr/share/verilator/include/verilated.o build/gcc+optimized/VCacheTop/obj//usr/share/verilator/include/verilated_fst_c.o build/gcc+optimized/VCacheTop/verilated/VModel__ALL.a
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'verilate/Makefile.vsim.mk', line 91):
+	$(CXX) $(CXXFLAGS) $^ $(CXX_LINKS) -o $@
+
+# Not a target:
+vsrc/util/CBusToAXI.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/util/CBusArbiter.sv:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsrc/util/CBusMultiplexer.sv:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=15/1024=1%, Rehash=0, Collisions=0/36=0%
+# Load=136/1024=13%, Rehash=0, Collisions=44/488=9%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 32 / storage = 302 B / avg = 9 B
-# current buf: size = 8162 B / used = 302 B / count = 32 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 226 / storage = 5225 B / avg = 23 B
+# current buf: size = 8162 B / used = 5225 B / count = 226 / avg = 23 B
 
-# strcache performance: lookups = 58 / hit rate = 44%
+# strcache performance: lookups = 406 / hit rate = 44%
 # hash-table stats:
-# Load=32/8192=0%, Rehash=0, Collisions=0/58=0%
-# Finished Make data base on Thu May 12 11:23:47 2022
+# Load=226/8192=3%, Rehash=0, Collisions=6/406=1%
+# Finished Make data base on Fri May 13 19:28:43 2022
 
  

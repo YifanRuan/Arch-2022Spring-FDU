@@ -14,14 +14,12 @@ module predictpc
     output u64 predPC
 );
     always_comb begin
-        if (~pcjump == 0) begin
+        if (~pcjump == '0) begin
             predPC = pcplus4;
         end else if (pcjump < pcplus4) begin
             predPC = pcjump;
-
         end else begin
             predPC = pcplus4;
-
         end
     end
     

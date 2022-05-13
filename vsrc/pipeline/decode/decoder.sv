@@ -73,7 +73,6 @@ module decoder
             end
             OP_B: begin
                 ctl.ImmSel = B;
-                ctl.ALUSel = ALU_ZERO;
                 ctl.BSel = 1'b1;
                 ctl.ASel = 1'b1;
                 ctl.ra1En = 1'b1;
@@ -206,6 +205,9 @@ module decoder
                             F7_SUB: begin
                                 ctl.ALUSel = ALU_SUB;
                             end
+                            F7_MUL: begin
+                                ctl.multiplyEn = 2'b01;
+                            end
                             default: begin
                                 
                             end
@@ -224,7 +226,17 @@ module decoder
                         ctl.BrUn = 1'b1;
                     end
                     F3_XOR: begin
-                        ctl.ALUSel = ALU_XOR;
+                        unique case (funct7)
+                            F7_XOR: begin
+                                ctl.ALUSel = ALU_XOR;
+                            end
+                            F7_DIV: begin
+                                ctl.divideEn = 4'b0100;
+                            end
+                            default: begin
+                                
+                            end
+                        endcase
                     end
                     F3_SRL: begin
                         unique case (funct7)
@@ -234,16 +246,39 @@ module decoder
                             F7_SRA: begin
                                 ctl.ALUSel = ALU_RIGHT6_SEXT;
                             end
+                            F7_DIVU: begin
+                                ctl.divideEn = 4'b0101;
+                            end
                             default: begin
                                 
                             end
                         endcase
                     end
                     F3_OR: begin
-                        ctl.ALUSel = ALU_OR;
+                        unique case (funct7)
+                            F7_OR: begin
+                                ctl.ALUSel = ALU_OR;
+                            end
+                            F7_REM: begin
+                                ctl.divideEn = 4'b0110;
+                            end
+                            default: begin
+                                
+                            end
+                        endcase
                     end
                     F3_AND: begin
-                        ctl.ALUSel = ALU_AND;
+                        unique case (funct7)
+                            F7_AND: begin
+                                ctl.ALUSel = ALU_AND;
+                            end
+                            F7_REMU: begin
+                                ctl.divideEn = 4'b0111;
+                            end
+                            default: begin
+                                
+                            end
+                        endcase
                     end
                     default: begin
                         
@@ -297,6 +332,9 @@ module decoder
                             F7_SUBW: begin
                                 ctl.ALUSel = ALU_SUB32;
                             end
+                            F7_MULW: begin
+                                ctl.multiplyEn = 2'b11;
+                            end
                             default: begin
                                 
                             end
@@ -304,6 +342,9 @@ module decoder
                     end
                     F3_SLLW: begin
                         ctl.ALUSel = ALU_LEFT32;
+                    end
+                    F3_DIVW: begin
+                        ctl.divideEn = 4'b1100;
                     end
                     F3_SRLW: begin
                         unique case (funct7)
@@ -313,10 +354,19 @@ module decoder
                             F7_SRAW: begin
                                 ctl.ALUSel = ALU_RIGHT32_SEXT;
                             end
+                            F7_DIVUW: begin
+                                ctl.divideEn = 4'b1101;
+                            end
                             default: begin
                                 
                             end
                         endcase
+                    end
+                    F3_REMW: begin
+                        ctl.divideEn = 4'b1110;
+                    end
+                    F3_REMUW: begin
+                        ctl.divideEn = 4'b1111;
                     end
                     default: begin
                         
@@ -329,7 +379,6 @@ module decoder
                 ctl.BSel = 1'b1;
                 ctl.ASel = 1'b1;
                 ctl.WBSel = 2'b10;
-                ctl.ALUSel = ALU_ZERO;
                 ctl.wa = raw_instr[11:7];
             end
             OP_JALR: begin
@@ -338,7 +387,6 @@ module decoder
                 ctl.RegWEn = 1'b1;
                 ctl.BSel = 1'b1;
                 ctl.WBSel = 2'b10;
-                ctl.ALUSel = ALU_ZERO;
                 ctl.wa = raw_instr[11:7];
                 ctl.ra1En = 1'b1;
             end
