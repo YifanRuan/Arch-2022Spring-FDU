@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue May 17 08:30:02 2022
+# Make data base, printed on Wed May 18 00:08:25 2022
 
 # Variables
 
@@ -33,7 +33,7 @@ CXX_LINKS = -lz -lpthread -lstdc++fs
 # makefile (from 'verilate/Makefile.vsim.mk', line 14)
 CXX_TARGET_FILES := verilate/vsrc/VCacheTop/cache_ref.cpp verilate/vsrc/VCacheTop/mycache.cpp verilate/vsrc/VCacheTop/tests.cpp verilate/vsrc/VCacheTop/vmain.cpp
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-69251528-ac5f-416c-b3c8-254bb3d5d0c0.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-a717d10a-8d1c-457c-980a-cda2fcaa5a25.sock
 # makefile (from 'verilate/Makefile.verilate.mk', line 14)
 SV_FOLDERS := vsrc/. vsrc/./cache vsrc/./pipeline vsrc/./pipeline/decode vsrc/./pipeline/hazard vsrc/./pipeline/execute vsrc/./pipeline/memory vsrc/./pipeline/writeback vsrc/./pipeline/regfile vsrc/./pipeline/forward vsrc/./pipeline/fetch vsrc/./ram vsrc/./include vsrc/./util
 # environment
@@ -169,7 +169,7 @@ OCAML_TOPLEVEL_PATH = /home/yifan/.opam/cs3110/lib/toplevel
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 10866
+VSCODE_PID = 698351
 # environment
 HISTIGNORE = &:[ ]*:exit:ls:bg:fg:history:clear
 # environment
@@ -247,6 +247,8 @@ WITH_XPM = 0
 # makefile (from 'verilate/Makefile.include', line 10)
 CXX_EXTRA_FLAGS = 
 # environment
+INVOCATION_ID = 5a4f116495364f88b3c7a856987d3644
+# environment
 VSCODE_LOG_NATIVE = false
 # makefile (from 'Makefile', line 1)
 SCALA_FILE = $(shell find ./src/main/scala -name '*.scala' 2>/dev/null)
@@ -278,7 +280,6 @@ LS_COLORS =
 +F = $(notdir $+)
 # makefile (from 'Makefile.include', line 6)
 CORE = inorder
- 
 # environment
 XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
 # environment
@@ -317,7 +318,8 @@ XDG_VTNR = 1
 # makefile (from 'Makefile', line 7)
 .DEFAULT_GOAL = verilog
 # environment
-SYSTEMD_EXEC_PID = 5103
+SYSTEMD_EXEC_PID = 104066
+ 
 # makefile (from 'verilate/Makefile.include', line 17)
 GTKWAVE = gtkwave
 # environment
@@ -332,6 +334,8 @@ MAKE_VERSION := 4.3
 KDE_SESSION_UID = 1000
 # 'override' directive
 .SHELLSTATUS := 0
+# environment
+MANAGERPID = 5103
 # makefile (from 'Makefile', line 5)
 USE_READY_TO_RUN_NEMU = true
 # environment
@@ -366,6 +370,8 @@ CXX_HEADERS := verilate/include/axi.h verilate/include/bus.h verilate/include/ce
 CXX_TARGET_LIBS := build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/cache_ref.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/mycache.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/tests.o build/gcc+optimized/VCacheTop/obj/verilate/vsrc/VCacheTop/vmain.o
 # environment
 NVM_CD_FLAGS = 
+# environment
+JOURNAL_STREAM = 8:162203
 # makefile (from 'verilate/Makefile.vsim.mk', line 22)
 CXX_TARGET_HEADERS := verilate/vsrc/VCacheTop/cache_ref.h verilate/vsrc/VCacheTop/defs.h verilate/vsrc/VCacheTop/mycache.h verilate/vsrc/VCacheTop/tests.inl
 # environment
@@ -427,7 +433,7 @@ _CE_CONDA =
 # environment
 LC_IDENTIFICATION = zh_CN.UTF-8
 # variable set hash-table stats:
-# Load=205/1024=20%, Rehash=0, Collisions=68/450=15%
+# Load=208/1024=20%, Rehash=0, Collisions=70/453=15%
 
 # Pattern-specific Variable Values
 
@@ -555,7 +561,6 @@ vsrc/./pipeline/decode/branchcomp.sv:
 # Not a target:
 Makefile.include:
 #  Implicit rule search has been done.
- 
 #  Last modified 2022-03-20 19:06:15.150522502
 #  File has been updated.
 #  Successfully updated.
@@ -623,6 +628,7 @@ test-lab1: sim
 	TEST=$(TEST) ./build/emu --diff ./riscv64-nemu-interpreter-so -i ./ready-to-run/lab1/lab1-test.bin $(VOPT) || true
 
 build/gcc+optimized/VCacheTop/obj/verilate/vsrc/model.o: verilate/vsrc/model.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h build/gcc+optimized/VCacheTop/verilated/VModel.mk
+ 
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: 'verilate/vsrc/model'
 #  Modification time never checked.
@@ -838,7 +844,6 @@ build/gcc+optimized/VCacheTop/obj/verilate/vsrc/testbench.o: verilate/vsrc/testb
 #  recipe to execute (from 'verilate/Makefile.vsim.mk', line 80):
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) $< -c -o $@
- 
 
 # Not a target:
 verilate/include/axi.h:
@@ -934,6 +939,7 @@ verilate/vsrc/VCacheTop/tests.cpp:
 
 # Not a target:
 vsrc/./pipeline/execute/divider.sv:
+ 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -1126,7 +1132,6 @@ test-lab1a: sim
 # Not a target:
 vsrc/util/IBusToCBus.sv:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -1252,6 +1257,7 @@ vsrc/./include/config.sv:
 #  Modification time never checked.
 #  File has not been updated.
 
+ 
 build/gcc+optimized/VCacheTop/obj/verilate/vsrc/memory.o: verilate/vsrc/memory.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: 'verilate/vsrc/memory'
@@ -1388,6 +1394,6 @@ vsrc/util/CBusMultiplexer.sv:
 # strcache performance: lookups = 409 / hit rate = 44%
 # hash-table stats:
 # Load=228/8192=3%, Rehash=0, Collisions=6/409=1%
-# Finished Make data base on Tue May 17 08:30:02 2022
+# Finished Make data base on Wed May 18 00:08:25 2022
 
  
