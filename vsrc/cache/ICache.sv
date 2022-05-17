@@ -14,13 +14,6 @@ module ICache
     output cbus_req_t  creq,
     input  cbus_resp_t cresp
 );
-
-`ifndef REFERENCE_CACHE
-
-
-
-`else
-
 	dbus_resp_t dresp;
 	DCache lazy (
 		.clk, .reset,
@@ -30,7 +23,6 @@ module ICache
 		.cresp
 	);
 	assign iresp = `DRESP_TO_IRESP(dresp, ireq);
-`endif
 
 endmodule
 
