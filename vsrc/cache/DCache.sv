@@ -97,6 +97,8 @@ module DCache
     logic empty;
     position_t empty_position;
 
+    index_t reset_cnt;
+
     // Choose meta
     RAM_SinglePort #(
 		.ADDR_WIDTH(INDEX_BITS),
@@ -105,7 +107,7 @@ module DCache
 		.READ_LATENCY(0)
     ) ram_meta (
         .clk(clk), .en(meta_ram.en),
-        .addr(index),
+        .addr(reset ? reset_cnt : index),
         .strobe(meta_ram.strobe),
         .wdata(meta_ram.wmeta),
         .rdata(meta_ram_rmeta)
@@ -194,7 +196,10 @@ module DCache
     always_comb begin
         meta_ram = '0;
         unique case (state)
-            INIT: if (hit_data_ok) begin
+            INIT: if (reset) begin
+                meta_ram.en = 1;
+                meta_ram.strobe = '1;
+            end else if (hit_data_ok) begin
                 meta_ram.en = 1;
                 meta_ram.strobe[position] = 1'b1;
                 meta_ram.wmeta[position].valid = 1;
@@ -311,7 +316,7 @@ module DCache
     assign dresp.data = dbus_ok ? (is_init ? ram_rdata : cresp.data) : '0;
 
     // CBus driver
-    assign creq.valid = ~is_init & dreq.valid;
+    assign creq.valid = ~is_init & dreq.valid & ~reset;
     assign creq.is_write = is_writeback | (is_uncached & |(dreq.strobe));
     assign creq.size = is_uncached ? (dreq.size) : MSIZE8;
     assign creq.addr = is_writeback ? {dreq.addr[63:32], meta_ram_rmeta[position].tag, index, offset_t'(0), align_t'(0)} : (is_uncached ? dreq.addr : {dreq.addr[63:32], tag, index, offset_t'(0), align_t'(0)});
@@ -325,6 +330,7 @@ module DCache
         if (reset) begin
             state <= INIT;
             counter <= '0;
+            reset_cnt <= reset_cnt + 1;
         end else begin
             state <= state_nxt;
             counter <= counter_nxt;
