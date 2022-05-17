@@ -116,7 +116,8 @@ typedef enum logic [4:0] {
 	ALU_RIGHT6,
 	ALU_RIGHT6_SEXT,
 	ALU_RIGHT32,
-	ALU_RIGHT32_SEXT
+	ALU_RIGHT32_SEXT,
+	ALU_NEXT_PC
 } alufunc_t;
 
 typedef struct packed {
@@ -136,11 +137,11 @@ typedef enum logic [2:0] {
 
 typedef struct packed {
 	u32 raw_instr;
-	u1 PCSel, RegWEn, BrUn, BSel, ASel, ra1En, ra2En, SltEn, EqEn, LTEn, EqSel, LTSel, mem_unsigned, loadEn;
+	u1 PCSel, RegWEn, BrUn, BSel, ASel, ra1En, ra2En, WBSel, SltEn, EqEn, LTEn, EqSel, LTSel, mem_unsigned, loadEn;
 	decode_op_t ImmSel;
 	alufunc_t ALUSel;
 	msize_t msize;
-	u2 WBSel, MemRW;
+	u2 MemRW;
 	u2 multiplyEn; // {W, is}
 	u4 divideEn; // {W, is, type_rem, unsgn}
 	creg_addr_t wa;

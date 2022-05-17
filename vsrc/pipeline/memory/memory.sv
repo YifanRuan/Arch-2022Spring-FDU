@@ -67,18 +67,7 @@ module memory
     assign dataM_nxt.pc = dataE.pc;
     assign dataM_nxt.valid = dataE.valid;
     assign dataM_nxt.addr31 = dataE.alu[31];
-    always_comb begin
-        dataM_nxt.result = '0;
-        unique case (dataE.ctl.WBSel)
-            2'b00: dataM_nxt.result = rd;
-            2'b01: dataM_nxt.result = dataE.alu;
-            2'b10: dataM_nxt.result = dataE.pc + 4;
-            default: begin
-                
-            end
-        endcase
-    end
-
+    assign dataM_nxt.result = dataE.ctl.WBSel ? dataE.alu : rd;
 
 endmodule
 

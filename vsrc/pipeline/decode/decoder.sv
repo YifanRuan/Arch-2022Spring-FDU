@@ -28,7 +28,7 @@ module decoder
                 ctl.ImmSel = U;
                 ctl.RegWEn = 1'b1;
                 ctl.BSel = 1'b1;
-                ctl.WBSel = 2'b01;
+                ctl.WBSel = 1'b1;
                 ctl.ALUSel = ALU_B;
                 ctl.wa = raw_instr[11:7];
             end
@@ -137,14 +137,14 @@ module decoder
                 ctl.BSel = 1'b1;
                 ctl.ASel = 1'b1;
                 ctl.ALUSel = ALU_ADD;
-                ctl.WBSel = 2'b01;
+                ctl.WBSel = 1'b1;
                 ctl.wa = raw_instr[11:7];
             end
             OP_RI: begin
                 ctl.ImmSel = I;
                 ctl.RegWEn = 1'b1;
                 ctl.BSel = 1'b1;
-                ctl.WBSel = 2'b01;
+                ctl.WBSel = 1'b1;
                 ctl.wa = raw_instr[11:7];
                 ctl.ra1En = 1'b1;
                 unique case (funct3)
@@ -192,7 +192,7 @@ module decoder
             end
             OP_R: begin
                 ctl.RegWEn = 1'b1;
-                ctl.WBSel = 2'b01;
+                ctl.WBSel = 1'b1;
                 ctl.wa = raw_instr[11:7];
                 ctl.ra1En = 1'b1;
                 ctl.ra2En = 1'b1;
@@ -289,7 +289,7 @@ module decoder
                 ctl.ImmSel = I;
                 ctl.RegWEn = 1'b1;
                 ctl.BSel = 1'b1;
-                ctl.WBSel = 2'b01;
+                ctl.WBSel = 1'b1;
                 ctl.wa = raw_instr[11:7];
                 ctl.ra1En = 1'b1;
                 unique case (funct3)
@@ -319,7 +319,7 @@ module decoder
             end
             OP_RW: begin
                 ctl.RegWEn = 1'b1;
-                ctl.WBSel = 2'b01;
+                ctl.WBSel = 1'b1;
                 ctl.wa = raw_instr[11:7];
                 ctl.ra1En = 1'b1;
                 ctl.ra2En = 1'b1;
@@ -374,19 +374,19 @@ module decoder
                 endcase
             end
             OP_JAL: begin
-                ctl.ImmSel = J;
                 ctl.RegWEn = 1'b1;
-                ctl.BSel = 1'b1;
                 ctl.ASel = 1'b1;
-                ctl.WBSel = 2'b10;
+                ctl.WBSel = 1'b1;
+                ctl.ALUSel = ALU_NEXT_PC;
                 ctl.wa = raw_instr[11:7];
             end
             OP_JALR: begin
                 ctl.ImmSel = I;
                 ctl.PCSel = 1'b1;
                 ctl.RegWEn = 1'b1;
-                ctl.BSel = 1'b1;
-                ctl.WBSel = 2'b10;
+                ctl.ASel = 1'b1;
+                ctl.WBSel = 1'b1;
+                ctl.ALUSel = ALU_NEXT_PC;
                 ctl.wa = raw_instr[11:7];
                 ctl.ra1En = 1'b1;
             end

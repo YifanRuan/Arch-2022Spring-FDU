@@ -51,6 +51,9 @@ module alu
 				d = $signed({{32{a[31]}}, a[31:0]}) >>> b[4:0];
 				c = {{32{d[31]}}, d[31:0]};
 			end
+			ALU_NEXT_PC: begin
+				c = a + 4;
+			end
 			default: begin
 				
 			end
