@@ -25,6 +25,7 @@ module fetch
     fetch_data_t dataF_latch;
 
     always_comb begin
+        ireq = '0;
         if (pc > 0) begin
             if (dataF_latch.pc != pc) begin
                 ireq.addr = pc;
@@ -34,12 +35,10 @@ module fetch
                 dataF_nxt.raw_instr = iresp.data;
                 dataF_nxt.valid = iresp.data_ok;
             end else begin
-                ireq.valid = '0;
                 imem_wait = '0;
                 dataF_nxt = dataF_latch;
             end
         end else begin
-            ireq.valid = '0;
             imem_wait = '0;
             dataF_nxt = '0;
         end
