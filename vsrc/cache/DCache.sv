@@ -13,7 +13,7 @@ module DCache
 		parameter WORDS_PER_LINE = 16,
         parameter ASSOCIATIVITY = 2,
         parameter SET_NUM = 8,
-        parameter ALIGN_BYTES = 8
+        parameter ALIGN_SIZE = 8
 	)(
 	input logic clk, reset,
 
@@ -28,14 +28,15 @@ module DCache
 	/* TODO: Lab3 Cache */
 
     // params
-    localparam OFFSET_BITS = $clog2(WORDS_PER_LINE);
-    localparam INDEX_BITS = $clog2(SET_NUM);
-    localparam ALIGN_BITS = $clog2(ALIGN_BYTES);
-    localparam TAG_BITS = $bits(word_t) - INDEX_BITS - OFFSET_BITS - ALIGN_BITS;
+    localparam OFFSET_BITS = $clog2(WORDS_PER_LINE); // 4
+    localparam INDEX_BITS = $clog2(SET_NUM); // 3
+    localparam ALIGN_BITS = $clog2(ALIGN_SIZE); // 3
+    localparam TAG_BITS = 32 - INDEX_BITS - OFFSET_BITS - ALIGN_BITS;
     localparam POSITION_BITS = $clog2(ASSOCIATIVITY);
 
     localparam type offset_t = logic [OFFSET_BITS-1:0];
     localparam type index_t = logic [INDEX_BITS-1:0];
+    localparam type align_t = logic [ALIGN_BITS-1:0];
     localparam type tag_t = logic [TAG_BITS-1:0];
     localparam type position_t = logic [POSITION_BITS-1:0];
 
@@ -62,6 +63,8 @@ module DCache
     } meta_t;
     typedef meta_t [ASSOCIATIVITY-1:0] meta_set_t;
     typedef logic [ASSOCIATIVITY-1:0] meta_strobe_t;
+
+    localparam META_BITS = $bits(meta_t);
 
     /* These info won't change in a transaction */
     tag_t tag;
@@ -97,8 +100,8 @@ module DCache
     // Choose meta
     RAM_SinglePort #(
 		.ADDR_WIDTH(INDEX_BITS),
-		.DATA_WIDTH($bits(meta_set_t)),
-		.BYTE_WIDTH($bits(meta_t)),
+		.DATA_WIDTH(META_BITS * ASSOCIATIVITY),
+		.BYTE_WIDTH(META_BITS),
 		.READ_LATENCY(0)
     ) ram_meta (
         .clk(clk), .en(meta_ram.en),
@@ -188,7 +191,6 @@ module DCache
     end
 
     // Write meta
-    // int pos = int'(position);
     always_comb begin
         meta_ram = '0;
         unique case (state)
@@ -298,21 +300,25 @@ module DCache
         endcase
     end
 
+    wire is_init = (state == INIT);
+    wire is_writeback = (state == WRITEBACK);
+    wire is_uncached = (state == UNCACHED);
+
     // DBus driver
-    wire dbus_ok = ((state == INIT) & dreq.addr[31] & hit_data_ok) | ((state == UNCACHED) & cresp.last);
+    wire dbus_ok = (is_init & dreq.addr[31] & hit_data_ok) | (is_uncached & cresp.last);
     assign dresp.addr_ok = dbus_ok;
     assign dresp.data_ok = dbus_ok;
-    assign dresp.data = dbus_ok ? ((state == INIT) ? ram_rdata : cresp.data) : '0;
+    assign dresp.data = dbus_ok ? (is_init ? ram_rdata : cresp.data) : '0;
 
     // CBus driver
-    assign creq.valid = (state != INIT) & dreq.valid;
-    assign creq.is_write = (state == WRITEBACK);
-    assign creq.size = MSIZE8; // TODO
-    assign creq.addr = (state == WRITEBACK) ? {meta_ram_rmeta[position].tag, index, 7'b0} : {tag, index, 7'b0};
-    assign creq.strobe = (state == WRITEBACK) ? '1 : '0;
-    assign creq.data = (state == UNCACHED) ? dreq.data : ram_rdata;
-    assign creq.len = (state == UNCACHED) ? MLEN1 : AXI_BURST_LEN;
-    assign creq.burst = (state == UNCACHED) ? AXI_BURST_FIXED : AXI_BURST_INCR;
+    assign creq.valid = ~is_init & dreq.valid;
+    assign creq.is_write = is_writeback | (is_uncached & |(dreq.strobe));
+    assign creq.size = is_uncached ? (dreq.size) : MSIZE8;
+    assign creq.addr = is_writeback ? {dreq.addr[63:32], meta_ram_rmeta[position].tag, index, offset_t'(0), align_t'(0)} : (is_uncached ? dreq.addr : {dreq.addr[63:32], tag, index, offset_t'(0), align_t'(0)});
+    assign creq.strobe = is_writeback ? '1 : (is_uncached ? dreq.strobe : '0);
+    assign creq.data = is_uncached ? dreq.data : ram_rdata;
+    assign creq.len = is_uncached ? MLEN1 : AXI_BURST_LEN;
+    assign creq.burst = is_uncached ? AXI_BURST_FIXED : AXI_BURST_INCR;
 
     // flip-flop
     always_ff @(posedge clk) begin
