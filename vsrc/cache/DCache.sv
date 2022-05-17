@@ -13,7 +13,8 @@ module DCache
 		parameter WORDS_PER_LINE = 16,
         parameter ASSOCIATIVITY = 2,
         parameter SET_NUM = 8,
-        parameter ALIGN_SIZE = 8
+        parameter ALIGN_SIZE = 8,
+        parameter VALID_BITS = 32
 	)(
 	input logic clk, reset,
 
@@ -31,7 +32,7 @@ module DCache
     localparam OFFSET_BITS = $clog2(WORDS_PER_LINE); // 4
     localparam INDEX_BITS = $clog2(SET_NUM); // 3
     localparam ALIGN_BITS = $clog2(ALIGN_SIZE); // 3
-    localparam TAG_BITS = 32 - INDEX_BITS - OFFSET_BITS - ALIGN_BITS;
+    localparam TAG_BITS = VALID_BITS - INDEX_BITS - OFFSET_BITS - ALIGN_BITS;
     localparam POSITION_BITS = $clog2(ASSOCIATIVITY);
 
     localparam type offset_t = logic [OFFSET_BITS-1:0];
@@ -100,18 +101,21 @@ module DCache
     index_t reset_cnt;
 
     // Choose meta
-    RAM_SinglePort #(
-		.ADDR_WIDTH(INDEX_BITS),
-		.DATA_WIDTH(META_BITS * ASSOCIATIVITY),
-		.BYTE_WIDTH(META_BITS),
-		.READ_LATENCY(0)
-    ) ram_meta (
-        .clk(clk), .en(meta_ram.en),
-        .addr(reset ? reset_cnt : index),
-        .strobe(meta_ram.strobe),
-        .wdata(meta_ram.wmeta),
-        .rdata(meta_ram_rmeta)
-    );
+    for (genvar i = 0; i < ASSOCIATIVITY; ++i) begin
+        RAM_SinglePort #(
+		    .ADDR_WIDTH(POSITION_BITS + INDEX_BITS),
+		    .DATA_WIDTH(META_BITS),
+		    .BYTE_WIDTH(META_BITS),
+		    .READ_LATENCY(0)
+        ) ram_meta (
+            .clk(clk), .en(meta_ram.en),
+            .addr(reset ? {position_t'(i), index_t'(reset_cnt)} : {position_t'(i), index_t'(index)}),
+            .strobe(meta_ram.strobe[i]),
+            .wdata(meta_ram.wmeta[i]),
+            .rdata(meta_ram_rmeta[i])
+        );
+    end
+    
 
     // Calculate whether hit
     always_comb begin
@@ -126,7 +130,6 @@ module DCache
         end
         hit_data_ok &= (dreq.valid & (state == INIT));
     end
-    // always_ff @(posedge clk) begin if (state == INIT && empty) $display("%x", dreq.addr); end
 
     // Calculate whether empty
     always_comb begin
@@ -165,9 +168,6 @@ module DCache
                     replaced_position[i] = position_t'(j);
                 end
             end
-            if (hit) begin
-                replaced_position[i] = hit_position;
-            end
         end
         always_ff @(posedge clk) begin
             if (reset) begin
@@ -184,8 +184,7 @@ module DCache
     always_comb begin
         if (hit_data_ok) begin
             position = hit_position;
-        end else
-        if (empty) begin
+        end else if (empty) begin
             position = empty_position;
         end else begin
             position = replaced_position[index];
@@ -319,7 +318,7 @@ module DCache
     assign creq.valid = ~is_init & dreq.valid & ~reset;
     assign creq.is_write = is_writeback | (is_uncached & |(dreq.strobe));
     assign creq.size = is_uncached ? (dreq.size) : MSIZE8;
-    assign creq.addr = is_writeback ? {dreq.addr[63:32], meta_ram_rmeta[position].tag, index, offset_t'(0), align_t'(0)} : (is_uncached ? dreq.addr : {dreq.addr[63:32], tag, index, offset_t'(0), align_t'(0)});
+    assign creq.addr = is_writeback ? {dreq.addr[63:VALID_BITS], meta_ram_rmeta[position].tag, index, offset_t'(0), align_t'(0)} : (is_uncached ? dreq.addr : {dreq.addr[63:VALID_BITS], tag, index, offset_t'(0), align_t'(0)});
     assign creq.strobe = is_writeback ? '1 : (is_uncached ? dreq.strobe : '0);
     assign creq.data = is_uncached ? dreq.data : ram_rdata;
     assign creq.len = is_uncached ? MLEN1 : AXI_BURST_LEN;
