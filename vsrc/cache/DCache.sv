@@ -311,7 +311,7 @@ module DCache
 
     // DBus driver
     wire dbus_ok = (is_init & dreq.addr[31] & hit_data_ok) | (is_uncached & cresp.last);
-    assign dresp.addr_ok = dbus_ok;
+    assign dresp.addr_ok = dbus_ok | ~dreq.valid;
     assign dresp.data_ok = dbus_ok;
     assign dresp.data = dbus_ok ? (is_init ? ram_rdata : cresp.data) : '0;
 
