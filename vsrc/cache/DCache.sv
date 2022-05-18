@@ -153,17 +153,14 @@ module DCache
         for (genvar j = 0; j < ASSOCIATIVITY; ++j) begin
             always_comb begin
                 age_nxt[j] = age[j];
-                if (hit) begin
-                    age_nxt[j] = {1'b0, age_nxt[j][31:1]};
-                    if (hit_position == position_t'(j)) begin
-                        age_nxt[j][31] = 1'b1;
-                    end
+                if (hit & hit_position == position_t'(j)) begin
+                    age_nxt[j] += 1;
                 end
             end
         end
         always_comb begin
             replaced_position[i] = '0;
-            for (int j = 0; j < ASSOCIATIVITY; ++j) begin
+            for (int j = 1; j < ASSOCIATIVITY; ++j) begin
                 if (age[j] < age[replaced_position[i]]) begin
                     replaced_position[i] = position_t'(j);
                 end
@@ -258,7 +255,6 @@ module DCache
         .wdata(ram.wdata),
         .rdata(ram_rdata)
     );
-    // always_ff @(posedge clk) begin if (ram_wdata != 64'hcccccccc_cccccccc)$display("%x", ram_rdata); end
 
     // the FSM
     always_comb begin
