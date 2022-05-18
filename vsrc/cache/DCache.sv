@@ -26,7 +26,7 @@ module DCache
 
 `ifndef REFERENCE_CACHE
 
-	/* TODO: Lab3 Cache */
+	/* Lab3 Cache */
 
     // params
     localparam OFFSET_BITS = $clog2(WORDS_PER_LINE); // 4
@@ -115,7 +115,6 @@ module DCache
             .rdata(meta_ram_rmeta[i])
         );
     end
-    
 
     // Calculate whether hit
     always_comb begin
@@ -177,7 +176,7 @@ module DCache
         end
     end
 
-    position_t position; // TODO
+    position_t position;
     always_comb begin
         if (hit_data_ok) begin
             position = hit_position;
