@@ -14,7 +14,7 @@ module DCache
         parameter ASSOCIATIVITY = 2,
         parameter SET_NUM = 8,
         parameter ALIGN_SIZE = 8,
-        parameter VALID_BITS = 32
+        parameter VALID_BITS = 28
 	)(
 	input logic clk, reset,
 
@@ -63,7 +63,6 @@ module DCache
         tag_t tag;
     } meta_t;
     typedef meta_t [ASSOCIATIVITY-1:0] meta_set_t;
-    typedef logic [ASSOCIATIVITY-1:0] meta_strobe_t;
 
     localparam META_BITS = $bits(meta_t);
 
@@ -78,8 +77,8 @@ module DCache
 
     // Meta RAM
     struct packed {
-        logic en;
-        meta_strobe_t strobe;
+        logic [ASSOCIATIVITY-1:0] en;
+        logic [ASSOCIATIVITY-1:0] strobe;
         meta_set_t wmeta;
     } meta_ram;
     meta_set_t meta_ram_rmeta;
@@ -99,6 +98,7 @@ module DCache
     position_t empty_position;
 
     index_t reset_cnt;
+    int lru_cnt;
 
     // Choose meta
     for (genvar i = 0; i < ASSOCIATIVITY; ++i) begin
@@ -108,8 +108,8 @@ module DCache
 		    .BYTE_WIDTH(META_BITS),
 		    .READ_LATENCY(0)
         ) ram_meta (
-            .clk(clk), .en(meta_ram.en),
-            .addr(reset ? {position_t'(i), index_t'(reset_cnt)} : {position_t'(i), index_t'(index)}),
+            .clk(clk), .en(meta_ram.en[i]),
+            .addr(reset ? {position_t'(i), reset_cnt} : {position_t'(i), index}),
             .strobe(meta_ram.strobe[i]),
             .wdata(meta_ram.wmeta[i]),
             .rdata(meta_ram_rmeta[i])
@@ -144,7 +144,7 @@ module DCache
         end
     end
 
-    // PLRU
+    // LRU
     // the replaced position of this algorithm won't change if not hit
     position_t replaced_position [SET_NUM-1:0];
     for (genvar i = 0; i < SET_NUM; ++i) begin
@@ -154,7 +154,7 @@ module DCache
             always_comb begin
                 age_nxt[j] = age[j];
                 if (hit & hit_position == position_t'(j)) begin
-                    age_nxt[j] += 1;
+                    age_nxt[j] = lru_cnt + 1;
                 end
             end
         end
@@ -193,20 +193,20 @@ module DCache
         meta_ram = '0;
         unique case (state)
             INIT: if (reset) begin
-                meta_ram.en = 1;
+                meta_ram.en = '1;
                 meta_ram.strobe = '1;
             end else if (hit_data_ok) begin
-                meta_ram.en = 1;
+                meta_ram.en[position] = 1'b1;
                 meta_ram.strobe[position] = 1'b1;
                 meta_ram.wmeta[position].valid = 1;
                 meta_ram.wmeta[position].dirty = |(dreq.strobe) | meta_ram_rmeta[position].dirty;
                 meta_ram.wmeta[position].tag = tag;
             end
 
-            FETCH: begin
-                meta_ram.en = 1;
+            FETCH: if (cresp.last) begin
+                meta_ram.en[position] = 1'b1;
                 meta_ram.strobe[position] = 1'b1;
-                meta_ram.wmeta[position].valid = cresp.last;
+                meta_ram.wmeta[position].valid = 1;
                 meta_ram.wmeta[position].dirty = 0;
                 meta_ram.wmeta[position].tag = tag;
             end
@@ -304,8 +304,11 @@ module DCache
     wire is_writeback = (state == WRITEBACK);
     wire is_uncached = (state == UNCACHED);
 
+    wire cached_ok = is_init & dreq.addr[31] & hit_data_ok;
+    wire uncached_ok = is_uncached & cresp.last;
+
     // DBus driver
-    wire dbus_ok = (is_init & dreq.addr[31] & hit_data_ok) | (is_uncached & cresp.last);
+    wire dbus_ok = cached_ok | uncached_ok;
     assign dresp.addr_ok = dbus_ok | ~dreq.valid;
     assign dresp.data_ok = dbus_ok;
     assign dresp.data = dbus_ok ? (is_init ? ram_rdata : cresp.data) : '0;
@@ -326,9 +329,13 @@ module DCache
             state <= INIT;
             counter <= '0;
             reset_cnt <= reset_cnt + 1;
+            lru_cnt <= '0;
         end else begin
             state <= state_nxt;
             counter <= counter_nxt;
+            if (cached_ok) begin
+                lru_cnt <= lru_cnt + 1;
+            end
         end
     end
 
