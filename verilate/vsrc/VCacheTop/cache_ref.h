@@ -23,7 +23,7 @@ class CacheRefModel final : public ICacheRefModel {
     word_t buffer[16];
 #else
     /**
-     * TODO (Lab3) declare reference model's memory and internal states :)
+     * (Lab3) declare reference model's memory and internal states :)
      *
      * NOTE: you can use BlockMemory, or replace it with anything you like.
      */

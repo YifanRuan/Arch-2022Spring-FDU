@@ -31,8 +31,6 @@ module core
 	output dbus_req_t  dreq,
 	input  dbus_resp_t dresp
 );
-	/* TODO: Add your pipeline here. */
-
 	u64 pc, pc_nxt;
 
 	fetch_data_t dataF, dataF_nxt;

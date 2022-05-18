@@ -38,7 +38,7 @@ auto CacheRefModel::load(addr_t addr, AXISize size) -> word_t {
     return buffer[addr % 128 / 8];
 #else
     /**
-     * TODO (Lab3) implement load operation for reference model :)
+     * (Lab3) implement load operation for reference model :)
      */
     addr_t start = addr / 128 * 128;
     for (int i = 0; i < 16; i++) {
@@ -69,7 +69,7 @@ void CacheRefModel::store(addr_t addr, AXISize size, word_t strobe,
     return;
 #else
     /**
-     * TODO (Lab3) implement store operation for reference model :)
+     * (Lab3) implement store operation for reference model :)
      */
     addr_t start = addr / 128 * 128;
     for (int i = 0; i < 16; i++) {
