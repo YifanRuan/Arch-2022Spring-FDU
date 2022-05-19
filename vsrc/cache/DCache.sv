@@ -11,8 +11,8 @@ module DCache
 		/* You can modify this part to support more parameters */
 		/* e.g. OFFSET_BITS, INDEX_BITS, TAG_BITS */
 		parameter WORDS_PER_LINE = 16,
-        parameter ASSOCIATIVITY = 2,
-        parameter SET_NUM = 8,
+        parameter ASSOCIATIVITY = 4,
+        parameter SET_NUM = 4,
         parameter ALIGN_SIZE = 8,
         parameter VALID_BITS = 28
 	)(
@@ -29,9 +29,9 @@ module DCache
 	/* Lab3 Cache */
 
     // params
-    localparam OFFSET_BITS = $clog2(WORDS_PER_LINE); // 4
-    localparam INDEX_BITS = $clog2(SET_NUM); // 3
-    localparam ALIGN_BITS = $clog2(ALIGN_SIZE); // 3
+    localparam OFFSET_BITS = $clog2(WORDS_PER_LINE);
+    localparam INDEX_BITS = $clog2(SET_NUM);
+    localparam ALIGN_BITS = $clog2(ALIGN_SIZE);
     localparam TAG_BITS = VALID_BITS - INDEX_BITS - OFFSET_BITS - ALIGN_BITS;
     localparam POSITION_BITS = $clog2(ASSOCIATIVITY);
 
