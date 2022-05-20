@@ -14,7 +14,7 @@ module DCache
         parameter ASSOCIATIVITY = 4,
         parameter SET_NUM = 4,
         parameter ALIGN_SIZE = 8,
-        parameter VALID_BITS = 33
+        parameter TAG_BITS = 24 - 2
 	)(
 	input logic clk, reset,
 
@@ -32,7 +32,7 @@ module DCache
     localparam OFFSET_BITS = $clog2(WORDS_PER_LINE);
     localparam INDEX_BITS = $clog2(SET_NUM);
     localparam ALIGN_BITS = $clog2(ALIGN_SIZE);
-    localparam TAG_BITS = VALID_BITS - INDEX_BITS - OFFSET_BITS - ALIGN_BITS;
+    localparam VALID_BITS = TAG_BITS + INDEX_BITS + OFFSET_BITS + ALIGN_BITS;
     localparam POSITION_BITS = $clog2(ASSOCIATIVITY);
 
     localparam type offset_t = logic [OFFSET_BITS-1:0];
