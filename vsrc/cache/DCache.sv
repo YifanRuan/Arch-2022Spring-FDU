@@ -14,7 +14,7 @@ module DCache
         parameter ASSOCIATIVITY = 4,
         parameter SET_NUM = 4,
         parameter ALIGN_SIZE = 8,
-        parameter VALID_BITS = 28
+        parameter VALID_BITS = 33
 	)(
 	input logic clk, reset,
 
@@ -77,7 +77,7 @@ module DCache
 
     // Meta RAM
     struct packed {
-        logic [ASSOCIATIVITY-1:0] en;
+        logic en;
         logic [ASSOCIATIVITY-1:0] strobe;
         meta_set_t wmeta;
     } meta_ram;
@@ -101,20 +101,18 @@ module DCache
     int lru_cnt;
 
     // Choose meta
-    for (genvar i = 0; i < ASSOCIATIVITY; ++i) begin
-        RAM_SinglePort #(
-		    .ADDR_WIDTH(POSITION_BITS + INDEX_BITS),
-		    .DATA_WIDTH(META_BITS),
-		    .BYTE_WIDTH(META_BITS),
-		    .READ_LATENCY(0)
-        ) ram_meta (
-            .clk(clk), .en(meta_ram.en[i]),
-            .addr(reset ? {position_t'(i), reset_cnt} : {position_t'(i), index}),
-            .strobe(meta_ram.strobe[i]),
-            .wdata(meta_ram.wmeta[i]),
-            .rdata(meta_ram_rmeta[i])
-        );
-    end
+    RAM_SinglePort #(
+	    .ADDR_WIDTH(INDEX_BITS),
+	    .DATA_WIDTH(META_BITS * ASSOCIATIVITY),
+	    .BYTE_WIDTH(META_BITS),
+	    .READ_LATENCY(0)
+    ) ram_meta (
+        .clk(clk), .en(meta_ram.en),
+        .addr(reset ? reset_cnt : index),
+        .strobe(meta_ram.strobe),
+        .wdata(meta_ram.wmeta),
+        .rdata(meta_ram_rmeta)
+    );
 
     // Calculate whether hit
     always_comb begin
@@ -195,7 +193,7 @@ module DCache
                 meta_ram.en = '1;
                 meta_ram.strobe = '1;
             end else if (hit_data_ok) begin
-                meta_ram.en[position] = 1'b1;
+                meta_ram.en = '1;
                 meta_ram.strobe[position] = 1'b1;
                 meta_ram.wmeta[position].valid = 1;
                 meta_ram.wmeta[position].dirty = |(dreq.strobe) | meta_ram_rmeta[position].dirty;
@@ -203,7 +201,7 @@ module DCache
             end
 
             FETCH: if (cresp.last) begin
-                meta_ram.en[position] = 1'b1;
+                meta_ram.en = '1;
                 meta_ram.strobe[position] = 1'b1;
                 meta_ram.wmeta[position].valid = 1;
                 meta_ram.wmeta[position].dirty = 0;
