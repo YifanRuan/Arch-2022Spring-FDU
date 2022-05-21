@@ -52,30 +52,9 @@ module fetch
         end
     end
 
-    u64 pcjump, pcplus4;
-    wire [6:0] opcode = dataF_nxt.raw_instr[6:0];
-    always_comb begin
-        pcplus4 = pc + 4;
-        pcjump = '1;
-        unique case (opcode)
-            OP_B: begin
-                pcjump = pc + {{52{dataF_nxt.raw_instr[31]}}, dataF_nxt.raw_instr[7], dataF_nxt.raw_instr[30:25], dataF_nxt.raw_instr[11:8], 1'b0};
-            end
-            OP_JAL: begin
-                pcplus4 = pc + {{44{dataF_nxt.raw_instr[31]}}, dataF_nxt.raw_instr[19:12], dataF_nxt.raw_instr[20], dataF_nxt.raw_instr[30:21], 1'b0};
-            end
-            OP_JALR: begin
-                pcplus4 = '0;
-                pcjump = '0;
-            end
-            default: begin
-                
-            end
-        endcase
-    end
     predictpc predictpc(
-        .pcjump,
-        .pcplus4,
+        .pc,
+        .raw_instr(dataF_nxt.raw_instr),
         .predPC
     );
     

@@ -8,11 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-<<<<<<< HEAD
-# Make data base, printed on Thu May 19 10:09:17 2022
-=======
-# Make data base, printed on Fri May 20 19:49:13 2022
->>>>>>> dev
+# Make data base, printed on Sun May 22 00:30:56 2022
 
 # Variables
 
@@ -24,11 +20,6 @@ CXX_FILES := verilate/vsrc/cbus_device.cpp verilate/vsrc/common.cpp verilate/vsr
 GDK_BACKEND = x11
 # environment
 LC_ALL = C
-<<<<<<< HEAD
-# environment
-NO_AT_BRIDGE = 1
-=======
->>>>>>> dev
 # makefile (from 'verilate/Makefile.include', line 2)
 SRC = vsrc
 # makefile (from 'verilate/Makefile.vsim.mk', line 1)
@@ -42,11 +33,7 @@ CXX_LINKS = -lz -lpthread -lstdc++fs
 # makefile (from 'verilate/Makefile.vsim.mk', line 14)
 CXX_TARGET_FILES := verilate/vsrc/VCacheTop/cache_ref.cpp verilate/vsrc/VCacheTop/mycache.cpp verilate/vsrc/VCacheTop/tests.cpp verilate/vsrc/VCacheTop/vmain.cpp
 # environment
-<<<<<<< HEAD
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-6ad40422-ad5b-4a43-a406-dade74bf64b8.sock
-=======
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-2f85bd92-d42e-44e8-9a69-b1860a94bb24.sock
->>>>>>> dev
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-f26f5e86-d676-445e-84a7-b4aae147d7f7.sock
 # makefile (from 'verilate/Makefile.verilate.mk', line 14)
 SV_FOLDERS := vsrc/. vsrc/./cache vsrc/./pipeline vsrc/./pipeline/decode vsrc/./pipeline/hazard vsrc/./pipeline/execute vsrc/./pipeline/memory vsrc/./pipeline/writeback vsrc/./pipeline/regfile vsrc/./pipeline/forward vsrc/./pipeline/fetch vsrc/./ram vsrc/./include vsrc/./util
 # environment
@@ -152,11 +139,7 @@ PAM_KWALLET5_LOGIN = /run/user/1000/kwallet5.socket
 # environment
 MFLAGS = -pqrR
 # environment
-<<<<<<< HEAD
-SSH_AUTH_SOCK = /tmp/ssh-XXXXXXleYuAr/agent.5913
-=======
 SSH_AUTH_SOCK = /tmp/ssh-XXXXXXPs9pVl/agent.5451
->>>>>>> dev
 # default
 .SHELLFLAGS := -c
 # environment
@@ -186,11 +169,7 @@ OCAML_TOPLEVEL_PATH = /home/yifan/.opam/cs3110/lib/toplevel
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-<<<<<<< HEAD
-VSCODE_PID = 961720
-=======
-VSCODE_PID = 552324
->>>>>>> dev
+VSCODE_PID = 1119148
 # environment
 HISTIGNORE = &:[ ]*:exit:ls:bg:fg:history:clear
 # environment
@@ -206,11 +185,7 @@ CXX_WARNINGS = -Wall -Wextra -Wno-aligned-new -Wno-sign-compare -Wno-unused-cons
 # environment
 CONDA_PYTHON_EXE = /home/yifan/anaconda3/bin/python
 # environment
-<<<<<<< HEAD
-SESSION_MANAGER = local/yifan-Yoga-Pro-13sITL-2021:@/tmp/.ICE-unix/6901,unix/yifan-Yoga-Pro-13sITL-2021:/tmp/.ICE-unix/6901
-=======
 SESSION_MANAGER = local/yifan-Yoga-Pro-13sITL-2021:@/tmp/.ICE-unix/6233,unix/yifan-Yoga-Pro-13sITL-2021:/tmp/.ICE-unix/6233
->>>>>>> dev
 # automatic
 *F = $(notdir $*)
 # environment
@@ -246,7 +221,7 @@ VINCLUDE = verilate/include
 # environment
 SHLVL = 0
 # makefile (from 'verilate/Makefile.verilate.mk', line 15)
-SV_FILES := vsrc/util/CBusArbiter.sv vsrc/util/CBusMultiplexer.sv vsrc/util/CBusToAXI.sv vsrc/util/DBusToCBus.sv vsrc/util/IBusToCBus.sv vsrc/util/README.md vsrc/util/SimpleArbiter.sv vsrc/ram/LUTRAM_DualPort.sv vsrc/ram/RAM_SimpleDualPort.sv vsrc/ram/RAM_SinglePort.sv vsrc/ram/RAM_TrueDualPort.sv vsrc/ram/template.sv vsrc/cache/DCache.sv vsrc/cache/ICache.sv vsrc/include/access.svh vsrc/include/./access.svh vsrc/./VTop.sv vsrc/./cache/ICache.sv vsrc/./cache/DCache.sv vsrc/./pipeline/core.sv vsrc/./pipeline/decode/jump.sv vsrc/./pipeline/decode/branchcomp.sv vsrc/./pipeline/decode/decode.sv vsrc/./pipeline/decode/immgen.sv vsrc/./pipeline/decode/decoder.sv vsrc/./pipeline/hazard/hazard.sv vsrc/./pipeline/execute/multiplier.sv vsrc/./pipeline/execute/alu.sv vsrc/./pipeline/execute/execute.sv vsrc/./pipeline/execute/divider.sv vsrc/./pipeline/memory/readdata.sv vsrc/./pipeline/memory/memory.sv vsrc/./pipeline/memory/writedata.sv vsrc/./pipeline/writeback/writeback.sv vsrc/./pipeline/regfile/mreg.sv vsrc/./pipeline/regfile/pcreg.sv vsrc/./pipeline/regfile/ereg.sv vsrc/./pipeline/regfile/regfile.sv vsrc/./pipeline/regfile/dreg.sv vsrc/./pipeline/regfile/freg.sv vsrc/./pipeline/forward/forward.sv vsrc/./pipeline/fetch/predictpc.sv vsrc/./pipeline/fetch/selectpc.sv vsrc/./pipeline/fetch/fetch.sv vsrc/./ram/RAM_TrueDualPort.sv vsrc/./ram/template.sv vsrc/./ram/RAM_SimpleDualPort.sv vsrc/./ram/RAM_SinglePort.sv vsrc/./ram/LUTRAM_DualPort.sv vsrc/./VCacheTop.sv vsrc/./mycpu_top_nodelay.sv vsrc/./include/common.sv vsrc/./include/config.sv vsrc/./include/pipes.sv vsrc/./mycpu_top.sv vsrc/./util/IBusToCBus.sv vsrc/./util/CBusArbiter.sv vsrc/./util/SimpleArbiter.sv vsrc/./util/CBusMultiplexer.sv vsrc/./util/DBusToCBus.sv vsrc/./util/CBusToAXI.sv vsrc/./SimTop.sv vsrc/include/bus_decl 
+SV_FILES := vsrc/util/CBusArbiter.sv vsrc/util/CBusMultiplexer.sv vsrc/util/CBusToAXI.sv vsrc/util/DBusToCBus.sv vsrc/util/IBusToCBus.sv vsrc/util/README.md vsrc/util/SimpleArbiter.sv vsrc/ram/LUTRAM_DualPort.sv vsrc/ram/RAM_SimpleDualPort.sv vsrc/ram/RAM_SinglePort.sv vsrc/ram/RAM_TrueDualPort.sv vsrc/ram/template.sv vsrc/cache/DCache.sv vsrc/cache/ICache.sv vsrc/include/access.svh vsrc/include/./access.svh vsrc/./VTop.sv vsrc/./cache/ICache.sv vsrc/./cache/DCache.sv vsrc/./pipeline/core.sv vsrc/./pipeline/decode/immgen.sv vsrc/./pipeline/decode/decode.sv vsrc/./pipeline/decode/jump.sv vsrc/./pipeline/decode/branchcomp.sv vsrc/./pipeline/decode/decoder.sv vsrc/./pipeline/hazard/hazard.sv vsrc/./pipeline/execute/multiplier.sv vsrc/./pipeline/execute/alu.sv vsrc/./pipeline/execute/execute.sv vsrc/./pipeline/execute/divider.sv vsrc/./pipeline/memory/writedata.sv vsrc/./pipeline/memory/memory.sv vsrc/./pipeline/memory/readdata.sv vsrc/./pipeline/writeback/writeback.sv vsrc/./pipeline/regfile/mreg.sv vsrc/./pipeline/regfile/pcreg.sv vsrc/./pipeline/regfile/ereg.sv vsrc/./pipeline/regfile/regfile.sv vsrc/./pipeline/regfile/dreg.sv vsrc/./pipeline/regfile/freg.sv vsrc/./pipeline/forward/forward.sv vsrc/./pipeline/fetch/predictpc.sv vsrc/./pipeline/fetch/selectpc.sv vsrc/./pipeline/fetch/fetch.sv vsrc/./ram/RAM_TrueDualPort.sv vsrc/./ram/template.sv vsrc/./ram/RAM_SimpleDualPort.sv vsrc/./ram/RAM_SinglePort.sv vsrc/./ram/LUTRAM_DualPort.sv vsrc/./VCacheTop.sv vsrc/./mycpu_top_nodelay.sv vsrc/./include/common.sv vsrc/./include/config.sv vsrc/./include/pipes.sv vsrc/./mycpu_top.sv vsrc/./util/IBusToCBus.sv vsrc/./util/CBusArbiter.sv vsrc/./util/SimpleArbiter.sv vsrc/./util/CBusMultiplexer.sv vsrc/./util/DBusToCBus.sv vsrc/./util/CBusToAXI.sv vsrc/./SimTop.sv vsrc/include/bus_decl 
 # makefile (from 'Makefile.include', line 10)
 SIMTOP = top.TopMain
 # environment
@@ -310,6 +285,7 @@ LESS = -R
 # environment
 DESKTOP_SESSION = plasma
 # environment
+ 
 ORIGINAL_XDG_CURRENT_DESKTOP = KDE
 # makefile (from 'verilate/Makefile.include', line 3)
 TEST = 
@@ -323,10 +299,6 @@ CONDA_DEFAULT_ENV = base
 SV_ROOT := .
 # environment
 QT_SCREEN_SCALE_FACTORS = eDP-1=1.5;DP-1=1.5;DP-2=1.5;DP-3=1.5;DP-4=1.5;
-<<<<<<< HEAD
- 
-=======
->>>>>>> dev
 # environment
 CLUTTER_IM_MODULE = ibus
 # environment
@@ -338,10 +310,6 @@ define COMP_WORDBREAKS
 endef
 # environment
 PLATFORMIO_PATH = /home/yifan/.platformio/python3/bin:/home/yifan/.opam/cs3110/bin:/home/yifan/.local/bin:/home/yifan/.nvm/versions/node/v18.0.0/bin:/home/yifan/anaconda3/bin:/home/yifan/anaconda3/condabin:/opt/Ingenic-SDK-T40-1.1.1-20220120/resource/toolchain/gcc_720/mips-gcc720-glibc226/bin:/usr/local/texlive/2022/bin/x86_64-linux:/home/yifan/.cargo/bin:/home/yifan/.opam/cs3110/bin:/home/yifan/.local/bin:/opt/Ingenic-SDK-T40-1.1.1-20220120/resource/toolchain/gcc_720/mips-gcc720-glibc226/bin:/usr/local/texlive/2022/bin/x86_64-linux:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-<<<<<<< HEAD
-=======
- 
->>>>>>> dev
 # makefile (from 'verilate/Makefile.vsim.mk', line 9)
 VSOURCE = verilate/$(SRC)
 # environment
@@ -349,11 +317,7 @@ XDG_VTNR = 1
 # makefile (from 'Makefile', line 7)
 .DEFAULT_GOAL = verilog
 # environment
-<<<<<<< HEAD
-SYSTEMD_EXEC_PID = 5869
-=======
 SYSTEMD_EXEC_PID = 5399
->>>>>>> dev
 # makefile (from 'verilate/Makefile.include', line 17)
 GTKWAVE = gtkwave
 # environment
@@ -379,11 +343,7 @@ SV_WARNINGS = -Wall -Wno-IMPORTSTAR -Wno-STMTDLY -Wno-declfilename -Wno-UNUSED
 # makefile (from 'Makefile', line 34)
 NOOP_HOME = $(abspath .)
 # environment
-<<<<<<< HEAD
-SSH_AGENT_PID = 5998
-=======
 SSH_AGENT_PID = 5539
->>>>>>> dev
 # environment
 PAGER = less
 # makefile (from 'verilate/Makefile.vsim.mk', line 31)
@@ -467,16 +427,9 @@ _CE_CONDA =
 # environment
 LC_IDENTIFICATION = zh_CN.UTF-8
 # variable set hash-table stats:
-<<<<<<< HEAD
-# Load=206/1024=20%, Rehash=0, Collisions=92/451=20%
-
-# Pattern-specific Variable Values
-=======
 # Load=205/1024=20%, Rehash=0, Collisions=68/450=15%
 
 # Pattern-specific Variable Values
- 
->>>>>>> dev
 
 # No pattern-specific variable values.
 
@@ -590,12 +543,9 @@ build/gcc+optimized/VCacheTop/obj//usr/share/verilator/include/verilated.o: /usr
 # Not a target:
 vsrc/./pipeline/fetch/predictpc.sv:
 #  Implicit rule search has not been done.
-<<<<<<< HEAD
- 
-=======
->>>>>>> dev
 #  Modification time never checked.
 #  File has not been updated.
+ 
 
 # Not a target:
 vsrc/./pipeline/decode/branchcomp.sv:
@@ -786,10 +736,6 @@ microbench:
 # Not a target:
 verilate/vsrc/VCacheTop/cache_ref.h:
 #  Implicit rule search has not been done.
-<<<<<<< HEAD
-=======
- 
->>>>>>> dev
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -879,16 +825,13 @@ test-lab3: sim
 	TEST=$(TEST) ./build/emu --diff ./riscv64-nemu-interpreter-so -i ./ready-to-run/lab3/all-test-rv64im.bin $(VOPT) || true
 
 # Not a target:
-<<<<<<< HEAD
- 
-=======
->>>>>>> dev
 vsrc/./util/CBusMultiplexer.sv:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 build/gcc+optimized/VCacheTop/obj/verilate/vsrc/testbench.o: verilate/vsrc/testbench.cpp verilate/include/axi.h verilate/include/bus.h verilate/include/cell.h verilate/include/common.h verilate/include/confreg.h verilate/include/diff.h verilate/include/memory.h verilate/include/model.h verilate/include/reference.h verilate/include/runner.h verilate/include/testbench.h
+ 
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: 'verilate/vsrc/testbench'
 #  Modification time never checked.
@@ -1110,7 +1053,7 @@ vsrc/./util/IBusToCBus.sv:
 #  Modification time never checked.
 #  File has not been updated.
 
-build/gcc+optimized/VCacheTop/verilated/VModel.mk: vsrc/util/CBusArbiter.sv vsrc/util/CBusMultiplexer.sv vsrc/util/CBusToAXI.sv vsrc/util/DBusToCBus.sv vsrc/util/IBusToCBus.sv vsrc/util/README.md vsrc/util/SimpleArbiter.sv vsrc/ram/LUTRAM_DualPort.sv vsrc/ram/RAM_SimpleDualPort.sv vsrc/ram/RAM_SinglePort.sv vsrc/ram/RAM_TrueDualPort.sv vsrc/ram/template.sv vsrc/cache/DCache.sv vsrc/cache/ICache.sv vsrc/include/access.svh vsrc/include/./access.svh vsrc/./VTop.sv vsrc/./cache/ICache.sv vsrc/./cache/DCache.sv vsrc/./pipeline/core.sv vsrc/./pipeline/decode/jump.sv vsrc/./pipeline/decode/branchcomp.sv vsrc/./pipeline/decode/decode.sv vsrc/./pipeline/decode/immgen.sv vsrc/./pipeline/decode/decoder.sv vsrc/./pipeline/hazard/hazard.sv vsrc/./pipeline/execute/multiplier.sv vsrc/./pipeline/execute/alu.sv vsrc/./pipeline/execute/execute.sv vsrc/./pipeline/execute/divider.sv vsrc/./pipeline/memory/readdata.sv vsrc/./pipeline/memory/memory.sv vsrc/./pipeline/memory/writedata.sv vsrc/./pipeline/writeback/writeback.sv vsrc/./pipeline/regfile/mreg.sv vsrc/./pipeline/regfile/pcreg.sv vsrc/./pipeline/regfile/ereg.sv vsrc/./pipeline/regfile/regfile.sv vsrc/./pipeline/regfile/dreg.sv vsrc/./pipeline/regfile/freg.sv vsrc/./pipeline/forward/forward.sv vsrc/./pipeline/fetch/predictpc.sv vsrc/./pipeline/fetch/selectpc.sv vsrc/./pipeline/fetch/fetch.sv vsrc/./ram/RAM_TrueDualPort.sv vsrc/./ram/template.sv vsrc/./ram/RAM_SimpleDualPort.sv vsrc/./ram/RAM_SinglePort.sv vsrc/./ram/LUTRAM_DualPort.sv vsrc/./VCacheTop.sv vsrc/./mycpu_top_nodelay.sv vsrc/./include/common.sv vsrc/./include/config.sv vsrc/./include/pipes.sv vsrc/./mycpu_top.sv vsrc/./util/IBusToCBus.sv vsrc/./util/CBusArbiter.sv vsrc/./util/SimpleArbiter.sv vsrc/./util/CBusMultiplexer.sv vsrc/./util/DBusToCBus.sv vsrc/./util/CBusToAXI.sv vsrc/./SimTop.sv vsrc/include/bus_decl
+build/gcc+optimized/VCacheTop/verilated/VModel.mk: vsrc/util/CBusArbiter.sv vsrc/util/CBusMultiplexer.sv vsrc/util/CBusToAXI.sv vsrc/util/DBusToCBus.sv vsrc/util/IBusToCBus.sv vsrc/util/README.md vsrc/util/SimpleArbiter.sv vsrc/ram/LUTRAM_DualPort.sv vsrc/ram/RAM_SimpleDualPort.sv vsrc/ram/RAM_SinglePort.sv vsrc/ram/RAM_TrueDualPort.sv vsrc/ram/template.sv vsrc/cache/DCache.sv vsrc/cache/ICache.sv vsrc/include/access.svh vsrc/include/./access.svh vsrc/./VTop.sv vsrc/./cache/ICache.sv vsrc/./cache/DCache.sv vsrc/./pipeline/core.sv vsrc/./pipeline/decode/immgen.sv vsrc/./pipeline/decode/decode.sv vsrc/./pipeline/decode/jump.sv vsrc/./pipeline/decode/branchcomp.sv vsrc/./pipeline/decode/decoder.sv vsrc/./pipeline/hazard/hazard.sv vsrc/./pipeline/execute/multiplier.sv vsrc/./pipeline/execute/alu.sv vsrc/./pipeline/execute/execute.sv vsrc/./pipeline/execute/divider.sv vsrc/./pipeline/memory/writedata.sv vsrc/./pipeline/memory/memory.sv vsrc/./pipeline/memory/readdata.sv vsrc/./pipeline/writeback/writeback.sv vsrc/./pipeline/regfile/mreg.sv vsrc/./pipeline/regfile/pcreg.sv vsrc/./pipeline/regfile/ereg.sv vsrc/./pipeline/regfile/regfile.sv vsrc/./pipeline/regfile/dreg.sv vsrc/./pipeline/regfile/freg.sv vsrc/./pipeline/forward/forward.sv vsrc/./pipeline/fetch/predictpc.sv vsrc/./pipeline/fetch/selectpc.sv vsrc/./pipeline/fetch/fetch.sv vsrc/./ram/RAM_TrueDualPort.sv vsrc/./ram/template.sv vsrc/./ram/RAM_SimpleDualPort.sv vsrc/./ram/RAM_SinglePort.sv vsrc/./ram/LUTRAM_DualPort.sv vsrc/./VCacheTop.sv vsrc/./mycpu_top_nodelay.sv vsrc/./include/common.sv vsrc/./include/config.sv vsrc/./include/pipes.sv vsrc/./mycpu_top.sv vsrc/./util/IBusToCBus.sv vsrc/./util/CBusArbiter.sv vsrc/./util/SimpleArbiter.sv vsrc/./util/CBusMultiplexer.sv vsrc/./util/DBusToCBus.sv vsrc/./util/CBusToAXI.sv vsrc/./SimTop.sv vsrc/include/bus_decl
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -1136,10 +1079,6 @@ help:
 	@echo '  make system-info: print information about installed system packages.'
 	@echo '  make dump-instructions: dump all instructions during simulation (RefCPU only).'
 	@echo ''
-<<<<<<< HEAD
-=======
- 
->>>>>>> dev
 	@echo 'Available parameters:'
 	@echo '  TARGET: e.g. refcpu/VTop, mycpu/VCacheTop.'
 	@echo '  TEST: which test under misc/nscscc to simulate. Default to empty string.'
@@ -1179,6 +1118,7 @@ verilate/vsrc/memory.cpp:
 
 test-lab1a: sim
 #  Implicit rule search has not been done.
+ 
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 44):
@@ -1186,10 +1126,6 @@ test-lab1a: sim
 
 # Not a target:
 vsrc/util/IBusToCBus.sv:
-<<<<<<< HEAD
- 
-=======
->>>>>>> dev
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -1331,7 +1267,7 @@ verilate/vsrc/testbench.cpp:
 #  Modification time never checked.
 #  File has not been updated.
 
-build/gcc+optimized/VCacheTop/verilated/VModel__ALL.a: build/gcc+optimized/VCacheTop/verilated/VModel.mk vsrc/util/CBusArbiter.sv vsrc/util/CBusMultiplexer.sv vsrc/util/CBusToAXI.sv vsrc/util/DBusToCBus.sv vsrc/util/IBusToCBus.sv vsrc/util/README.md vsrc/util/SimpleArbiter.sv vsrc/ram/LUTRAM_DualPort.sv vsrc/ram/RAM_SimpleDualPort.sv vsrc/ram/RAM_SinglePort.sv vsrc/ram/RAM_TrueDualPort.sv vsrc/ram/template.sv vsrc/cache/DCache.sv vsrc/cache/ICache.sv vsrc/include/access.svh vsrc/include/./access.svh vsrc/./VTop.sv vsrc/./cache/ICache.sv vsrc/./cache/DCache.sv vsrc/./pipeline/core.sv vsrc/./pipeline/decode/jump.sv vsrc/./pipeline/decode/branchcomp.sv vsrc/./pipeline/decode/decode.sv vsrc/./pipeline/decode/immgen.sv vsrc/./pipeline/decode/decoder.sv vsrc/./pipeline/hazard/hazard.sv vsrc/./pipeline/execute/multiplier.sv vsrc/./pipeline/execute/alu.sv vsrc/./pipeline/execute/execute.sv vsrc/./pipeline/execute/divider.sv vsrc/./pipeline/memory/readdata.sv vsrc/./pipeline/memory/memory.sv vsrc/./pipeline/memory/writedata.sv vsrc/./pipeline/writeback/writeback.sv vsrc/./pipeline/regfile/mreg.sv vsrc/./pipeline/regfile/pcreg.sv vsrc/./pipeline/regfile/ereg.sv vsrc/./pipeline/regfile/regfile.sv vsrc/./pipeline/regfile/dreg.sv vsrc/./pipeline/regfile/freg.sv vsrc/./pipeline/forward/forward.sv vsrc/./pipeline/fetch/predictpc.sv vsrc/./pipeline/fetch/selectpc.sv vsrc/./pipeline/fetch/fetch.sv vsrc/./ram/RAM_TrueDualPort.sv vsrc/./ram/template.sv vsrc/./ram/RAM_SimpleDualPort.sv vsrc/./ram/RAM_SinglePort.sv vsrc/./ram/LUTRAM_DualPort.sv vsrc/./VCacheTop.sv vsrc/./mycpu_top_nodelay.sv vsrc/./include/common.sv vsrc/./include/config.sv vsrc/./include/pipes.sv vsrc/./mycpu_top.sv vsrc/./util/IBusToCBus.sv vsrc/./util/CBusArbiter.sv vsrc/./util/SimpleArbiter.sv vsrc/./util/CBusMultiplexer.sv vsrc/./util/DBusToCBus.sv vsrc/./util/CBusToAXI.sv vsrc/./SimTop.sv vsrc/include/bus_decl
+build/gcc+optimized/VCacheTop/verilated/VModel__ALL.a: build/gcc+optimized/VCacheTop/verilated/VModel.mk vsrc/util/CBusArbiter.sv vsrc/util/CBusMultiplexer.sv vsrc/util/CBusToAXI.sv vsrc/util/DBusToCBus.sv vsrc/util/IBusToCBus.sv vsrc/util/README.md vsrc/util/SimpleArbiter.sv vsrc/ram/LUTRAM_DualPort.sv vsrc/ram/RAM_SimpleDualPort.sv vsrc/ram/RAM_SinglePort.sv vsrc/ram/RAM_TrueDualPort.sv vsrc/ram/template.sv vsrc/cache/DCache.sv vsrc/cache/ICache.sv vsrc/include/access.svh vsrc/include/./access.svh vsrc/./VTop.sv vsrc/./cache/ICache.sv vsrc/./cache/DCache.sv vsrc/./pipeline/core.sv vsrc/./pipeline/decode/immgen.sv vsrc/./pipeline/decode/decode.sv vsrc/./pipeline/decode/jump.sv vsrc/./pipeline/decode/branchcomp.sv vsrc/./pipeline/decode/decoder.sv vsrc/./pipeline/hazard/hazard.sv vsrc/./pipeline/execute/multiplier.sv vsrc/./pipeline/execute/alu.sv vsrc/./pipeline/execute/execute.sv vsrc/./pipeline/execute/divider.sv vsrc/./pipeline/memory/writedata.sv vsrc/./pipeline/memory/memory.sv vsrc/./pipeline/memory/readdata.sv vsrc/./pipeline/writeback/writeback.sv vsrc/./pipeline/regfile/mreg.sv vsrc/./pipeline/regfile/pcreg.sv vsrc/./pipeline/regfile/ereg.sv vsrc/./pipeline/regfile/regfile.sv vsrc/./pipeline/regfile/dreg.sv vsrc/./pipeline/regfile/freg.sv vsrc/./pipeline/forward/forward.sv vsrc/./pipeline/fetch/predictpc.sv vsrc/./pipeline/fetch/selectpc.sv vsrc/./pipeline/fetch/fetch.sv vsrc/./ram/RAM_TrueDualPort.sv vsrc/./ram/template.sv vsrc/./ram/RAM_SimpleDualPort.sv vsrc/./ram/RAM_SinglePort.sv vsrc/./ram/LUTRAM_DualPort.sv vsrc/./VCacheTop.sv vsrc/./mycpu_top_nodelay.sv vsrc/./include/common.sv vsrc/./include/config.sv vsrc/./include/pipes.sv vsrc/./mycpu_top.sv vsrc/./util/IBusToCBus.sv vsrc/./util/CBusArbiter.sv vsrc/./util/SimpleArbiter.sv vsrc/./util/CBusMultiplexer.sv vsrc/./util/DBusToCBus.sv vsrc/./util/CBusToAXI.sv vsrc/./SimTop.sv vsrc/include/bus_decl
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -1439,10 +1375,6 @@ vsrc/util/CBusMultiplexer.sv:
 #  File has not been updated.
 
 # files hash-table stats:
-<<<<<<< HEAD
-=======
- 
->>>>>>> dev
 # Load=137/1024=13%, Rehash=0, Collisions=44/489=9%
 # VPATH Search Paths
 
@@ -1456,10 +1388,6 @@ vsrc/util/CBusMultiplexer.sv:
 # strcache performance: lookups = 409 / hit rate = 44%
 # hash-table stats:
 # Load=228/8192=3%, Rehash=0, Collisions=6/409=1%
-<<<<<<< HEAD
-# Finished Make data base on Thu May 19 10:09:17 2022
-=======
-# Finished Make data base on Fri May 20 19:49:13 2022
->>>>>>> dev
+# Finished Make data base on Sun May 22 00:30:56 2022
 
  
