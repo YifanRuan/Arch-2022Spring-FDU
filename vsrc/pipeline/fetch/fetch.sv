@@ -22,20 +22,12 @@ module fetch
 
     input logic clk, reset
 );
-    always_comb begin
-        if (pc > 0) begin
-            ireq.addr = pc;
-            ireq.valid = '1;
-            imem_wait = ~iresp.data_ok;
-            dataF_nxt.pc = pc;
-            dataF_nxt.raw_instr = iresp.data;
-            dataF_nxt.valid = iresp.data_ok;
-        end else begin
-            ireq = '0;
-            imem_wait = '0;
-            dataF_nxt = '0;
-        end
-    end
+    assign ireq.addr = (pc > 0) ? pc : '0;
+    assign ireq.valid = (pc > 0) ? '1 : '0;
+    assign imem_wait = (pc > 0) ? ~iresp.data_ok : '0;
+    assign dataF_nxt.pc = pc;
+    assign dataF_nxt.raw_instr = (pc > 0) ? iresp.data : '0;
+    assign dataF_nxt.valid = (pc > 0) ? iresp.data_ok : '0;
 
     predictpc predictpc(
         .pc,
