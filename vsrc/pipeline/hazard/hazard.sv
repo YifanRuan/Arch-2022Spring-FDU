@@ -9,7 +9,7 @@
 module hazard
     import common::*;
     import pipes::*;(
-    input u1 PCSel, imem_wait, dmem_wait, load_wait, exe_wait,
+    input u1 PCSel, imem_wait, dmem_wait, decode_wait, exe_wait,
     output u2 PCWrite, FWrite, DWrite, EWrite, MWrite // 2'b00: stream; 2'b01: flush; others: keep
 );
     always_comb begin
@@ -29,7 +29,7 @@ module hazard
             DWrite = 2'b11;
             FWrite = 2'b11;
             PCWrite = 2'b11;
-        end else if (load_wait) begin
+        end else if (decode_wait) begin
             DWrite = 2'b01;
             FWrite = 2'b11;
             PCWrite = 2'b11;

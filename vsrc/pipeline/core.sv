@@ -48,13 +48,13 @@ module core
 	u64 rs1, rs2;
 
 	u2 PCWrite, FWrite, DWrite, EWrite, MWrite;
-	u1 imem_wait, dmem_wait, load_wait, exe_wait;
-	wire is_next_load = dataE_nxt.ctl.loadEn;
+	u1 imem_wait, dmem_wait, decode_wait, exe_wait;
+	wire is_next_load = dataE.ctl.loadEn;
 	u1 PCSel;
 
 	creg_addr_t ewa, mwa;
-	assign ewa = dataE_nxt.ctl.wa;
-	assign mwa = dataM_nxt.ctl.wa;
+	assign ewa = dataD.ctl.wa;
+	assign mwa = dataE.ctl.wa;
 
 	u64 pc_address, predPC;
 
@@ -114,13 +114,12 @@ module core
 		.wa,
 		.rd1,
 		.rd2,
-		.alu(dataE_nxt.alu),
-		.m_result(dataM_nxt.result),
+		.alu(dataE.alu),
 		.wd,
 		.rs1,
 		.rs2,
 		.is_next_load,
-		.load_wait
+		.decode_wait
 	);
 
 	jump jump(
@@ -140,7 +139,7 @@ module core
 		.PCSel,
 		.imem_wait,
 		.dmem_wait,
-		.load_wait,
+		.decode_wait,
 		.exe_wait,
 		.PCWrite,
 		.FWrite,
