@@ -26,23 +26,14 @@ module predictpc
                 pcplus4 = pc + {{44{raw_instr[31]}}, raw_instr[19:12], raw_instr[20], raw_instr[30:21], 1'b0};
             end
             OP_JALR: begin
-                pcplus4 = '0;
-                pcjump = '0;
+                pcjump = pc;
             end
             default: begin
                 
             end
         endcase
     end
-    always_comb begin
-        if (~pcjump == '0) begin
-            predPC = pcplus4;
-        end else if (pcjump < pcplus4) begin
-            predPC = pcjump;
-        end else begin
-            predPC = pcplus4;
-        end
-    end
+    assign predPC = (pcjump < pcplus4) ? pcjump : pcplus4;
     
 endmodule
 
