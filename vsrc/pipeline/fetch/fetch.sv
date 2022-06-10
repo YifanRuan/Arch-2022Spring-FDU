@@ -22,33 +22,18 @@ module fetch
 
     input logic clk, reset
 );
-    fetch_data_t dataF_latch;
-
     always_comb begin
-        ireq = '0;
         if (pc > 0) begin
-            if (dataF_latch.pc != pc) begin
-                ireq.addr = pc;
-                ireq.valid = '1;
-                imem_wait = ~iresp.data_ok;
-                dataF_nxt.pc = pc;
-                dataF_nxt.raw_instr = iresp.data;
-                dataF_nxt.valid = iresp.data_ok;
-            end else begin
-                imem_wait = '0;
-                dataF_nxt = dataF_latch;
-            end
+            ireq.addr = pc;
+            ireq.valid = '1;
+            imem_wait = ~iresp.data_ok;
+            dataF_nxt.pc = pc;
+            dataF_nxt.raw_instr = iresp.data;
+            dataF_nxt.valid = iresp.data_ok;
         end else begin
+            ireq = '0;
             imem_wait = '0;
             dataF_nxt = '0;
-        end
-    end
-
-    always_ff @(posedge clk) begin
-        if (reset) begin
-            dataF_latch <= '0;
-        end else if (~imem_wait) begin
-            dataF_latch <= dataF_nxt;
         end
     end
 
