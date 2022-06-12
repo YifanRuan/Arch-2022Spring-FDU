@@ -18,15 +18,20 @@ module jump
     output decode_data_t dataD_nxt,
     input u64 last_pc,
     output u1 PCSel,
-    output u64 pc_address
+    output u64 pc_address,
+    input u64 csr_rd
 );
-    assign dataD_nxt.ctl = ctl;
+    // assign dataD_nxt.ctl = ctl;
     assign dataD_nxt.pc = d_pc;
     assign dataD_nxt.imm = imm;
     assign dataD_nxt.rs1 = rs1;
     assign dataD_nxt.rs2 = rs2;
     assign dataD_nxt.valid = d_valid;
     assign dataD_nxt.stalled = '0;
+    always_comb begin
+        dataD_nxt.ctl = ctl;
+        dataD_nxt.ctl.csr.csrs = csr_rd;
+    end
 
     u1 BrLT, BrEq;
     branchcomp branchcomp(

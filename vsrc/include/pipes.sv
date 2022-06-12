@@ -9,7 +9,7 @@ package pipes;
 	import common::*;
 /* Define instrucion decoding rules here */
 
-/* rv64i + rv64im */
+/* rv64i + rv64im + csr */
 
 parameter OP_LUI = 7'b0110111;
 
@@ -97,6 +97,18 @@ parameter F3_SRLW = 3'b101;
 parameter F3_REMW = 3'b110;
 parameter F3_REMUW = 3'b111;
 
+parameter OP_SYSTEM = 7'b1110011;
+parameter F3_PRIV = 3'b000;
+	parameter F25_ECALL = 25'b0000000000000000000000000;
+	parameter F25_MRET = 25'b0011000000100000000000000;
+parameter F3_CSSRW = 3'b001;
+parameter F3_CSRRS = 3'b010;
+parameter F3_CSRRC = 3'b011;
+parameter F3_CSSRWI = 3'b101;
+parameter F3_CSRRSI = 3'b110;
+parameter F3_CSRRCI = 3'b111;
+
+parameter OP_ZERO = 7'b0000000;
 
 /* Define pipeline structures here */
 
@@ -117,13 +129,15 @@ typedef enum logic [4:0] {
 	ALU_RIGHT6_SEXT,
 	ALU_RIGHT32,
 	ALU_RIGHT32_SEXT,
-	ALU_NEXT_PC
+	ALU_NEXT_PC,
+	ALU_AND_REV,
+	ALU_REV_AND
 } alufunc_t;
 
 typedef struct packed {
 	u32 raw_instr;
 	u64 pc;
-	u1 valid;
+	u1 valid, instr_misalign;
 } fetch_data_t;
 
 typedef enum logic [2:0] {
@@ -132,8 +146,25 @@ typedef enum logic [2:0] {
 	B,
 	U,
 	S,
-	J
+	J,
+	CSR
 } decode_op_t;
+
+typedef struct packed {
+	u1
+	is_csr,
+	is_err,
+	is_mret,
+	illegal_instr,
+	instr_misalign,
+	is_ecall,
+	load_misalign,
+	store_misalign,
+	csra,
+	csrb;
+	u64 csrs;
+	csr_addr_t csr;
+} csr_control_t;
 
 typedef struct packed {
 	u32 raw_instr;
@@ -145,6 +176,7 @@ typedef struct packed {
 	u2 multiplyEn; // {W, is}
 	u4 divideEn; // {W, is, type_rem, unsgn}
 	creg_addr_t wa;
+	csr_control_t csr;
 } control_t;
 
 typedef struct packed {
@@ -166,6 +198,69 @@ typedef struct packed {
 	u64 pc, result;
 	u1 valid, addr31;
 } memory_data_t;
+
+// csrs
+parameter u12 CSR_MHARTID = 12'hf14;
+parameter u12 CSR_MIE = 12'h304;
+parameter u12 CSR_MIP = 12'h344;
+parameter u12 CSR_MTVEC = 12'h305;
+parameter u12 CSR_MSTATUS = 12'h300;
+parameter u12 CSR_MSCRATCH = 12'h340;
+parameter u12 CSR_MEPC = 12'h341;
+parameter u12 CSR_SATP = 12'h180;
+parameter u12 CSR_MCAUSE = 12'h342;
+parameter u12 CSR_MCYCLE = 12'hb00;
+parameter u12 CSR_MTVAL = 12'h343;
+
+typedef struct packed {
+	u1 sd;
+	logic [MXLEN-2-36:0] wpri1;
+	u2 sxl;
+	u2 uxl;
+	u9 wpri2;
+	u1 tsr;
+	u1 tw;
+	u1 tvm;
+	u1 mxr;
+	u1 sum;
+	u1 mprv;
+	u2 xs;
+	u2 fs;
+	u2 mpp;
+	u2 wpri3;
+	u1 spp;
+	u1 mpie;
+	u1 wpri4;
+	u1 spie;
+	u1 upie;
+	u1 mie;
+	u1 wpri5;
+	u1 sie;
+	u1 uie;
+} mstatus_t;
+
+typedef struct packed {
+	u4 mode;
+	u16 asid;
+	u44 ppn;
+} satp_t;
+
+typedef struct packed {
+	u64
+	mhartid, // Hardware thread Id, read-only as 0 in this work
+	mie,	 // Machine interrupt-enable register
+	mip,	 // Machine interrupt pending
+	mtvec;	 // Machine trap-handler base address
+	mstatus_t
+	mstatus; // Machine status register
+	u64
+	mscratch, // Scratch register for machine trap handlers
+	mepc,	 // Machine exception program counter
+	satp,	 // Supervisor address translation and protection, read-only as 0 in this work
+	mcause,  // Machine trap cause
+	mcycle,  // Counter
+	mtval;
+} csr_regs_t;
 
 endpackage
 

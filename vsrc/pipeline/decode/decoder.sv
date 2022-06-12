@@ -12,12 +12,14 @@ module decoder
     import common::*;
     import pipes::*;(
     input u32 raw_instr,
-    output control_t ctl
+    output control_t ctl,
+    input u1 instr_misalign
 );
     wire [6:0] opcode = raw_instr[6:0];
     wire [2:0] funct3 = raw_instr[14:12];
     wire [6:0] funct7 = raw_instr[31:25];
     wire [5:0] funct6 = raw_instr[31:26];
+    wire [24:0] funct25 = raw_instr[31:7];
     
 
     always_comb begin
@@ -67,7 +69,9 @@ module decoder
                         ctl.mem_unsigned = 1'b1;
                     end
                     default: begin
-                        
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.csr.is_err = 1'b1;
+                        ctl.csr.illegal_instr = 1'b1;
                     end
                 endcase
             end
@@ -102,7 +106,9 @@ module decoder
                         ctl.LTEn = 1'b1;
                     end
                     default: begin
-                        
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.csr.is_err = 1'b1;
+                        ctl.csr.illegal_instr = 1'b1;
                     end
                 endcase
             end
@@ -127,7 +133,9 @@ module decoder
                         ctl.msize = MSIZE8;
                     end
                     default: begin
-                        
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.csr.is_err = 1'b1;
+                        ctl.csr.illegal_instr = 1'b1;
                     end
                 endcase
             end
@@ -175,7 +183,9 @@ module decoder
                                 ctl.ALUSel = ALU_RIGHT6_SEXT;
                             end
                             default: begin
-                                
+                                ctl.csr.is_csr = 1'b1;
+                                ctl.csr.is_err = 1'b1;
+                                ctl.csr.illegal_instr = 1'b1;
                             end
                         endcase
                     end
@@ -186,7 +196,9 @@ module decoder
                         ctl.ALUSel = ALU_AND;
                     end
                     default: begin
-                        
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.csr.is_err = 1'b1;
+                        ctl.csr.illegal_instr = 1'b1;
                     end
                 endcase
             end
@@ -209,7 +221,9 @@ module decoder
                                 ctl.multiplyEn = 2'b01;
                             end
                             default: begin
-                                
+                                ctl.csr.is_csr = 1'b1;
+                                ctl.csr.is_err = 1'b1;
+                                ctl.csr.illegal_instr = 1'b1;
                             end
                         endcase
                     end
@@ -234,7 +248,9 @@ module decoder
                                 ctl.divideEn = 4'b0100;
                             end
                             default: begin
-                                
+                                ctl.csr.is_csr = 1'b1;
+                                ctl.csr.is_err = 1'b1;
+                                ctl.csr.illegal_instr = 1'b1;
                             end
                         endcase
                     end
@@ -250,7 +266,9 @@ module decoder
                                 ctl.divideEn = 4'b0101;
                             end
                             default: begin
-                                
+                                ctl.csr.is_csr = 1'b1;
+                                ctl.csr.is_err = 1'b1;
+                                ctl.csr.illegal_instr = 1'b1;
                             end
                         endcase
                     end
@@ -263,7 +281,9 @@ module decoder
                                 ctl.divideEn = 4'b0110;
                             end
                             default: begin
-                                
+                                ctl.csr.is_csr = 1'b1;
+                                ctl.csr.is_err = 1'b1;
+                                ctl.csr.illegal_instr = 1'b1;
                             end
                         endcase
                     end
@@ -276,12 +296,16 @@ module decoder
                                 ctl.divideEn = 4'b0111;
                             end
                             default: begin
-                                
+                                ctl.csr.is_csr = 1'b1;
+                                ctl.csr.is_err = 1'b1;
+                                ctl.csr.illegal_instr = 1'b1;
                             end
                         endcase
                     end
                     default: begin
-                        
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.csr.is_err = 1'b1;
+                        ctl.csr.illegal_instr = 1'b1;
                     end
                 endcase
             end
@@ -308,12 +332,16 @@ module decoder
                                 ctl.ALUSel = ALU_RIGHT32_SEXT;
                             end
                             default: begin
-                                
+                                ctl.csr.is_csr = 1'b1;
+                                ctl.csr.is_err = 1'b1;
+                                ctl.csr.illegal_instr = 1'b1;
                             end
                         endcase
                     end
                     default: begin
-                        
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.csr.is_err = 1'b1;
+                        ctl.csr.illegal_instr = 1'b1;
                     end
                 endcase
             end
@@ -336,7 +364,9 @@ module decoder
                                 ctl.multiplyEn = 2'b11;
                             end
                             default: begin
-                                
+                                ctl.csr.is_csr = 1'b1;
+                                ctl.csr.is_err = 1'b1;
+                                ctl.csr.illegal_instr = 1'b1;
                             end
                         endcase
                     end
@@ -358,7 +388,9 @@ module decoder
                                 ctl.divideEn = 4'b1101;
                             end
                             default: begin
-                                
+                                ctl.csr.is_csr = 1'b1;
+                                ctl.csr.is_err = 1'b1;
+                                ctl.csr.illegal_instr = 1'b1;
                             end
                         endcase
                     end
@@ -369,7 +401,9 @@ module decoder
                         ctl.divideEn = 4'b1111;
                     end
                     default: begin
-                        
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.csr.is_err = 1'b1;
+                        ctl.csr.illegal_instr = 1'b1;
                     end
                 endcase
             end
@@ -390,10 +424,115 @@ module decoder
                 ctl.wa = raw_instr[11:7];
                 ctl.ra1En = 1'b1;
             end
+            OP_SYSTEM: begin
+                unique case(funct3)
+                    F3_PRIV: begin
+                        unique case(funct25)
+                            F25_ECALL: begin
+                                ctl.csr.is_csr = 1'b1;
+                                ctl.csr.is_err = 1'b1;
+                                ctl.csr.is_ecall = 1'b1;
+                            end
+                            F25_MRET: begin
+                                ctl.csr.is_csr = 1'b1;
+                                ctl.csr.is_mret = 1'b1;
+                            end
+                            default: begin
+                                ctl.csr.is_csr = 1'b1;
+                                ctl.csr.is_err = 1'b1;
+                                ctl.csr.illegal_instr = 1'b1;
+                            end
+                        endcase
+                    end
+                    F3_CSSRW: begin
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.ra1En = 1'b1;
+                        ctl.RegWEn = 1'b1;
+                        ctl.ALUSel = ALU_A;
+                        ctl.WBSel = 1'b1;
+                        ctl.wa = raw_instr[11:7];
+                        ctl.csr.csr = raw_instr[31:20];
+                        ctl.csr.csrb = 1'b1;
+                    end
+                    F3_CSRRS: begin
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.ra1En = 1'b1;
+                        ctl.RegWEn = 1'b1;
+                        ctl.ALUSel = ALU_OR;
+                        ctl.WBSel = 1'b1;
+                        ctl.wa = raw_instr[11:7];
+                        ctl.csr.csr = raw_instr[31:20];
+                        ctl.csr.csrb = 1'b1;
+                    end
+                    F3_CSRRC: begin
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.ra1En = 1'b1;
+                        ctl.RegWEn = 1'b1;
+                        ctl.ALUSel = ALU_REV_AND;
+                        ctl.WBSel = 1'b1;
+                        ctl.wa = raw_instr[11:7];
+                        ctl.csr.csr = raw_instr[31:20];
+                        ctl.csr.csrb = 1'b1;
+                    end
+                    F3_CSSRWI: begin
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.ImmSel = CSR;
+                        ctl.RegWEn = 1'b1;
+                        ctl.ALUSel = ALU_B;
+                        ctl.WBSel = 1'b1;
+                        ctl.BSel = 1'b1;
+                        ctl.wa = raw_instr[11:7];
+                        ctl.csr.csr = raw_instr[31:20];
+                        ctl.csr.csra = 1'b1;
+                    end
+                    F3_CSRRSI: begin
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.ImmSel = CSR;
+                        ctl.RegWEn = 1'b1;
+                        ctl.ALUSel = ALU_OR;
+                        ctl.WBSel = 1'b1;
+                        ctl.BSel = 1'b1;
+                        ctl.wa = raw_instr[11:7];
+                        ctl.csr.csr = raw_instr[31:20];
+                        ctl.csr.csra = 1'b1;
+                    end
+                    F3_CSRRCI: begin
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.ImmSel = CSR;
+                        ctl.RegWEn = 1'b1;
+                        ctl.ALUSel = ALU_AND_REV;
+                        ctl.WBSel = 1'b1;
+                        ctl.BSel = 1'b1;
+                        ctl.wa = raw_instr[11:7];
+                        ctl.csr.csr = raw_instr[31:20];
+                        ctl.csr.csra = 1'b1;
+                    end 
+                    default: begin
+                        ctl.csr.is_csr = 1'b1;
+                        ctl.csr.is_err = 1'b1;
+                        ctl.csr.illegal_instr = 1'b1;
+                    end
+                endcase
+            end
             default: begin
-                
+                ctl.csr.is_csr = 1'b1;
+                ctl.csr.is_err = 1'b1;
+                ctl.csr.illegal_instr = 1'b1;
             end
         endcase
+        if (raw_instr == '0) begin
+            ctl = '0;
+            ctl.raw_instr = raw_instr;
+        end
+        if (instr_misalign) begin
+            ctl.csr.is_csr = 1'b1;
+            ctl.csr.is_err = 1'b1;
+            ctl.csr.instr_misalign = 1'b1;
+        end
+        if (raw_instr == 32'h5006b) begin
+            ctl = '0;
+            ctl.raw_instr = raw_instr;
+        end
     end
     
 endmodule

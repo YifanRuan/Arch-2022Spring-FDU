@@ -22,8 +22,8 @@ module execute
 );
     wire BrLT = dataD.BrLT;
     u64 a, b, c;
-    assign a = dataD.ctl.ASel ? dataD.pc : dataD.rs1;
-    assign b = dataD.ctl.SltEn ? (BrLT ? 1 : 0) : (dataD.ctl.BSel ? dataD.imm : dataD.rs2);
+    assign a = dataD.ctl.csr.csra ? dataD.ctl.csr.csrs : (dataD.ctl.ASel ? dataD.pc : dataD.rs1);
+    assign b = dataD.ctl.csr.csrb ? dataD.ctl.csr.csrs : dataD.ctl.SltEn ? (BrLT ? 1 : 0) : (dataD.ctl.BSel ? dataD.imm : dataD.rs2);
     alu alu(
         .a,
         .b,

@@ -17,6 +17,7 @@
 `include "pipeline/writeback/writeback.sv"
 `include "pipeline/hazard/hazard.sv"
 `include "pipeline/forward/forward.sv"
+`include "pipeline/csr/csr.sv"
 
 `else
 
@@ -63,11 +64,21 @@ module core
 	u64 d_pc, imm;
 	u1 d_valid;
 
+	u1 csr_flush, csr_valid;
+	u64 pc_csr;
+
+	csr_addr_t csr_ra, csr_wa;
+	u64 csr_rd, csr_wd;
+
+	u1 is_stall, is_int;
+
 	selectpc selectpc(
 		.pc_address,
 		.PCSel,
 		.predPC,
-		.pc_selected(pc_nxt)
+		.pc_selected(pc_nxt),
+		.pc_csr,
+		.csr_flush
 	);
 
 	pcreg pcreg(
@@ -84,9 +95,7 @@ module core
 		.pc,
 		.dataF_nxt,
 		.imem_wait,
-		.predPC,
-		.clk,
-		.reset
+		.predPC
 	);
 
 	freg freg(
@@ -104,7 +113,8 @@ module core
 		.ctl,
 		.d_pc,
 		.d_valid,
-		.imm
+		.imm,
+		.csr_ra
 	);
 
 	forward forward(
@@ -133,7 +143,8 @@ module core
 		.dataD_nxt,
 		.last_pc(dataF_nxt.pc),
 		.PCSel,
-		.pc_address
+		.pc_address,
+		.csr_rd
 	);
 
 	hazard hazard(
@@ -146,7 +157,9 @@ module core
 		.FWrite,
 		.DWrite,
 		.EWrite,
-		.MWrite
+		.MWrite,
+		.csr_flush,
+		.is_stall
 	);
 
 	dreg dreg(
@@ -178,7 +191,10 @@ module core
 		.dreq,
 		.dataE,
 		.dataM_nxt,
-		.dmem_wait
+		.dmem_wait,
+		.clk,
+		.reset,
+		.csr_flush
 	);
 
 	mreg mreg(
@@ -193,9 +209,46 @@ module core
 		.dataM,
 		.wa,
 		.wd,
-		.wvalid
+		.wvalid,
+		.csr_wa,
+		.csr_wd,
+		.csr_flush,
+		.csr_valid,
+		.is_int
 	);
 
+	u64 real_pc;
+	always_comb begin
+		if (dataM.pc > 0) begin
+			real_pc = dataM.pc;
+		end else if (dataE.pc > 0) begin
+			real_pc = dataE.pc;
+		end else if (dataD.pc > 0) begin
+			real_pc = dataD.pc;
+		end else if (dataF.pc > 0) begin
+			real_pc = dataF.pc;
+		end else begin
+			real_pc = dataF_nxt.pc;
+		end
+	end
+
+	csr csr(
+		.clk,
+		.reset,
+		.csr_ra,
+		.csr_rd,
+		.csr_wa,
+		.csr_wd,
+		.csr_control(dataM.ctl.csr),
+		.pc_csr,
+		.trint,
+		.swint,
+		.exint,
+		.csr_valid,
+		.is_stall,
+		.is_int,
+		.real_pc
+	);
 
 	regfile regfile(
 		.clk, .reset,
@@ -213,7 +266,7 @@ module core
 		.clock              (clk),
 		.coreid             (0),
 		.index              (0),
-		.valid              (~reset && dataM.valid),
+		.valid              (~reset && dataM.valid && ~is_stall),
 		.pc                 (dataM.pc),
 		.instr              (dataM.ctl.raw_instr),
 		.skip               (dataM.ctl.MemRW != 2'b00 && dataM.addr31 == 0),
@@ -274,21 +327,21 @@ module core
 	DifftestCSRState DifftestCSRState(
 		.clock              (clk),
 		.coreid             (0),
-		.priviledgeMode     (3),
-		.mstatus            (0),
-		.sstatus            (0 /* mstatus & 64'h800000030001e000 */),
-		.mepc               (0),
+		.priviledgeMode     (csr.mode_nxt[1:0]),
+		.mstatus            (csr.regs_nxt.mstatus),
+		.sstatus            (csr.regs_nxt.mstatus & 64'h800000030001e000),
+		.mepc               (csr.regs_nxt.mepc),
 		.sepc               (0),
-		.mtval              (0),
+		.mtval              (csr.regs_nxt.mtval),
 		.stval              (0),
-		.mtvec              (0),
+		.mtvec              (csr.regs_nxt.mtvec),
 		.stvec              (0),
-		.mcause             (0),
+		.mcause             (csr.regs_nxt.mcause),
 		.scause             (0),
 		.satp               (0),
-		.mip                (0),
-		.mie                (0),
-		.mscratch           (0),
+		.mip                (csr.regs_nxt.mip),
+		.mie                (csr.regs_nxt.mie),
+		.mscratch           (csr.regs_nxt.mscratch),
 		.sscratch           (0),
 		.mideleg            (0),
 		.medeleg            (0)

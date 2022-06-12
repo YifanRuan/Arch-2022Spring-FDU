@@ -18,17 +18,20 @@ module decode
     output control_t ctl,
     output u64 d_pc,
     output u1 d_valid,
-    output u64 imm
+    output u64 imm,
+    output csr_addr_t csr_ra
 );
     decoder decoder(
         .raw_instr(dataF.raw_instr),
-        .ctl
+        .ctl,
+        .instr_misalign(dataF.instr_misalign)
     );
 
     assign ra1 = ctl.ra1En ? dataF.raw_instr[19:15] : '0;
     assign ra2 = ctl.ra2En? dataF.raw_instr[24:20] : '0;
     assign d_pc = dataF.pc;
     assign d_valid = dataF.valid;
+    assign csr_ra = ctl.csr.csr;
 
     immgen immgen(
         .raw_instr(dataF.raw_instr),

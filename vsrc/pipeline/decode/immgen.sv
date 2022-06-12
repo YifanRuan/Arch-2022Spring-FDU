@@ -33,6 +33,9 @@ module immgen
             J: begin
                 imm = {{44{raw_instr[31]}}, raw_instr[19:12], raw_instr[20], raw_instr[30:21], 1'b0};
             end
+            CSR: begin
+                imm = {59'b0, raw_instr[19:15]};
+            end
             default: begin
                 
             end

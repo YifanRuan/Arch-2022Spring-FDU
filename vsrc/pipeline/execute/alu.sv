@@ -54,6 +54,12 @@ module alu
 			ALU_NEXT_PC: begin
 				c = a + 4;
 			end
+			ALU_AND_REV: begin
+				c = a & ~b;
+			end
+			ALU_REV_AND: begin
+				c = ~a & b;
+			end
 			default: begin
 				
 			end
